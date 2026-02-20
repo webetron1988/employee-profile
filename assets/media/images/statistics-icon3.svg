@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17.604" viewBox="0 0 24 17.604">
+    <defs>
+        <style>
+            .cls-1{fill:#ffa4a4}.cls-3{stroke:#ffa4a4;stroke-width:1.2px;fill:none;stroke-linecap:round}
+        </style>
+    </defs>
+    <g id="Group_6806" transform="translate(-673 -309.975)">
+        <g id="calendar-1" transform="translate(673 309.975)">
+            <path id="Path_13809" d="M98.831 249h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 1 0 0-1.169z" class="cls-1" transform="translate(-93.221 -240.435)"/>
+            <path id="Path_13810" d="M98.831 313h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-93.221 -302.027)"/>
+            <path id="Path_13811" d="M98.831 377h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-93.221 -363.619)"/>
+            <path id="Path_13812" d="M226.831 249h-1.247a.584.584 0 0 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-216.234 -240.435)"/>
+            <path id="Path_13813" d="M226.831 313h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-216.234 -302.027)"/>
+            <path id="Path_13814" d="M226.831 377h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-216.234 -363.619)"/>
+            <path id="Path_13815" d="M354.831 249h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-339.247 -240.778)"/>
+            <path id="Path_13816" d="M354.831 313h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-339.247 -302.43)"/>
+            <path id="Path_13817" d="M354.831 377h-1.247a.584.584 0 1 0 0 1.169h1.247a.584.584 0 0 0 0-1.169z" class="cls-1" transform="translate(-339.247 -364.08)"/>
+            <path id="Path_13818" d="M18.195 26.524h-1.4v-.953a.585.585 0 0 0-1.169 0v.953h-5.068v-.953a.585.585 0 0 0-1.169 0v.953H4.325v-.953a.585.585 0 0 0-1.169 0v.953h-1.4A1.736 1.736 0 0 0 0 28.239V40.89a1.736 1.736 0 0 0 1.753 1.71h16.442a1.736 1.736 0 0 0 1.753-1.715V28.239a1.736 1.736 0 0 0-1.753-1.715zM1.169 28.239a.579.579 0 0 1 .584-.572h1.4v.953a.585.585 0 0 0 1.169 0v-.953H9.39v.953a.585.585 0 0 0 1.169 0v-.953h5.065v.953a.585.585 0 0 0 1.169 0v-.953h1.4a.579.579 0 0 1 .584.572v2.248H1.169zm17.026 13.222H1.753a.579.579 0 0 1-.584-.572V31.63h17.61v9.26a.579.579 0 0 1-.584.571z" class="cls-1" transform="translate(0 -25)"/>
+        </g>
+        <g id="Ellipse_518" fill="#fff" stroke="#ffa4a4" stroke-width="1.2px" transform="translate(685 315.5)">
+            <circle cx="6" cy="6" r="6" stroke="none"/>
+            <circle cx="6" cy="6" r="5.4" fill="none"/>
+        </g>
+        <g id="Group_6698" transform="translate(689.261 319.451)">
+            <path id="Line_162" d="M0 0L3.788 3.788" class="cls-3"/>
+            <path id="Line_163" d="M0 0L3.788 3.788" class="cls-3" transform="rotate(90 1.894 1.894)"/>
+        </g>
+    </g>
+</svg>

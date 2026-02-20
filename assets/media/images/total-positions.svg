@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="37.984" height="35.345">
+    <defs>
+        <filter id="Path_13914" x="0" y="0" width="37.984" height="26.681" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-color="#7ca6fb"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Path_13915" x="0" y="7.876" width="37.984" height="27.469" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur-2"/>
+            <feFlood flood-color="#7ca6fb"/>
+            <feComposite operator="in" in2="blur-2"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Path_13916" x="9.058" y="9.278" width="19.867" height="19.18" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur-3"/>
+            <feFlood flood-color="#7ca6fb"/>
+            <feComposite operator="in" in2="blur-3"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_6832" data-name="Group 6832">
+        <g style="filter:url(#Path_13914)">
+            <path id="Path_13914-2" data-name="Path 13914" class="cls-1" d="M19.356 3.375H13.6V1.18a.625.625 0 0 0-.628-.621h-5.96a.625.625 0 0 0-.628.621v2.195H.623a.267.267 0 0 0-.061 0A.623.623 0 0 0 0 4v3.139l7.81 2.1v-.023a.623.623 0 0 1 .621-.628h3.123a.623.623 0 0 1 .621.628v.024l7.81-2.093V4a.625.625 0 0 0-.629-.625zm-7.007 0H7.633V1.808h4.716z" transform="translate(9 5.44)"/>
+        </g>
+        <g style="filter:url(#Path_13915)">
+            <path id="Path_13915-2" data-name="Path 13915" class="cls-1" d="M12.174 7.1a.625.625 0 0 1-.621.628H8.431A.625.625 0 0 1 7.81 7.1V5.992L0 3.9v8.846a.622.622 0 0 0 .623.623h18.733a.625.625 0 0 0 .628-.623V3.9l-7.81 2.091z" transform="translate(9 9.98)"/>
+        </g>
+        <g style="filter:url(#Path_13916)">
+            <path id="Path_13916-2" data-name="Path 13916" class="cls-1" d="M5.7 4.49H3.838a.644.644 0 0 1 0 .451v.729H5.7v-.729a.619.619 0 0 1 0-.451z" transform="translate(14.22 10.79)"/>
+        </g>
+    </g>
+</svg>

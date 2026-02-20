@@ -1,0 +1,57 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" width="56" height="56">
+	<title>mp4-svg</title>
+	<defs>
+		<image  width="14" height="16" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAMAAAARSr4IAAAAAXNSR0IB2cksfwAAALdQTFRFyL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24yL24sSjqFwAAAD10Uk5TAAgfRYK95Qw6crDb8/7/MPA29NiyiWCux3ZBEgGTeS+hz+oFIVQQ1O35TMx33+dW8vw7G1JTGWfj114dDVDi+LcAAAB/SURBVHicY2CAAkYmZhZWNjCTnYOTi5uHl4+PD8TjF+CDAF4wVxDIEhIWERUTh3IlJKWkZRgYZKFcOYhxZHPlFRSVgFxlFVUQV00dZDODioKGJoirBeIJMGiDKB2grC4vr54+gwGQZ2gE1GtsYmomw2BuYWBpxQAHMtLWNggeAIAMDDNrjqktAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		tspan { white-space:pre } 
+		.s0 { fill: #e9e9e0 } 
+		.s1 { fill: #0030ff } 
+		.t2 { font-size: 24px;fill: #ffffff;font-weight: 400;font-family: "DejaVuSans", "DejaVu Sans" } 
+		.s3 { fill: #c8bdb8 } 
+		.s4 { fill: #d9d7ca } 
+	</style>
+	<g id="Layer">
+		<path id="Layer" class="s0" d="m37 0h-29c-0.8 0-1.5 0.7-1.5 1.9v53.1c0 0.3 0.7 1 1.5 1h40c0.8 0 1.5-0.7 1.5-1v-42c0-0.7-0.1-0.9-0.3-1.1l-11.6-11.6q-0.3-0.3-0.6-0.3z"/>
+		<path id="Layer" class="s1" d="m48 56h-40c-0.8 0-1.5-0.7-1.5-1.5v-15.5h43v15.5c0 0.8-0.7 1.5-1.5 1.5z"/>
+		<g id="Layer">
+			<text id="Audio" style="transform: matrix(.597,0,0,.597,8,53.343)" >
+				<tspan x="0" y="0" class="t2">A</tspan><tspan  y="0" class="t2">u</tspan><tspan  y="0" class="t2">d</tspan><tspan  y="0" class="t2">i</tspan><tspan  y="0" class="t2">o
+</tspan>
+			</text>
+		</g>
+		<path id="Layer" fill-rule="evenodd" class="s3" d="m28.5 35c-8.3 0-15-6.7-15-15 0-8.3 6.7-15 15-15 8.3 0 15 6.7 15 15 0 8.3-6.7 15-15 15zm0-28c-7.2 0-13 5.8-13 13 0 7.2 5.8 13 13 13 7.2 0 13-5.8 13-13 0-7.2-5.8-13-13-13z"/>
+		<path id="Layer" class="s4" d="m37.5 0.2v11.8h11.8z"/>
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+		<use id="Background" href="#img1" x="20" y="12"/>
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+</svg>

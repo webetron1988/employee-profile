@@ -1,0 +1,33 @@
+.create-job-card-v2 .accordion .AP-cards-style1 .AP-card-outer {
+    width: calc(33.33% - 19px);
+}
+.create-job-card-v2 .accordion .AP-cards-style1 .AP-card-outer .AP-card{
+    justify-content: start;
+    padding: 20px;
+    text-align: center;
+    line-height:normal;
+}
+.create-job-card-v2 .AP-card .zindex-1{height:100%;}
+.create-job-card-v2 .AP-card .zindex-1 .h4{line-height:25px;text-align: left;}
+.create-job-card-v2 .accordion .AP-cards-style1 .AP-card.card figure {
+  text-align: left;
+}
+.accordion .card:not(:first-child):not(:last-child) {
+    overflow: visible !important;
+  }
+  .multilevel-job-connected {
+    position: relative;
+  } 
+  .multilevel-job-connected li {
+    position: relative;
+    margin-bottom: 15px;
+  } 
+  .multilevel-job-connected li:not(:last-child)::after {
+    position: absolute;
+    content: "";
+    left: 14px;
+    top: 41px;
+    height: calc(100% - 17px);
+    width: 1px;
+    border-left: solid 1px var(--border-light);
+  }

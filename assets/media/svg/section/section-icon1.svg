@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13.997" height="17.729" viewBox="0 0 13.997 17.729">
+    <g>
+        <g>
+            <g transform="translate(-53.895) translate(56.928)">
+                <circle cx="3.966" cy="3.966" r="3.966" fill="#b9dcff"/>
+            </g>
+        </g>
+        <g>
+            <g>
+                <path fill="#4f8aff" d="M60.893 256a7 7 0 0 0-7 7 1.866 1.866 0 0 0 1.866 1.866h10.266A1.866 1.866 0 0 0 67.892 263a7 7 0 0 0-6.999-7z" transform="translate(-53.895) translate(53.895 8.865) translate(-53.895 -256)"/>
+            </g>
+        </g>
+    </g>
+</svg>

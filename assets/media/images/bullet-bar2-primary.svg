@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18.721" height="18.105" viewBox="0 0 18.721 18.105">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke-width:2px;stroke:#529cff}
+        </style>
+    </defs>
+    <g id="Group_7459" transform="translate(-594 -432)" style="isolation:isolate">
+        <path id="Line_6" d="M0 0L0 6.147" class="cls-2" transform="translate(595 443.958)"/>
+        <path id="Path_13828" d="M0 0v9.659" class="cls-2" transform="translate(600.574 440.446)"/>
+        <path id="Line_8" fill="none" stroke="#b1d2fe" stroke-width="2px" d="M0 0L0 15.763" transform="translate(606.147 434.342)"/>
+        <path id="Line_9" fill="none" stroke="#529cff" stroke-width="2px" d="M0 0L0 18.105" opacity="0.43" transform="translate(611.721 432)"/>
+    </g>
+</svg>

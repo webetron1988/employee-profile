@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15.394" height="24.83" viewBox="0 0 15.394 24.83">
+    <defs>
+        <style>
+            .cls-1{fill:#fcd462}.cls-2{fill:#f6c358}
+        </style>
+    </defs>
+    <g id="cricket-1" transform="translate(0 -.033)">
+        <g id="Group_7063" transform="translate(1.126 .958)">
+            <path id="Path_14143" d="M23.236 38.932l-1 2.4-1-2.4V17.47h2.005z" class="cls-1" transform="translate(-21.231 -17.47)"/>
+            <path id="Path_14144" d="M126.6 38.932l-1 2.4-1-2.4V17.47h2z" class="cls-1" transform="translate(-119.113 -17.47)"/>
+            <path id="Path_14145" d="M230.2 38.932l-1 2.4-1-2.4V17.47h2z" class="cls-1" transform="translate(-217.222 -17.47)"/>
+        </g>
+        <g id="Group_7064" transform="translate(2.752 .033)">
+            <path id="Rectangle_2644" d="M0 0H2.785V1.203H0z" class="cls-2" transform="translate(.736)"/>
+            <path id="Rectangle_2645" d="M0 0H4.233V0.635H0z" class="cls-2" transform="translate(0 .284)"/>
+            <path id="Rectangle_2646" d="M0 0H2.785V1.203H0z" class="cls-2" transform="translate(6.182)"/>
+            <path id="Rectangle_2647" d="M0 0H4.233V0.635H0z" class="cls-2" transform="translate(5.447 .284)"/>
+        </g>
+        <path id="Rectangle_2649" d="M0 0H15.394V2.532H0z" class="cls-2" transform="translate(0 22.33)"/>
+    </g>
+</svg>

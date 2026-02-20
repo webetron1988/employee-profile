@@ -1,0 +1,70 @@
+.JD-card-v2.print .LCD-body-top .position-sticky{
+    top:unset!important;
+    position: relative!important;
+}
+.JD-card-v2.print .print-main-sections .default-arrow-collapse,
+.JD-card-v2.print .JDv2-KA-accordion-item div[data-toggle="collapse"]{pointer-events: none;}
+ 
+.JD-card-v2.print .print-main-sections .default-arrow-collapse:after,
+.JD-card-v2.print .JDv2-KA-accordion-item div[data-toggle="collapse"]::after{
+    opacity:0
+}
+.JD-card-v2.print .print-main-sections{
+    background-color: #f6fbff;
+    padding: 0.75rem;
+    border-radius: 0.85rem;
+    border: solid 1px #ebf1f7;
+}
+.JD-card-v2.print .show-in-print{
+    display: inline-block!important;
+    width: 100%;
+    margin-bottom: 10px!important;
+}
+.JD-card-v2.print .hide-in-print{
+    display: none!important;
+}
+.JD-card-v2.print .print-col-gap-25{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* new */
+.JD-card-v2.print .owl-carousel.d-flex {
+    flex-wrap: wrap;
+    width: 100% !important;
+    gap:15px;
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
+  }
+
+  .JD-card-v2.print .jd-mentor-list .jd-mentor-tile,
+.JD-card-v2.print .ICD-assessment-wrapper .ICD-assessment-wrapper {
+    max-width: calc(50% - 8px);
+    width: calc(50% - 8px);
+    margin-top: 0 !important;
+  }
+.JD-card-v2.print .ICD-assessment-wrapper .ICD-assessment-wrapper .ICD-assessment-item{
+    margin-bottom:0;
+  }
+  .JD-card-v2.print .jd-project-cards .milestone-table-card,
+.JD-card-v2.print .JDv2-course-list .JD-card-v2.print .cj-course-item {
+    max-width: calc(33.33% - 10px);
+    width: calc(33.33% - 10px);
+  }
+  .JD-card-v2.print .milestone-table-card-inner.h-100 {
+    max-height: calc(100% - 0px);
+  margin:0 !important;
+  }
+  .JD-card-v2.print .JSP-table-outer .text-nowrap {
+    white-space:
+  normal !important;
+  }
+  .JD-card-v2.print .JSP-table-outer .label-inline{
+    height: auto!important;
+    line-height: 15px;
+    padding: 5px 20px;
+  }
+  .JD-card-v2.print .CD-proficiency-levels .dataTable thead th {
+    min-width: auto !important;
+  }

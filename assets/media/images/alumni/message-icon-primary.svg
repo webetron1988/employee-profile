@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.298" height="19.2">
+    <defs>
+        <style>
+            .cls-2{fill:#77b2ff;stroke:#77b2ff}
+        </style>
+    </defs>
+    <g id="Group_9608" data-name="Group 9608" transform="translate(-126.771 -251.9)">
+        <path id="Path_17375" data-name="Path 17375" d="M136.439 271a9.511 9.511 0 0 1-4.508-1.145l-.114-.062-2.666.777a1.433 1.433 0 0 1-.4.056 1.437 1.437 0 0 1-1.379-1.838l.777-2.665-.062-.114a9.5 9.5 0 1 1 8.352 4.991zm-4.542-2.473a.609.609 0 0 1 .313.086 8.278 8.278 0 1 0-2.88-2.88.611.611 0 0 1 .061.488l-.967 3.29 3.3-.958a.613.613 0 0 1 .176-.026z" style="stroke-width:.2px;fill:#77b2ff;stroke:#77b2ff"/>
+        <path id="Path_17376" data-name="Path 17376" class="cls-2" d="M285.881 411.937a.609.609 0 1 1 .609-.609.61.61 0 0 1-.609.609z" transform="translate(-149.478 -149.85)"/>
+        <path id="Path_17377" data-name="Path 17377" class="cls-2" d="M346.13 411.937a.609.609 0 1 1 .609-.609.61.61 0 0 1-.609.609z" transform="translate(-205.671 -149.85)"/>
+        <path id="Path_17378" data-name="Path 17378" class="cls-2" d="M225.7 411.937a.609.609 0 1 1 .609-.609.61.61 0 0 1-.609.609z" transform="translate(-93.35 -149.85)"/>
+    </g>
+</svg>

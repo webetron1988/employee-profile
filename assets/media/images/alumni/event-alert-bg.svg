@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="351.5" height="222">
+    <defs>
+        <clipPath id="clip-path">
+            <rect id="Rectangle_2967" data-name="Rectangle 2967" width="351.5" height="222" rx="10" transform="translate(25 178)" style="fill:#e9f2ff"/>
+        </clipPath>
+        <style>
+            .cls-3{fill:#9bc6ff;opacity:.26}.cls-6,.cls-9{fill:none}.cls-6{stroke:#9cc7ff}.cls-8{stroke:none}
+        </style>
+    </defs>
+    <g id="Group_9454" data-name="Group 9454" transform="translate(-982 -1063)">
+        <circle id="Ellipse_758" data-name="Ellipse 758" cx="19.5" cy="19.5" r="19.5" transform="translate(1280 1221.25)" style="opacity:.1;fill:#9bc6ff"/>
+        <circle id="Ellipse_768" data-name="Ellipse 768" class="cls-3" cx="3.5" cy="3.5" r="3.5" transform="translate(1216 1222.25)"/>
+        <g id="Group_9453" data-name="Group 9453" transform="translate(0 2.25)">
+            <circle id="Ellipse_760" data-name="Ellipse 760" class="cls-3" cx="3.5" cy="3.5" r="3.5" transform="translate(1223 1085.75)"/>
+            <circle id="Ellipse_757" data-name="Ellipse 757" cx="2.5" cy="2.5" r="2.5" transform="translate(1321 1075.75)" style="opacity:.51;fill:#9bc6ff"/>
+            <g id="Mask_Group_144" data-name="Mask Group 144" transform="translate(957 882.75)" style="opacity:.39;clip-path:url(#clip-path)">
+                <g id="Group_9343" data-name="Group 9343">
+                    <g id="Ellipse_764" data-name="Ellipse 764" class="cls-6" transform="translate(319 130)">
+                        <circle class="cls-8" cx="53.5" cy="53.5" r="53.5"/>
+                        <circle class="cls-9" cx="53.5" cy="53.5" r="53"/>
+                    </g>
+                    <g id="Ellipse_765" data-name="Ellipse 765" class="cls-6" transform="translate(339 150)">
+                        <circle class="cls-8" cx="33.5" cy="33.5" r="33.5"/>
+                        <circle class="cls-9" cx="33.5" cy="33.5" r="33"/>
+                    </g>
+                    <g id="Ellipse_766" data-name="Ellipse 766" class="cls-6" transform="translate(299 110)">
+                        <circle class="cls-8" cx="73.5" cy="73.5" r="73.5"/>
+                        <circle class="cls-9" cx="73.5" cy="73.5" r="73"/>
+                    </g>
+                    <g id="Ellipse_767" data-name="Ellipse 767" class="cls-6" transform="translate(278 89)">
+                        <circle class="cls-8" cx="94.5" cy="94.5" r="94.5"/>
+                        <circle class="cls-9" cx="94.5" cy="94.5" r="94"/>
+                    </g>
+                </g>
+            </g>
+            <circle id="Ellipse_756" data-name="Ellipse 756" cx="7.5" cy="7.5" r="7.5" transform="translate(1308.5 1127.75)" style="fill:#d5e7ff"/>
+        </g>
+    </g>
+</svg>

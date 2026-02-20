@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#adb5cc;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="bar-chart-2" transform="translate(-5.181 -3)">
+        <path id="Line_180" d="M0 10L0 0" class="cls-1" transform="translate(20.181 10)"/>
+        <path id="Line_181" d="M0 16L0 0" class="cls-1" transform="translate(13.181 4)"/>
+        <path id="Line_182" d="M0 6L0 0" class="cls-1" transform="translate(6.181 14)"/>
+    </g>
+</svg>

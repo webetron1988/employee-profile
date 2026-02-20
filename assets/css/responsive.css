@@ -1,0 +1,258 @@
+@media only screen and (max-width: 1780px) {
+    .POC-details-item {
+        width: 25%;
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+}
+@media only screen and (max-width: 1680px) {
+.per-potential-outer .d-flex {
+    flex-wrap: wrap;
+}
+.per-potential-progress {
+    margin: 30px 30px 7px 30px;
+}
+.employee-hobbie-skill-card.selected-33_33per .card-columns.two-columns {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+}
+}
+@media only screen and (max-width: 1530px) {
+.tab-content .card-columns {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+.feedback-cards-wrapper [class*="col-"],
+.performance-cards-wrapper [class*="col-"]{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.POC-details-item {
+    width: 33.33%;
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+}
+@media only screen and (max-width: 1480px) {
+    .PD-card-left, .PD-card-center {
+        padding-right:25px;
+    }
+    .PD-card-left {
+        width: 47%;
+    }
+    .PD-card-center {
+        width: 25%;
+    }
+    .PD-card-right {
+        width: 28%;
+    }
+    .SJS-list li{
+        width:50%;
+    }
+}
+@media only screen and (max-width: 1380px) {
+    .POC-details{max-width: calc(100% - 0px);}
+    .POC-skills {
+        min-width: calc(100% - 0px);
+        margin-top:30px;
+    }
+   .POC-carousel {
+        margin-top: 30px;
+    }
+
+    .symbol.symbol-90.symbol-lg-120 img {
+        width: 90px;
+        height: 90px;
+    }
+    .accordion .selected-33_33per.card .card-body,
+    .selected-33_33per.card .card-body .card-body[class*="bg-"],
+    .FB-v3-card .accordion .card .card-body,
+    .FB-v3-card .card-body .card-body[class*="bg-"],
+    .FB-v3-card .card-body [class*="bg-"] .inner-bg-header,
+    .FB-v3-card .card-body [class*="bg-"] .card-body{
+        padding:0.75rem;
+      }
+      .POC-details-item {
+        width: 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1380px) { 
+    /* .FB-studio--v2 .card-columns.d-flex > * > .card.selected-33_33per{
+        min-width: calc(50% - 28px);
+        width: calc(50% - 28px) !important;
+    } */
+    .current-job-profile-card.selected-33_33per .card-list-content > .d-flex.justify-content-between,
+    .all-address-card.selected-33_33per .card-list-content > .d-flex{flex-direction: column;gap:10px} 
+    .current-job-profile-card.selected-33_33per .card-list-content > .d-flex.justify-content-between > .d-flex.w-50,
+    .all-address-card.selected-33_33per .card-list-content > .d-flex > .d-flex,
+    .all-address-card.selected-33_33per .card-list-content .d-flex .w-50{width:100%!important}
+    .card.selected-33_33per .flight-risk-title {
+        font-size: 11px;
+        font-weight: 400;
+      }
+    .current-job-profile-card.selected-33_33per .card-list-content > .d-flex.justify-content-between > .d-flex.w-50.pr-4{padding-right: 0px!important;}
+    .selected-33_33per .startEnd-date-duration {
+        flex-direction: column;
+        gap: 5px;
+        line-height: normal;
+    }
+    .selected-33_33per .startEnd-date-duration .line-height-0{
+        transform: rotate(90deg);
+        margin-top: 2px;
+    }
+    .employee-hobbie-skill-card .card-columns.two-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+@media screen and (min-device-width: 992px) and (max-device-width: 1200px) { 
+    .tab-content .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+
+    .d-flex.POC-right-inner{flex-wrap:wrap}
+    .POC-carousel {
+        margin-top: 0;
+        margin-bottom: 30px !important;
+      }
+}
+@media only screen and (max-width: 1199px) {
+.FB-studio--v2 .card-columns.d-flex > * > .card {
+    min-width: calc(50% - 28px);
+  }
+}
+@media only screen and (min-width: 991px) {
+    .offset-xl-3.col-xl-6.offset-lg-2.col-lg-8 {
+        min-width: 500px;
+        margin: auto;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .accordion .card .card-body,
+    .card-body .card-body[class*="bg-"]{
+        padding:1rem; 
+    }
+    .d-flex.POC-right-inner{flex-wrap:wrap}
+    .POC-carousel {
+        margin-top: 0;
+        margin-bottom: 30px !important;
+      }
+}
+
+@media only screen and (max-width: 767px) {
+    .feedback-cards-wrapper [class*="col-"],
+.performance-cards-wrapper [class*="col-"]{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.tab-content .card-columns {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+}
+.profile-overview-card{flex-wrap: wrap;}
+.d-flex.POC-right-inner{flex-wrap:nowrap}
+.POC-image{width: 100%;border-right: solid 0px #DBE3F2;}
+}
+@media only screen and (max-width: 680px) {
+    .POC-carousel {
+        width: 260px;
+        min-width: 260px;
+      }
+      .POC-details-item {
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+}
+@media only screen and (max-width: 575px) {
+    .POC-skills{padding-right: 0px !important;}
+    .POC-carousel {
+        margin-top: 30px;
+        width: 100%;
+    }
+    .POC-skills {
+        min-width: calc(100% - 0px);
+    }
+    .mobile-view-card{display:block}
+    .desk-view-card{display: none;}
+    .header-mobile-fixed img[alt="Logo"], .header-mobile-fixed .logo-mob {
+        max-height: 23px;
+        margin-right: 10px;
+      }
+    .header-mobile .btn svg{
+        height: 1.65rem !important;
+        width: 1.65rem !important;
+    }  
+    .header-mobile .btn.noti-btn svg{
+        height: 1.45rem !important;
+        max-width: 1.55rem !important;
+        width: auto !important;
+    }  
+    .header-mobile .btn.btn-icon.btn-lg{
+        width:30px;
+        height:30px;
+    }
+    .noti-btn .noti-count{
+        width:21px;
+        height:21px;
+        line-height: 15px;
+    }
+    .POC-carousel {
+        margin-top: 0;
+        margin-bottom: 0px !important;
+      }
+      .dash-inner-tabs ol{max-width: 100%!important;}  
+      .dash-inner-tabs::after{display:none}
+}
+@media only screen and (max-width: 480px) {
+    .POC-details{max-width: 100%;}
+    .POC-image {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+        display:flex;
+        flex-wrap:wrap;
+    }
+    .POC-image .symbol.symbol-90 {
+        margin-right: 20px;
+        align-self: center;
+    }
+    .flight-risk-item{min-width: 50px;}
+
+    .card-list-content .d-flex.justify-content-between{
+        flex-wrap: wrap;
+    }
+    .card-list-content .d-flex.justify-content-between .w-50{
+        width: 100%!important;
+        margin: 2px 0px;
+    }
+}
+@media only screen and (max-width: 400px) {
+.mob-view-add-btns .col{
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin:3px 0px;
+}
+}
+@media only screen and (max-width: 360px) {
+    .POC-carousel {justify-content: center;}
+}
+
+#kt_header_mobile_toggle{
+    display: none!important;
+}

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="124.047" height="56.089" viewBox="0 0 124.047 56.089">
+    <defs>
+        <filter id="Ellipse_885" x="0" y="32.764" width="23.326" height="23.326" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-color="#979ab5" flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Ellipse_886" x="100.722" y="32.764" width="23.326" height="23.326" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur-2"/>
+            <feFlood flood-color="#979ab5" flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur-2"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Ellipse_834" x="49.724" y="0" width="23.326" height="23.326" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur-3"/>
+            <feFlood flood-color="#979ab5" flood-opacity=".161"/>
+            <feComposite operator="in" in2="blur-3"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-1,.cls-4{fill:none}.cls-1,.cls-2{stroke:#8ec5ff}.cls-1{stroke-miterlimit:10}.cls-2{fill:#fff}.cls-3{stroke:none}
+        </style>
+    </defs>
+    <g id="Group_11058" data-name="Group 11058" transform="translate(-1033.276 -638.66)">
+        <path id="Path_17521" data-name="Path 17521" class="cls-1" d="M2.085 67.63v13.336a4.483 4.483 0 0 1-4.47 4.47H-40.8s-3.857-.35-5.53.96S-48 90.542-48 90.979v7.473" transform="translate(1092.939 579.693)"/>
+        <path id="Path_17520" data-name="Path 17520" class="cls-1" d="M-48 67.63v13.336a4.483 4.483 0 0 0 4.47 4.47h38.412s3.857-.35 5.53.96 1.673 4.147 1.673 4.583v9.473" transform="translate(1143.298 579.693)"/>
+        <g transform="translate(1033.28 638.66)" style="filter:url(#Ellipse_885)">
+            <g id="Ellipse_885-2" data-name="Ellipse 885" class="cls-2" transform="translate(9 38.76)">
+                <circle class="cls-3" cx="2.663" cy="2.663" r="2.663"/>
+                <circle class="cls-4" cx="2.663" cy="2.663" r="2.163"/>
+            </g>
+        </g>
+        <g transform="translate(1033.28 638.66)" style="filter:url(#Ellipse_886)">
+            <g id="Ellipse_886-2" data-name="Ellipse 886" class="cls-2" transform="translate(109.72 38.76)">
+                <circle class="cls-3" cx="2.663" cy="2.663" r="2.663"/>
+                <circle class="cls-4" cx="2.663" cy="2.663" r="2.163"/>
+            </g>
+        </g>
+        <g transform="translate(1033.28 638.66)" style="filter:url(#Ellipse_834)">
+            <g id="Ellipse_834-2" data-name="Ellipse 834" class="cls-2" transform="translate(58.72 6)">
+                <circle class="cls-3" cx="2.663" cy="2.663" r="2.663"/>
+                <circle class="cls-4" cx="2.663" cy="2.663" r="2.163"/>
+            </g>
+        </g>
+    </g>
+</svg>

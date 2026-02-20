@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:#fba61c;stroke-width:1.5px;stroke-linecap:round}
+        </style>
+    </defs>
+    <g id="Group_6976" transform="translate(-775.739 -205)">
+        <g id="Rectangle_2461" fill="none" stroke="#fba61c" stroke-dasharray="0 3" stroke-linecap="square" stroke-width="1.5px" transform="translate(775.739 205)">
+            <rect width="18" height="18" stroke="none" rx="2"/>
+            <rect width="16.5" height="16.5" x=".75" y=".75" rx="1.25"/>
+        </g>
+        <g id="Group_6828" transform="translate(782.363 211.359)">
+            <path id="Line_178" d="M0 0L5.267 5.267" class="cls-2"/>
+            <path id="Line_179" d="M0 0L5.267 5.267" class="cls-2" transform="rotate(90 2.634 2.634)"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.062" height="21.252" viewBox="0 0 21.062 21.252">
+    <defs>
+        <style>
+            .cls-3{fill:#adb5cc;stroke:#adb5cc;stroke-width:.3px}
+        </style>
+    </defs>
+    <g id="Group_6865" transform="translate(-772.95 -356.206)">
+        <g id="calendar-1" transform="translate(773 356.256)">
+            <path id="Path_13860" fill="#adb5cc" stroke="#adb5cc" stroke-width="0.1px" d="M16.439 1.474h-1.7V.59a.59.59 0 1 0-1.18 0v.885H5.308V.59a.59.59 0 1 0-1.18 0v.885h-1.7A2.435 2.435 0 0 0 0 3.907v12.532a2.435 2.435 0 0 0 2.433 2.433h14.006a2.435 2.435 0 0 0 2.433-2.433V3.907a2.435 2.435 0 0 0-2.433-2.433zM2.433 2.654h1.7v.59a.59.59 0 0 0 1.18 0v-.59h8.257v.59a.59.59 0 1 0 1.18 0v-.59h1.7a1.255 1.255 0 0 1 1.253 1.253v1.4H1.18v-1.4a1.255 1.255 0 0 1 1.253-1.253zm14.006 15.039H2.433a1.255 1.255 0 0 1-1.253-1.254V6.487h16.513v9.952a1.255 1.255 0 0 1-1.254 1.254z"/>
+        </g>
+        <ellipse id="Ellipse_545" cx="5.5" cy="6" fill="#fff" rx="5.5" ry="6" transform="translate(782 365)"/>
+        <g id="clock" transform="translate(781.246 364.692)">
+            <g id="Group_6856" transform="translate(5.82 2.927)">
+                <g id="Group_6855">
+                    <path id="Path_13867" d="M238.905 123.274l-1.759-1.319v-2.687a.489.489 0 1 0-.977 0v2.932a.488.488 0 0 0 .2.391l1.955 1.466a.489.489 0 0 0 .586-.782z" class="cls-3" transform="translate(-236.169 -118.779)"/>
+                </g>
+            </g>
+            <g id="Group_6858">
+                <g id="Group_6857">
+                    <path id="Path_13868" d="M6.308 0a6.308 6.308 0 1 0 6.308 6.308A6.315 6.315 0 0 0 6.308 0zm0 11.639a5.331 5.331 0 1 1 5.331-5.331 5.338 5.338 0 0 1-5.331 5.331z" class="cls-3"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

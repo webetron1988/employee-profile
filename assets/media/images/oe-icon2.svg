@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.516" height="20" viewBox="0 0 19.516 20">
+    <defs>
+        <linearGradient id="linear-gradient" x1=".155" x2="1.13" y1=".069" y2="1.125" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fff"/>
+            <stop offset="1" stop-color="#f7ebff"/>
+        </linearGradient>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_6812" transform="translate(-687 -249)">
+        <g id="Group_6811">
+            <path id="Path_13789" d="M33.239 43v1.179H32.06V43h-2.277v1.179h-1.138V43h-2.318v1.179h-1.138V43h-2.318v1.179h-1.138V43h-2.277v1.179h-1.179V43H16v3.456h19.516V43z" class="cls-1" transform="translate(671 207.187)"/>
+            <path id="Rectangle_2438" d="M0 0H1.268V1.268H0z" class="cls-1" transform="translate(689.082 249)"/>
+            <path id="Rectangle_2439" d="M0 0H1.268V1.268H0z" class="cls-1" transform="translate(696.16 249)"/>
+            <path id="Rectangle_2440" d="M0 0H1.268V1.268H0z" class="cls-1" transform="translate(692.715 249)"/>
+            <path id="Rectangle_2441" d="M0 0H1.268V1.268H0z" class="cls-1" transform="translate(699.579 249)"/>
+            <path id="Rectangle_2442" d="M0 0H1.268V1.268H0z" class="cls-1" transform="translate(702.997 249)"/>
+        </g>
+        <path id="Rectangle_2443" fill="url(#linear-gradient)" d="M0 0h19.5v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V0z" transform="translate(687 255)"/>
+        <g id="Group_6637" transform="translate(-171.614 1.386)">
+            <circle id="Ellipse_517" cx="4.586" cy="4.586" r="4.586" fill="#d1b0e7" transform="translate(863.614 256.114)"/>
+            <path id="Path_13791" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" d="M-2988.815-1296.991v2.78h2.815" transform="translate(3856.549 1555.766)"/>
+        </g>
+    </g>
+</svg>

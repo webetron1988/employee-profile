@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.074" height="19.074">
+    <defs>
+        <style>
+            .cls-1{fill:#acb0c2}
+        </style>
+    </defs>
+    <g id="Group_10588" data-name="Group 10588" transform="translate(-1 -1)">
+        <path id="Path_17868" data-name="Path 17868" class="cls-1" d="M10.537 1C5.278 1 1 4.708 1 9.265a7.455 7.455 0 0 0 1.764 4.779l-1.732 5.193a.636.636 0 0 0 .888.771l5.736-2.868a10.876 10.876 0 0 0 2.881.392c5.259 0 9.537-3.708 9.537-8.265S15.8 1 10.537 1zm0 15.259a9.584 9.584 0 0 1-2.76-.409.637.637 0 0 0-.467.04l-4.585 2.293L4.084 14.1a.637.637 0 0 0-.13-.626 6.262 6.262 0 0 1-1.683-4.209c0-3.856 3.708-6.994 8.265-6.994S18.8 5.409 18.8 9.265s-3.706 6.994-8.263 6.994z"/>
+        <g id="Group_10589" data-name="Group 10589" transform="translate(5.175 8.155)">
+            <circle id="Ellipse_1061" data-name="Ellipse 1061" class="cls-1" cx=".993" cy=".993" r=".993" transform="translate(3.973)"/>
+            <circle id="Ellipse_1062" data-name="Ellipse 1062" class="cls-1" cx=".993" cy=".993" r=".993" transform="translate(7.946)"/>
+            <circle id="Ellipse_1063" data-name="Ellipse 1063" class="cls-1" cx=".993" cy=".993" r=".993"/>
+        </g>
+    </g>
+</svg>

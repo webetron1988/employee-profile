@@ -1,0 +1,119 @@
+
+.job-listv2-banner {
+  background-color: #fff;
+  width: 100%;
+  min-height: 100px;
+  border-radius:13px 13px 0 0;
+  background-size: cover;
+  background-position:bottom 300px right;
+  overflow:hidden;
+  padding:1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.job-listv2-banner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  background-image: linear-gradient(300deg, rgba(19, 0, 134, 0.2) -15%, rgba(71, 133, 255, 0.9) 80%);
+}
+.border-top-dashed{
+  border-top-style: dashed;
+  border-top-width: 1px;
+}
+.max-w-85{max-width: 85%!important;}
+/* job board css */  
+  .job-list-v2-card .border-bottom-tabs-3 .nav-link{background-color: #fff;height:100%}
+  .job-list-v2-card .border-bottom-tabs-3 .nav-link.active  {
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.14);
+  }
+   .job-board-pp .symbol{
+    transform:translateY(-60px);
+    margin-bottom: -55px;
+   }
+
+body .TP-card {
+  width: calc(25% - 12px);
+  position: relative;
+  overflow: hidden;
+}
+.TP-card:hover {
+  opacity: 1;
+  background-color: #fff !important;
+  border-color: var(--border-light-primary-v2) !important;
+}
+.JLv2-actions-wrapper {
+  width: 0;
+  overflow: hidden;
+  transition: all 0.2s;
+  position: absolute;
+  right: -20px;
+  pointer-events: none;
+  height: 26px;
+  background-color: #fbfdff;
+  border-radius: 100px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  top: 9px;
+}
+.TP-card:hover .JLv2-actions-wrapper {
+  width: 55px;
+  border: solid 1px var(--border-light-primary-v2);
+  right: 23px;
+  pointer-events: auto;
+  visibility: visible;
+}
+.add-skill-drawer {
+  max-width: 500px;
+  width: 100%;
+}
+.add-skill-drawer.offcanvas.offcanvas-right:not(.offcanvas-on) {
+  right: -100%;
+}
+.add-skill-drawer .irs--round .irs-from, .add-skill-drawer .irs--round .irs-to, .add-skill-drawer .irs--round .irs-single {
+  font-size: 12px;
+}
+.add-skill-drawer .irs-min, 
+.add-skill-drawer .irs-max {
+    display: none !important;
+  }
+  .CA-item {
+  width: calc(25% - 12px);
+  min-height: 90px;
+}
+  .font-23 {
+  font-size: 23px !important;
+}
+.flex-1{flex:1}
+.tile-v2 {
+  box-shadow: 0px 0px 7.90034px rgba(97, 97, 97, 0.12);
+  border-radius: 3.95017px;
+  padding: 15px 15px 15px 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+}
+.my-assessment-item:hover .title-hover-effect:after{
+    width:100%;
+}
+.my-assessments-wrapper .tile-v2 {
+  width: calc(33.33% - 15px);
+  max-width: calc(33.33% - 13px);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+ @media (min-width: 1350px) {
+.MP-assessment-wrapper .tile-v2 {
+  width: calc(25% - 15px);
+  max-width: calc(25% - 13px);
+}
+}

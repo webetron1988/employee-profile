@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="33" height="22" viewBox="0 0 33 22">
+    <defs>
+        <filter id="Rectangle_1878" width="23" height="12" x="0" y="5" filterUnits="userSpaceOnUse">
+            <feOffset dy="1"/>
+            <feGaussianBlur result="blur" stdDeviation="1"/>
+            <feFlood flood-color="#fff" flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="Polygon_46" width="17" height="22" x="16" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="1"/>
+            <feGaussianBlur result="blur-2" stdDeviation="1"/>
+            <feFlood flood-color="#fff" flood-opacity=".161"/>
+            <feComposite in2="blur-2" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-4{stroke:none}
+        </style>
+    </defs>
+    <g id="Group_5585" transform="translate(-569 -376)">
+        <g filter="url(#Rectangle_1878)" transform="translate(569 376)">
+            <g id="Rectangle_1878-2" fill="#fff" stroke="#dfe7f2">
+                <path d="M0 0H17V6H0z" class="cls-4" transform="translate(3 7)"/>
+                <path fill="none" d="M0.5 0.5H16.5V5.5H0.5z" transform="translate(3 7)"/>
+            </g>
+        </g>
+        <g filter="url(#Polygon_46)" transform="translate(569 376)">
+            <g id="Polygon_46-2" fill="#fff">
+                <path d="M14.036 10.5H1.964c-.192 0-.359-.102-.446-.273-.087-.171-.071-.366.041-.521l6.037-8.3c.095-.13.242-.206.404-.206.162 0 .31.075.404.206l6.037 8.3c.112.155.128.35.04.52-.086.172-.253.274-.445.274z" class="cls-4" transform="rotate(90 14 16)"/>
+                <path fill="#dfe7f2" d="M8 1.7L1.964 10h12.072L8 1.7m0-1c.305 0 .61.137.809.412l6.036 8.3c.48.66.009 1.588-.809 1.588H1.964c-.818 0-1.29-.927-.809-1.588l6.036-8.3C7.391.837 7.695.7 8 .7z" transform="rotate(90 14 16)"/>
+            </g>
+        </g>
+        <path id="Rectangle_1879" fill="#fff" d="M0 0H5V4H0z" transform="translate(587 384)"/>
+    </g>
+</svg>

@@ -1,0 +1,82 @@
+.bot-2-offcanvas .offcanvas-content {
+    width: 100%;
+    max-width: 400px;
+    height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-light-v2);
+    background: white;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.webchat__basic-transcript__scrollable {
+    position: relative;
+}
+
+#webchat {
+    flex: 1;
+    overflow-y: auto;
+    /* Scrollable chat */
+}
+
+.bot-2-offcanvas #webchat strong {
+    font-weight: 500 !important;
+}
+
+.webchat__bubble__content {
+    background-color: #fdfdfd !important;
+    border-radius: 7px !important;
+    border-color: #f1f1f1 !important;
+}
+
+.bot-2-offcanvas .webchat__stacked-layout.webchat__stacked-layout--from-user .webchat__stacked-layout__message-row .webchat__bubble__content {
+    background-color: #ebf5ff !important;
+    border-color: rgb(201, 218, 251) !important;
+}
+
+.bot-2-offcanvas .webchat__suggested-action {
+    background-color: #ebf5ff !important;
+    border-radius: 5px !important;
+    border: solid 1px #cadbfd !important;
+    color: #4785ff !important;
+    font-size: 15px !important;
+}
+.bot-2-offcanvas .webchat__suggested-action:hover{background-color:#d6e9fc!important}
+.bot-2-offcanvas .webchat__link-definitions .webchat__link-definitions__badge {
+    min-width: 1.5rem !important;
+}
+.bot-2-offcanvas .react-film__main {
+    display: flex!important;
+    align-items: center;
+}
+.bot-2-offcanvas .react-film__main > button {
+    position: relative;
+    height:40px;
+    margin:0 5px;
+}
+.bot-2-offcanvas .webchat__suggested-actions.webchat__suggested-actions--carousel-layout:not(.webchat__suggested-actions--rtl) .react-film__flipper + .react-film__filmstrip .react-film__filmstrip__item:first-child {
+padding-left: 0px!important;
+}
+.bot-2-offcanvas .webchat__suggested-actions.webchat__suggested-actions--carousel-layout:not(.webchat__suggested-actions--rtl) .react-film__flipper + .react-film__filmstrip .react-film__filmstrip__item:last-child {
+padding-right: 0px!important;
+}
+.bot-2-offcanvas .webchat__suggested-actions.webchat__suggested-actions--focus-within .webchat__suggested-actions__focus-indicator, 
+.bot-2-offcanvas .webchat__suggested-actions:focus-within .webchat__suggested-actions__focus-indicator{
+border:0!important
+}
+.bot-2-offcanvas input[type="text"]{
+border-radius: 5px!important;
+border: solid 1px var(--border-form-control)!important;
+padding: 5px 10px !important;
+}
+.bot-2-offcanvas .webchat__adaptive-card-renderer .ac-pushButton.style-positive {
+background-color: #4785ff !important;
+color: white;
+border-radius: 5px;
+border: 0;
+}
+.bot-2-offcanvas .webchat__adaptive-card-renderer .ac-pushButton.style-positive:hover {
+background-color: #3577fb !important;
+}

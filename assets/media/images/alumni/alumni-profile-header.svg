@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1317" height="147">
+    <defs>
+        <clipPath id="a">
+            <path data-name="Rectangle 2750" d="M10 0h1297a10 10 0 0 1 10 10v137H0V10A10 10 0 0 1 10 0z" style="fill:#fff"/>
+        </clipPath>
+        <clipPath id="b">
+            <path style="fill:none" d="M0 0h233v2060H0z"/>
+        </clipPath>
+        <filter id="c" x="-168.45" y="-749.928" width="1777.143" height="1775.426" filterUnits="userSpaceOnUse">
+            <feOffset dx="-17.901" dy="1.882"/>
+            <feGaussianBlur stdDeviation="12" result="blur"/>
+            <feFlood flood-opacity=".278"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <filter id="d" x="-342.45" y="-712.783" width="1798.049" height="1797.2" filterUnits="userSpaceOnUse">
+            <feOffset dx="-17.901" dy="1.882"/>
+            <feGaussianBlur stdDeviation="12" result="blur-2"/>
+            <feFlood flood-opacity=".278"/>
+            <feComposite operator="in" in2="blur-2"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g data-name="Mask Group 98" style="isolation:isolate;clip-path:url(#a)">
+        <g data-name="Group Copy">
+            <path style="fill:#3a48a4" d="M0 0h233v2060H0z" transform="rotate(90 954 867)"/>
+            <g data-name="Mask by Mask" transform="rotate(90 954 867)" style="clip-path:url(#b)">
+                <g style="filter:url(#c)">
+                    <path data-name="Path 2369" d="M1155.5-95.256 440.714 466.3-15 1093.319l494.886 51.507L951.052 507.36z" transform="matrix(-.72 .69 -.69 -.72 997.645 1064.348)" style="opacity:.55;fill:#465cd1"/>
+                </g>
+                <g style="filter:url(#d)">
+                    <path data-name="Path 2369" d="M1155.5-95.256 440.714 466.3l-488.4 676.031 554.525-174.975 444.213-460z" transform="scale(-1) rotate(-43.8 -2063.186 668.18)" style="fill:#465cd1"/>
+                </g>
+                <path data-name="Path 2369 Copy" d="M215.858 0 0 373.607l227.2 257.719z" transform="translate(51.024 695.283)" style="fill:#6583fe;opacity:.6"/>
+                <path data-name="Path 2369 Copy 2" d="M366.154-75.131-8.063 161.288 0 270.93l207.8 410.157z" transform="translate(43.858 1070.749)" style="fill:#3f4fb7"/>
+                <path data-name="Path 2368" d="m57.82 1230.779 271.963 21.636 40.281-303.359L39.808 624.491z" transform="translate(-95.149 857.133)" style="fill:#445aca"/>
+            </g>
+        </g>
+    </g>
+</svg>

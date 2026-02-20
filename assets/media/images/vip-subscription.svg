@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="49.316" height="49.542" viewBox="0 0 49.316 49.542">
+    <defs>
+        <filter id="Oval" width="47.823" height="47.823" x="1.152" y="1.719" filterUnits="userSpaceOnUse">
+            <feOffset dy="1"/>
+            <feGaussianBlur result="blur" stdDeviation="1.5"/>
+            <feFlood flood-color="#bccaec" flood-opacity=".22"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-4{fill:#ffa91a}.cls-5{fill:#f79219}.cls-6{fill:#ef7816}
+        </style>
+    </defs>
+    <g id="Group_7911" transform="translate(-1093.893 -502.226)">
+        <g id="Group_7831" transform="translate(1093.893 502.225)">
+            <g id="Group_7375" transform="translate(0 0)">
+                <circle id="Oval-2" cx="24.658" cy="24.658" r="24.658" fill="#f7f9fd"/>
+                <g id="Group_5576" transform="translate(5.652 5.219)">
+                    <g filter="url(#Oval)" transform="matrix(1, 0, 0, 1, -5.65, -5.22)">
+                        <circle id="Oval-3" cx="19.411" cy="19.411" r="19.411" fill="#fff" transform="translate(5.65 5.22)"/>
+                    </g>
+                    <g id="Group_7404" transform="translate(5 5)">
+                        <path id="Path_4661" fill="#ffc91d" d="M14.291 0A14.291 14.291 0 1 1 0 14.291 14.291 14.291 0 0 1 14.291 0z" opacity="0.3"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group_7860" transform="translate(-4344.919 -12.985)">
+            <path id="Path_14071" d="M85.774 60.648h14.874v1.832H85.774z" class="cls-4" transform="translate(5370.258 481.634)"/>
+            <path id="Path_14072" d="M99.768 60.648v.952H85.774v.881h14.874v-1.833z" class="cls-5" transform="translate(5370.258 481.634)"/>
+            <path id="Path_14073" d="M97.882 56.646h-15.29a.428.428 0 0 1 0-.856h15.29a.428.428 0 1 1 0 .856z" class="cls-5" transform="translate(5373.232 485.637)"/>
+            <path id="Path_14074" d="M97.975 55.823a.433.433 0 0 1 .006.07.428.428 0 0 1-.428.428h-15.29a.415.415 0 0 1-.07-.006.428.428 0 0 0 .423.358h15.29a.428.428 0 0 0 .07-.85z" class="cls-6" transform="translate(5373.208 485.609)"/>
+            <path id="Path_14075" d="M97.882 71.906h-15.29a.428.428 0 0 1 0-.856h15.29a.428.428 0 1 1 0 .856z" class="cls-5" transform="translate(5373.232 473.064)"/>
+            <path id="Path_14076" d="M97.975 71.082a.435.435 0 0 1 .006.07.428.428 0 0 1-.428.428h-15.29a.434.434 0 0 1-.07-.006.428.428 0 0 0 .423.358h15.29a.428.428 0 0 0 .07-.85z" class="cls-6" transform="translate(5373.208 473.038)"/>
+            <path id="Path_14077" d="M75.985 22.323L77.7 27.7h7.656l-8.642-5.921a.483.483 0 0 0-.733.546z" class="cls-5" transform="translate(5378.342 513.728)"/>
+            <path id="Path_14078" d="M90.908 50.79h-6.653l.282.881h7.656z" class="cls-6" transform="translate(5371.51 489.756)"/>
+            <path id="Path_14079" d="M136.051 22.323l-1.72 5.377h-7.656l8.642-5.921a.483.483 0 0 1 .733.546z" class="cls-5" transform="translate(5336.561 513.728)"/>
+            <path id="Path_14080" d="M135.316 21.779l-.326.221-1.541 4.817h-5.49l-1.286.881h7.656l1.719-5.375a.483.483 0 0 0-.733-.546z" class="cls-6" transform="translate(5336.563 513.727)"/>
+            <path id="Path_14081" d="M103.806 8.2l-4.663 8.182h10.165L104.645 8.2a.483.483 0 0 0-.839 0z" class="cls-4" transform="translate(5359.244 525.049)"/>
+            <path id="Path_14082" d="M104.645 8.192a.481.481 0 0 0-.513-.235l4.295 7.537h-8.782l-.5.881h10.165z" class="cls-5" transform="translate(5359.244 525.053)"/>
+            <rect id="Rectangle_2752" width="1.885" height="1.885" class="cls-5" rx=".942" transform="translate(5462.134 538.579) rotate(-45)"/>
+            <path id="Path_14083" d="M126.334 36.62l-.352-.352a.336.336 0 0 1 0 .476l-.858.858a.336.336 0 0 1-.476 0l.352.352a.336.336 0 0 0 .476 0l.858-.858a.336.336 0 0 0 0-.476z" class="cls-6" transform="translate(5338.231 501.72)"/>
+            <path id="Path_14084" fill="#ffc91d" d="M110.634 20.849a.348.348 0 0 1-.338-.259.34.34 0 0 1 .034-.268.36.36 0 0 1 .479-.132.352.352 0 0 1-.174.659zm.7-1.224a.363.363 0 0 1-.174-.046.353.353 0 0 1-.13-.481l2.07-3.634a.364.364 0 0 1 .481-.132.354.354 0 0 1 .132.481l-2.071 3.634a.352.352 0 0 1-.311.178z" transform="translate(5350.067 519.003)"/>
+        </g>
+    </g>
+</svg>

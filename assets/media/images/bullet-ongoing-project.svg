@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12.161" height="12.161" viewBox="0 0 12.161 12.161">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:#a6b1c3;stroke-linecap:round;stroke-linejoin:round;stroke-width:.8px}
+        </style>
+    </defs>
+    <g id="Group_6823" transform="translate(-326 -1233)">
+        <g id="clock-1" transform="translate(326 1233)">
+            <g id="Group_6525">
+                <g id="Group_6524">
+                    <path id="Path_13737" fill="#a6b1c3" d="M6.08 0a6.08 6.08 0 1 0 6.08 6.08A6.087 6.087 0 0 0 6.08 0zm0 11.219a5.139 5.139 0 1 1 5.139-5.139 5.145 5.145 0 0 1-5.139 5.139z"/>
+                </g>
+            </g>
+        </g>
+        <g id="Group_6821">
+            <path id="Path_13911" d="M3.452 7.58l1.44.126.558-1.893 1.8.491.994-2.055" class="cls-2" transform="rotate(-5.13 14325.785 -3081.585)"/>
+            <path id="Path_13912" d="M0 .8L1.767 0l.572 1.861" class="cls-2" transform="rotate(-3 23783.72 -5730.73)"/>
+        </g>
+    </g>
+</svg>

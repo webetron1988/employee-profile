@@ -1,0 +1,135 @@
+.job-table-v3-card.reward-market-data-card .create-journey-wrapper-v2 .CJ-right-wrapper{
+    width: calc(100% - 160px);
+}
+.table-actions-1 .readmore-arrow-link i{
+    opacity:0;
+    font-size: 0;
+}
+.table-actions-1:hover .readmore-arrow-link i{
+    opacity:1;
+    font-size: 1rem;
+}
+.table-actions-1:not(:hover){gap:0!important}
+.table-actions-1 .table-btn-delete img{
+    width:0;
+    opacity:0;
+    pointer-events: none;
+    transition:all 0.2s;
+    margin-right: 0!important;
+}
+.table-actions-1:hover .table-btn-delete img{
+    width:15px;
+    opacity:1;
+    pointer-events: normal;
+    margin-right: 0.25rem!important;
+}
+.job-table-v3-card.reward-market-data-card .border-bottom-tabs-3.border-bottom-tabs li .nav-link.all-tab-link.active{
+    border-color: #F1F5FF !important;
+    background-color: #E4ECFF !important;
+}
+.DMD-insights .DMD-insights-item {
+    width: calc(25% - 15px);
+    padding: 15px 10px;
+    flex-grow: 1;
+  }
+  .analysis-tab-content .ATC-left,
+  .ATC-left-inner .ATCL-left{
+    width: calc(100% - 255px);
+  }
+
+  .analysis-tab-content .ATC-right,
+  .ATC-left-inner .ATCL-right{
+    width: 240px;
+    min-width: 240px;
+  }
+  .analysis-tab-content .ATC-right{
+    padding-left:10px;
+  }
+  .ATCL-right .DMD-insights .DMD-insights-item {
+    width: 100%;
+    position:relative;
+    padding:20px 10px;
+}
+  .ATCL-right .DMD-insights-item figure {
+    margin: 0 !important;
+    position: absolute;
+    top:0;
+    left:0;
+  }
+  .ATCL-right .DMD-insights-item figure img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    height: 70px !important;
+    opacity: 0.07;
+  }
+  /* .ATC-right .select2-search.select2-search--inline .select2-search__field::placeholder{font-size:13px} */
+  .reward-market-data-card .CJ-right-wrapper .CJL-task-group{
+    min-height: 50px;
+  display: flex;
+  align-items: center;
+  margin:7px 0; 
+  }
+  .reward-market-data-card .CJL-task-group-list {
+    min-width: 180px;
+    width: 180px;
+  }
+  .reward-market-data-card .CJR-sec {
+    max-width: calc(100% - 190px);
+  }
+  .reward-market-data-card .PCS2-row-v2 .PCS2-left-v2 {
+    width: calc(100% - 0px);
+  }
+  .reward-market-data-card .CJL-task-group-list-inner li .dragHandle  {
+    position: absolute;
+    left: 7px;
+    top: 0;
+    z-index: 1;
+    bottom: 0;
+    cursor: pointer;
+  }
+  .reward-market-data-card .CJL-task-group-list-inner .CJL-task-group img{
+    filter:grayscale(1)
+  }
+  .DMD-summary-outer::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    background-image: linear-gradient(to right, rgba(255, 255, 255,0.2), rgb(255, 255, 255));
+  }
+  .DMD-summary-outer.grabbing::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(255, 255, 255,0.2));
+  }
+  .ATCL-left .select2-selection--multiple .select2-search.select2-search--inline .select2-search__field{
+    width:50px!important;
+    transition: all 0.2s;
+  }
+  body .select2-container--default .select2-selection--multiple .select2-selection__rendered .select2-selection__choice{
+    max-width:100%;
+  }
+  .select2-container .select2-selection--single .select2-selection__rendered,
+  .select2-container .select2-selection--multiple .select2-selection__rendered{
+    white-space: normal;
+  }
+  .job-table-v3-card .SA-form-flex .nav .nav-link.active {
+    background-color: transparent;
+  }
+  .CJ-right-wrapper-inner li div ~ .d-flex.justify-content-between{
+    transition: all 0.3s ease;
+  height: 0;
+  overflow: hidden;
+  }
+  .CJ-right-wrapper-inner li:hover div ~ .d-flex.justify-content-between{
+    height: 22px;
+  }

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.996" height="28.195" viewBox="0 0 17.996 28.195">
+    <defs>
+        <style>
+            .cls-1{fill:#8c3f0a}.cls-2{fill:#7c3108}.cls-4{fill:#f79219}.cls-5{fill:#ffa91a}
+        </style>
+    </defs>
+    <g id="achievements" transform="translate(-56.713 -16.316)">
+        <g id="Group_7230" transform="translate(56.713 16.316)">
+            <g id="Group_7229" transform="translate(0 0)">
+                <g id="Group_7222" transform="translate(0 11.85)">
+                    <g id="Group_7215" transform="translate(0 0)">
+                        <g id="Group_7214">
+                            <path id="Path_14391" d="M62.071 126.281l-1.2-3.659a.382.382 0 0 0-.613-.169l-2.906 2.529a.382.382 0 0 1-.619-.389l3.952-14.393 6.073 1.67-3.958 14.393a.382.382 0 0 1-.729.018z" class="cls-1" transform="translate(-56.713 -110.199)"/>
+                        </g>
+                    </g>
+                    <g id="Group_7217" transform="translate(3.821)">
+                        <g id="Group_7216">
+                            <path id="Path_14392" d="M87.134 110.2l-.151.55 4.074 1.12-3.314 12.054.777 2.358a.382.382 0 0 0 .731-.018l3.957-14.394z" class="cls-2" transform="translate(-86.983 -110.199)"/>
+                        </g>
+                    </g>
+                    <g id="Group_7219" transform="translate(7.951 0)">
+                        <g id="Group_7218">
+                            <path id="Path_14393" d="M124.392 126.281l1.2-3.659a.382.382 0 0 1 .613-.169l2.906 2.529a.382.382 0 0 0 .619-.389l-3.953-14.393-6.073 1.67 3.957 14.394a.382.382 0 0 0 .731.017z" class="cls-1" transform="translate(-119.704 -110.199)"/>
+                        </g>
+                    </g>
+                    <g id="Group_7221" transform="translate(12.025 0)">
+                        <g id="Group_7220">
+                            <path id="Path_14394" d="M157.938 124.593L153.98 110.2l-2 .55 3.465 12.6 1.873 1.63a.382.382 0 0 0 .619-.389z" class="cls-2" transform="translate(-151.981 -110.199)"/>
+                        </g>
+                    </g>
+                </g>
+                <g id="Group_7224" transform="translate(0.019)">
+                    <g id="Group_7223">
+                        <path id="Path_14395" fill="#ffc91d" d="M67.294 16.967a1.958 1.958 0 0 1 3.406 1.411 1.958 1.958 0 0 0 2.055 2.055 1.958 1.958 0 0 1 1.412 3.409 1.958 1.958 0 0 0 0 2.906 1.958 1.958 0 0 1-1.412 3.409 1.958 1.958 0 0 0-2.055 2.056 1.958 1.958 0 0 1-3.409 1.412 1.958 1.958 0 0 0-2.906 0 1.958 1.958 0 0 1-3.409-1.412 1.958 1.958 0 0 0-2.055-2.055 1.958 1.958 0 0 1-1.412-3.409 1.958 1.958 0 0 0 0-2.906 1.958 1.958 0 0 1 1.412-3.409 1.958 1.958 0 0 0 2.055-2.055 1.958 1.958 0 0 1 3.409-1.412 1.958 1.958 0 0 0 2.909 0z" transform="translate(-56.861 -16.316)"/>
+                    </g>
+                </g>
+                <g id="Group_7226" transform="translate(0.03 0.016)">
+                    <g id="Group_7225" transform="translate(0 0)">
+                        <circle id="Ellipse_841" cx="6.64" cy="6.64" r="6.64" class="cls-4" transform="translate(0 6.189) rotate(-27.769)"/>
+                    </g>
+                </g>
+                <g id="Group_7228" transform="translate(4.067 4.049)">
+                    <g id="Group_7227" transform="translate(0 0)">
+                        <circle id="Ellipse_842" cx="4.931" cy="4.931" r="4.931" class="cls-1"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group_7243" transform="translate(61.955 22.273)">
+            <g id="Group_7242" transform="translate(0 0)">
+                <g id="Group_7231">
+                    <path id="Path_14396" d="M105.75 65.136a.364.364 0 0 1-.071.224l-1.464 1.955-.947 1.265-.978 1.306a.363.363 0 0 1-.234.142.321.321 0 0 1-.126 0 .363.363 0 0 1-.234-.142l-.8-1.066-1.127-1.5-1.459-1.956a.371.371 0 0 1 0-.448l1.007-1.274a.358.358 0 0 1 .131-.1.371.371 0 0 1 .153-.033h4.781a.371.371 0 0 1 .153.033.364.364 0 0 1 .138.107l1 1.262a.369.369 0 0 1 .077.225z" class="cls-5" transform="translate(-98.236 -63.51)"/>
+                </g>
+                <g id="Group_7233" transform="translate(0 1.626)">
+                    <g id="Group_7232">
+                        <path id="Path_14397" fill="#ef7816" d="M105.75 76.391a.364.364 0 0 1-.071.224l-1.464 1.955-.947 1.265-.978 1.306a.363.363 0 0 1-.234.142.321.321 0 0 1-.126 0 .363.363 0 0 1-.234-.142l-.8-1.066-1.127-1.5-1.459-1.956a.364.364 0 0 1-.074-.228z" transform="translate(-98.236 -76.391)"/>
+                    </g>
+                </g>
+                <g id="Group_7235" transform="translate(2.472 1.626)">
+                    <g id="Group_7234">
+                        <path id="Path_14398" d="M120.39 76.391l-1.222 4.892a.321.321 0 0 1-.126 0l-1.222-4.892z" class="cls-5" transform="translate(-117.82 -76.391)"/>
+                    </g>
+                </g>
+                <g id="Group_7237" transform="translate(2.472 0)">
+                    <g id="Group_7236">
+                        <path id="Path_14399" d="M120.392 65.137h-2.57l1.285-1.626z" class="cls-4" transform="translate(-117.822 -63.511)"/>
+                    </g>
+                </g>
+                <g id="Group_7239" transform="translate(5.042 0.033)">
+                    <g id="Group_7238">
+                        <path id="Path_14400" d="M140.652 65.367h-2.472l1.258-1.593a.364.364 0 0 1 .138.107l1 1.262a.369.369 0 0 1 .076.224z" class="cls-4" transform="translate(-138.18 -63.774)"/>
+                    </g>
+                </g>
+                <g id="Group_7241" transform="translate(0 0.033)">
+                    <g id="Group_7240">
+                        <path id="Path_14401" d="M100.709 65.367h-2.472a.364.364 0 0 1 .076-.22l1.007-1.274a.358.358 0 0 1 .131-.1z" class="cls-4" transform="translate(-98.237 -63.774)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g id="Group_7244" transform="translate(59.61 19.256)">
+            <path id="Path_14402" d="M79.912 45.9a.252.252 0 1 1 .252-.255.253.253 0 0 1-.252.255zm.086-1a.246.246 0 0 1-.043 0 .25.25 0 0 1-.164-.1.256.256 0 0 1-.042-.188 6.123 6.123 0 0 1 4.1-4.747 6.009 6.009 0 0 1 1.024-.242.255.255 0 0 1 .287.213.249.249 0 0 1-.048.187.242.242 0 0 1-.165.1 5.6 5.6 0 0 0-4.7 4.577.252.252 0 0 1-.247.2z" class="cls-5" transform="translate(-79.66 -39.609)"/>
+        </g>
+    </g>
+</svg>

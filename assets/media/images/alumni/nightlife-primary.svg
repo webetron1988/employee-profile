@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16.432">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke-linecap:round;stroke:#77b2ff;stroke-width:1.8px}
+        </style>
+    </defs>
+    <g id="Group_10013" data-name="Group 10013" transform="translate(-1013 -940)">
+        <g id="Polygon_2" data-name="Polygon 2" style="stroke-linejoin:round;fill:none;stroke-linecap:round">
+            <path d="M8.5 0 17 10H0z" style="stroke:none" transform="rotate(180 515 475)"/>
+            <path d="M8.5 2.78 3.892 8.2h9.216L8.5 2.78M8.5 0 17 10H0L8.5 0z" style="fill:#77b2ff;stroke:none" transform="rotate(180 515 475)"/>
+        </g>
+        <path id="Line_361" data-name="Line 361" class="cls-2" transform="translate(1021.5 948.5)" d="M0 0v6.451"/>
+        <path id="Line_362" data-name="Line 362" class="cls-2" transform="rotate(90 35.597 991.129)" d="M0 0v10.451"/>
+    </g>
+</svg>

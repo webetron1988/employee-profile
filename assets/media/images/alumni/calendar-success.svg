@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14.636" height="14.636">
+    <defs>
+        <style>
+            .cls-2{fill:#05c692}
+        </style>
+    </defs>
+    <g id="_860794" data-name="860794" style="opacity:.8">
+        <g id="Group_4466" data-name="Group 4466">
+            <g id="Group_4465" data-name="Group 4465">
+                <path id="Path_7240" data-name="Path 7240" class="cls-2" d="M13.068 1.568H11.5V.523a.523.523 0 1 0-1.045 0v1.045H4.182V.523a.523.523 0 1 0-1.045 0v1.045H1.568A1.568 1.568 0 0 0 0 3.136v9.931a1.568 1.568 0 0 0 1.568 1.568h11.5a1.568 1.568 0 0 0 1.568-1.568V3.136a1.568 1.568 0 0 0-1.568-1.568zm.523 11.5a.523.523 0 0 1-.523.523h-11.5a.523.523 0 0 1-.523-.523v-6.8H13.59zm0-7.841H1.045V3.136a.523.523 0 0 1 .523-.523h1.568v1.046a.523.523 0 1 0 1.045 0V2.614h6.272v1.045a.523.523 0 1 0 1.045 0V2.614h1.568a.523.523 0 0 1 .523.523v2.09z"/>
+            </g>
+        </g>
+        <g id="Group_4468" data-name="Group 4468" transform="translate(2.614 7.318)">
+            <g id="Group_4467" data-name="Group 4467">
+                <path id="Path_7241" data-name="Path 7241" class="cls-2" d="M86.9 238.933h-1.044a.523.523 0 1 0 0 1.045H86.9a.523.523 0 1 0 0-1.045z" transform="translate(-85.333 -238.933)"/>
+            </g>
+        </g>
+        <g id="Group_4470" data-name="Group 4470" transform="translate(6.272 7.318)">
+            <g id="Group_4469" data-name="Group 4469">
+                <path id="Path_7242" data-name="Path 7242" class="cls-2" d="M206.368 238.933h-1.045a.523.523 0 0 0 0 1.045h1.045a.523.523 0 0 0 0-1.045z" transform="translate(-204.8 -238.933)"/>
+            </g>
+        </g>
+        <g id="Group_4472" data-name="Group 4472" transform="translate(9.931 7.318)">
+            <g id="Group_4471" data-name="Group 4471">
+                <path id="Path_7243" data-name="Path 7243" class="cls-2" d="M325.835 238.933h-1.045a.523.523 0 0 0 0 1.045h1.045a.523.523 0 0 0 0-1.045z" transform="translate(-324.267 -238.933)"/>
+            </g>
+        </g>
+        <g id="Group_4474" data-name="Group 4474" transform="translate(2.614 9.409)">
+            <g id="Group_4473" data-name="Group 4473">
+                <path id="Path_7244" data-name="Path 7244" class="cls-2" d="M86.9 307.2h-1.044a.523.523 0 1 0 0 1.045H86.9a.523.523 0 0 0 0-1.045z" transform="translate(-85.333 -307.2)"/>
+            </g>
+        </g>
+        <g id="Group_4476" data-name="Group 4476" transform="translate(6.272 9.409)">
+            <g id="Group_4475" data-name="Group 4475">
+                <path id="Path_7245" data-name="Path 7245" class="cls-2" d="M206.368 307.2h-1.045a.523.523 0 0 0 0 1.045h1.045a.523.523 0 0 0 0-1.045z" transform="translate(-204.8 -307.2)"/>
+            </g>
+        </g>
+        <g id="Group_4478" data-name="Group 4478" transform="translate(9.931 9.409)">
+            <g id="Group_4477" data-name="Group 4477">
+                <path id="Path_7246" data-name="Path 7246" class="cls-2" d="M325.835 307.2h-1.045a.523.523 0 0 0 0 1.045h1.045a.523.523 0 0 0 0-1.045z" transform="translate(-324.267 -307.2)"/>
+            </g>
+        </g>
+        <g id="Group_4480" data-name="Group 4480" transform="translate(2.614 11.499)">
+            <g id="Group_4479" data-name="Group 4479">
+                <path id="Path_7247" data-name="Path 7247" class="cls-2" d="M86.9 375.467h-1.044a.523.523 0 1 0 0 1.045H86.9a.523.523 0 1 0 0-1.045z" transform="translate(-85.333 -375.467)"/>
+            </g>
+        </g>
+        <g id="Group_4482" data-name="Group 4482" transform="translate(6.272 11.499)">
+            <g id="Group_4481" data-name="Group 4481">
+                <path id="Path_7248" data-name="Path 7248" class="cls-2" d="M206.368 375.467h-1.045a.523.523 0 0 0 0 1.045h1.045a.523.523 0 0 0 0-1.045z" transform="translate(-204.8 -375.467)"/>
+            </g>
+        </g>
+        <g id="Group_4484" data-name="Group 4484" transform="translate(9.931 11.499)">
+            <g id="Group_4483" data-name="Group 4483">
+                <path id="Path_7249" data-name="Path 7249" class="cls-2" d="M325.835 375.467h-1.045a.523.523 0 0 0 0 1.045h1.045a.523.523 0 0 0 0-1.045z" transform="translate(-324.267 -375.467)"/>
+            </g>
+        </g>
+    </g>
+</svg>

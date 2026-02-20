@@ -1,0 +1,74 @@
+.job-list-v2-card {
+  background-color: rgba(248, 249, 255,0);
+  box-shadow: none !important;
+}
+.kanban-summary-wrapper .kanban-summary-box{
+    margin-bottom: 0rem;
+  height: calc(100% - 0rem);
+  padding:15px;
+  transition: all 0.1s;
+  background-size: cover;
+}
+.kanban-summary-wrapper .kanban-summary-box:hover{
+    box-shadow: 0px 3px 7px rgba(0,0,0,0.1);
+}
+.KS-icon figure{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .right-quicklink-item {
+  box-shadow:none;
+  border-radius: 6px;
+}
+body .right-quicklink-item:hover {
+  box-shadow:none;
+  opacity:0.7;
+}
+.kanban-summary-wrapper .row{margin: 0px -7px;}
+.kanban-summary-wrapper .row .col-lg-3{padding: 0px 7px;}
+.assessment-hub-landing-card .assessment-hub-left{min-width: calc(100% - 288px - 15px);width:calc(100% - 288px - 15px)}
+.assessment-hub-landing-card .assessment-hub-right{min-width: 288px;width:288px}
+.my-assessments-wrapper .owl-stage{display: flex;}
+  .owl-top-right.owl-bottom-center .owl-prev{
+    top: unset;
+    left: calc(50% - 15px);
+    right: unset;
+  }
+  .owl-top-right.owl-bottom-center .owl-next{
+    top: unset;
+    left: calc(50% + 15px);
+    right: unset;
+  }
+  .my-assessment-item:hover .title-hover-effect:after{
+    width:100%;
+}
+.AC-FDJA-item {
+  min-width: calc(50% - 5px);
+  max-width: calc(50% - 5px);
+  gap: 5px;
+}
+.JB-location-languages .JB-location:last-child {
+  max-width: calc(50% - 8px) !important;
+}
+.AC-list-item {
+  width: calc(100% - 10px);
+  transition: all 0.1s;
+  background-color: #fff;
+  overflow: hidden;
+  align-items: normal;
+  justify-content: normal;
+  box-shadow: 0px 0px 7px rgba(0,0,0,0.1);
+}
+@media (min-width: 1320px) {
+  .AC-list-item {
+    width: calc(50% - 10px);
+  }
+}
+.assessment-hub-landing-card .resource-cards-wrapper-columns {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  column-gap: 15px;
+}
+.assessment-hub-landing-card .resource-cards-item .card{margin-bottom: 0;}

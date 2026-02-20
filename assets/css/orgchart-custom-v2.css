@@ -1,0 +1,275 @@
+.edge.verticalEdge.topEdge.oci,
+.edge.horizontalEdge.rightEdge.oci,
+.edge.horizontalEdge.leftEdge.oci {
+    display: none!important;
+}
+.orgchart .node.focused,
+.orgchart ul li .node:hover {
+    background-color: rgba(238,217,54,0)!important;
+}
+body .orgchart .node .bottomEdge{
+    line-height: 30px;
+    cursor: pointer;
+    margin-bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index:1;
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    text-align: center;
+    bottom: -10px;
+}
+.orgchart .node .bottomEdge.oci-chevron-up,
+.orgchart .node .bottomEdge.oci-chevron-down,
+.orgchart .hierarchy .node .bottomEdge,
+.orgchart .hierarchy .node .bottomEdge{
+    border: solid 1px #b0b4c8;
+    background-color: #fff;
+    
+}
+.hierarchy .bottomEdge::before,
+.oci-chevron-up::before,.oci-chevron-down::before {
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #b0b4c8;
+    font-size: 14px;
+    width: auto;
+    height: auto;
+    border: none !important;
+    transform: translate(-50%, -50%) rotate(0);
+    left: 50% !important;
+    top: calc(50% + 1px);
+    bottom: unset !important;
+}
+.hierarchy .bottomEdge::before,
+.oci-chevron-up::before{
+    content: "\f068";
+}
+.hierarchy.isChildrenCollapsed .bottomEdge::before,
+.oci-chevron-down::before {
+    content: "\f067";
+}
+.org-chart-actions {
+    position: absolute;
+    right: 20px;
+    top: 0;
+}
+.org-chart-actions li a:hover{
+    opacity:0.8;
+    background-color: #f3f6f9;
+}
+.org-chart-actions ul li {
+    border-radius: 4px;
+}
+.org-chart-actions ul li a{
+    padding:6px 10px;
+    display:block;
+}
+.orgchart {
+    width: 100%;
+    height: 100%
+}
+
+#chart-container {
+    overflow: auto;
+    text-align: center;
+    min-height: calc(100% - 62px);
+}
+
+.structure-tile {
+    display: flex;
+    padding-right: 5px;
+    word-break: break-word;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+
+.structure-tile h2 {
+    margin: 5px 0 0 0px;
+    font-size: 15px;
+    font-weight: 500;
+    min-height: 15px;
+    font-family: Poppins, Helvetica, "sans-serif";
+    word-break: break-word;
+    align-self: center;
+}
+
+.structure-tile h6 {
+    margin: 5px 0 3px 0px;
+    color: #7E8299 !important;
+    align-self: center;
+    font-weight: normal;
+    text-align:center;
+}
+
+body .org-box {
+    cursor: default;
+    border: 1px solid #e7ecf2;
+    border-top-color: #8a84e8;
+    display: inline-block;
+    padding: 5px 10px 20px 10px;
+    width: 270px;
+    text-align: left;
+    background-color: #fff;
+    line-height: 1.3em;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: relative;
+    box-shadow: 0px 6px 25px rgba(182, 195, 208, 0.25);
+    border-width: 6px 1px 1px 1px;
+    min-height: 140px;
+}
+
+.structure-tile figure {
+    align-self: center;
+    margin: -30px -10px 0 0;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: solid 1px #e7eaf5;
+    border-radius: 100px;
+    position: relative;
+    background-color: #fff;
+}
+
+.structure-tile figure span {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 100px;
+    position: relative;
+    background-color: #fff;
+    display: inline-block;
+    margin: 4px;
+}
+
+.structure-tile figure span img {
+    max-height: calc(100% - 2px);
+    width: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    min-height: 100%;
+}
+
+.orgchart .node {
+    margin-bottom: 25px;
+}
+
+body .orgchart .node:not(:only-child)::after,
+body .orgchart>ul>li>ul li>.node::before {
+    background-color: rgba(138, 132, 232, 0.2);
+}
+
+body .orgchart>ul>li>ul li>.node::before {
+    top: -21px;
+}
+
+.orgchart .node:not(:only-child)::after {
+    bottom: -7px;
+    height: 11px;
+}
+
+body .orgchart .hierarchy::before {
+    border-top-color: rgba(138, 132, 232, 0.2);
+    top: -20px;
+}
+
+body .orgchart {
+    background: #fff;
+}
+
+.orgchart td.left,
+.orgchart td.right,
+.orgchart td.top {
+    border-color: #aaa;
+}
+
+.orgchart td>.down {
+    background-color: #aaa;
+}
+
+.orgchart .middle-level .title {
+    background-color: #006699;
+}
+
+.orgchart .middle-level .content {
+    border-color: #006699;
+}
+
+.orgchart .product-dept .title {
+    background-color: #009933;
+}
+
+.orgchart .product-dept .content {
+    border-color: #009933;
+}
+
+.orgchart .rd-dept .title {
+    background-color: #993366;
+}
+
+.orgchart .rd-dept .content {
+    border-color: #993366;
+}
+
+.orgchart .pipeline1 .title {
+    background-color: #996633;
+}
+
+.orgchart .pipeline1 .content {
+    border-color: #996633;
+}
+
+.orgchart .frontend1 .title {
+    background-color: #cc0066;
+}
+
+.orgchart .frontend1 .content {
+    border-color: #cc0066;
+}
+
+#github-link {
+    display: inline-block;
+    background-image: url("https://dabeng.github.io/OrgChart/img/logo.png");
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+.org-box.org-custom .HLI {
+  flex-direction: column;
+  justify-items: center;
+  accent-color: center;
+  text-align: center;
+  gap:5px
+}
+.org-box.org-custom .HLI .align-self-start{width:100%}
+.org-box.org-custom .HLI .align-self-start .h-13{
+    height: 15px !important;
+  min-height: 15px !important;
+  max-height: 15px !important;
+}
+.org-box.org-custom .HLI .align-self-start ~ .text-muted{
+color: #000!important;
+  font-weight: 500;
+  line-height: 23px!important;
+  padding-left:5px;
+  padding-right:5px;
+  font-size: 17px;
+}

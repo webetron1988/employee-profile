@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.906" height="17.334" viewBox="0 0 17.906 17.334">
+    <defs>
+        <style>
+            .cls-4{stroke:#fbbe55;fill:#fbbe55;stroke-width:.6px}
+        </style>
+    </defs>
+    <g id="Group_6690" transform="translate(-1122.248 -312.519)">
+        <g id="person-outline" fill="none" stroke="#fbbe55" stroke-width="1.5px" transform="translate(1123 313.269)">
+            <path id="Path_13821" stroke-linecap="round" stroke-linejoin="round" d="M172.774 50.68a2.528 2.528 0 1 1-5.048 0 2.528 2.528 0 1 1 5.048 0z" transform="translate(-164.743 -48)"/>
+            <path id="Path_13822" stroke-miterlimit="10" d="M69.5 304c-2.5 0-5.028 1.377-5.5 3.975a.482.482 0 0 0 .449.614h10.1a.482.482 0 0 0 .449-.614C74.532 305.377 72 304 69.5 304z" transform="translate(-63.998 -295.73)"/>
+        </g>
+        <g id="clock-1" transform="translate(1127.874 317.574)">
+            <g id="Group_6525">
+                <g id="Group_6524">
+                    <path id="Path_13737" fill="#fff" d="M6.14 0a6.14 6.14 0 1 0 6.14 6.14A6.146 6.146 0 0 0 6.14 0z"/>
+                </g>
+            </g>
+        </g>
+        <g id="clock-1-2" transform="translate(1129.51 319.211)">
+            <g id="Group_6523" transform="translate(4.271 2.719)">
+                <g id="Group_6522">
+                    <path id="Path_13736" d="M237.692 121.456l-.9-.706v-1.286a.311.311 0 1 0-.622 0v1.442a.31.31 0 0 0 .124.249l1.025.8a.311.311 0 0 0 .373-.5z" class="cls-4" transform="translate(-236.169 -119.153)"/>
+                </g>
+            </g>
+            <g id="Group_6525-2">
+                <g id="Group_6524-2">
+                    <path id="Path_13737-2" d="M4.5 0A4.5 4.5 0 1 0 9 4.5 4.508 4.508 0 0 0 4.5 0zm0 8.309A3.806 3.806 0 1 1 8.309 4.5 3.81 3.81 0 0 1 4.5 8.309z" class="cls-4"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

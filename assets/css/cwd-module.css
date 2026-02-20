@@ -1,0 +1,15 @@
+.cwd-framework-components .grid-item-v2:hover .arrow-on-hover{opacity: 1; transform: translateX(0px);}
+.ui-v2 .bg-primary-o-20{background-color: #eff7ff !important}
+.ui-v2 .bg-success-o-20{background-color: #edfafa !important}
+.ui-v2 .bg-info-o-20{background-color: #f6f1ff !important}
+.ui-v2 .bg-warning-o-20{background-color: #fff8eb !important}
+.ui-v2 .bg-danger-o-20{background-color: #fef1f3 !important}
+.hierarchy-tags-wrapper > :not(:last-child)::after {
+  content: "\f061";
+  position: absolute;
+  font-family: "Line Awesome Free";
+  font-weight: 900;
+  right: -19px;
+  font-size: 13px;
+  color: rgba(43, 52, 95,0.7) !important;
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+    <defs>
+        <style>
+            .cls-3{stroke:none}
+        </style>
+    </defs>
+    <g id="Group_10012" data-name="Group 10012" transform="translate(-45 -414)">
+        <g id="Rectangle_3245" data-name="Rectangle 3245" transform="translate(45 414)" style="stroke:#77b2ff;stroke-width:1.5px;fill:#fff">
+            <rect class="cls-3" width="20" height="20" rx="5"/>
+            <rect x=".75" y=".75" width="18.5" height="18.5" rx="4.25" style="fill:none"/>
+        </g>
+        <g id="Polygon_1" data-name="Polygon 1" style="fill:#fff">
+            <path class="cls-3" d="M8.3 8.25H1.7a.242.242 0 0 1-.216-.123.242.242 0 0 1-.003-.248l3.3-5.941A.242.242 0 0 1 5 1.809c.055 0 .156.017.219.129l3.3 5.94a.242.242 0 0 1-.003.249.242.242 0 0 1-.216.123z" transform="rotate(90 -179 240)"/>
+            <path d="M5 3.089 2.55 7.5h4.9L5 3.089m0-2.03a.99.99 0 0 1 .874.514l3.3 5.941A1 1 0 0 1 8.3 9H1.7a1 1 0 0 1-.875-1.486l3.3-5.94A.99.99 0 0 1 5 1.058z" style="fill:#77b2ff;stroke:none" transform="rotate(90 -179 240)"/>
+        </g>
+    </g>
+</svg>

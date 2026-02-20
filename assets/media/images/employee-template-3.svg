@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.353" height="29.353" viewBox="0 0 30.353 29.353">
+    <defs>
+        <style>
+            .cls-5{fill:none;stroke:#529cff;stroke-linecap:round}
+        </style>
+    </defs>
+    <g id="Group_9705" transform="translate(-850 -543)">
+        <g id="Group_9700" transform="translate(-11 -364)">
+            <g id="Group_9699" transform="translate(861 907)">
+                <path id="Path_14128" fill="#529cff" d="M28.735 0H1.618A1.528 1.528 0 0 0 0 1.618v6.147a.348.348 0 0 0 .324.324h29.705a.348.348 0 0 0 .324-.324V1.618A1.528 1.528 0 0 0 28.735 0z"/>
+                <path id="Path_14129" fill="#cde6fe" d="M25.706 6H6.324A.348.348 0 0 0 6 6.324v18.382a.348.348 0 0 0 .324.324h18.088a1.528 1.528 0 0 0 1.618-1.618V6.324A.348.348 0 0 0 25.706 6z" transform="translate(4.324 4.324)"/>
+                <path id="Path_14130" fill="#8fc7ff" d="M7.765 6H.324A.348.348 0 0 0 0 6.324v17.088a1.528 1.528 0 0 0 1.618 1.618h6.147a.348.348 0 0 0 .324-.324V6.324A.348.348 0 0 0 7.765 6z" transform="translate(0 4.324)"/>
+            </g>
+        </g>
+        <g id="Group_9701" transform="translate(-9.912 -5.912)">
+            <circle id="Ellipse_787" cx="7.5" cy="7.5" r="7.5" fill="#e6f2ff" stroke="#fff" stroke-width="2px" transform="translate(867.912 556.912)"/>
+            <path id="Line_196" d="M0 0L0 6.242" class="cls-5" transform="translate(875.412 561.291)"/>
+            <path id="Line_197" d="M0 0L0 6.242" class="cls-5" transform="translate(878.533 564.412) rotate(90)"/>
+        </g>
+    </g>
+</svg>

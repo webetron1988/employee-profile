@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.5" height="19.5" viewBox="0 0 20.5 19.5">
+    <defs>
+        <style>
+            .cls-2{fill:none;stroke:#a3acc6;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px}
+        </style>
+    </defs>
+    <g id="Group_6863" transform="translate(-1052.25 -279.25)">
+        <g id="git-network-outline" opacity="0.89" transform="rotate(180 576.346 172.938)">
+            <circle id="Ellipse_542" cx="2" cy="2" r="2" class="cls-2" transform="translate(80.693 47.875)"/>
+            <circle id="Ellipse_543" cx="2" cy="2" r="2" class="cls-2" transform="translate(87.693 61.875)"/>
+            <path id="Path_13835" d="M256 256v4.779" class="cls-2" transform="translate(-166.307 -199.125)"/>
+            <circle id="Ellipse_544" cx="2" cy="2" r="2" class="cls-2" transform="translate(95.693 47.875)"/>
+            <path id="Path_13836" d="M128 144c0 3.186 4.018 4.779 7.462 4.779m7.461-4.779c0 3.186-4.018 4.779-7.462 4.779" class="cls-2" transform="translate(-45.768 -91.904)"/>
+        </g>
+    </g>
+</svg>

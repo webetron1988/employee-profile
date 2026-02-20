@@ -1,0 +1,42 @@
+.job-table-v3-card.reward-market-data-card .create-journey-wrapper-v2 .CJ-right-wrapper{
+    width: calc(100% - 200px);
+}
+.upload-dataset-dropzone .UDD-left,
+.upload-dataset-dropzone .UDD-right{
+    width:calc(50% - 1px)
+}
+.UDD-sample-download a{
+    width:calc(50% - 10px)
+}
+.clean-dataset-wrapper .CDW-left {
+    width: calc(100% - 265px);
+  }
+.clean-dataset-wrapper .CDW-right {
+    width: 250px;
+  }
+  .CDW-note{
+    border-radius:0 13px 13px 0;
+  }
+  .payEle-tables-wrapper table.dataTable {
+    width: 100%;
+    table-layout: fixed; /* Ensures the thead and tbody columns align */
+  }
+  .payEle-tables-wrapper .dataTables_scrollHeadInner {
+  width: 100% !important; /* Force the header to take the full width of the table */
+  }
+  .table-inner-payElement tr td{padding:0 10px!important;border-right:solid 1px var(--border-light-v2)}
+  .dataTables_wrapper table.table-outer-payElement {
+    margin-top: 0 !important;
+    border-top: 0;
+    margin-bottom: 0 !important;
+    border-bottom: 0;
+  }
+  .table-outer-payElement-wrapper{
+    border-radius: 6px;
+  }
+  .table-outer-payElement td,
+  .table-outer-payElement th{
+    min-width:50%;
+    max-width:50%;
+  }
+ 

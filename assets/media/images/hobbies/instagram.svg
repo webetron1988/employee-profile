@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Group_7058" width="27.833" height="27.833" viewBox="0 0 27.833 27.833">
+    <defs>
+        <linearGradient id="linear-gradient" x1=".854" x2=".146" y1=".146" y2=".854" gradientUnits="objectBoundingBox">
+            <stop offset=".001" stop-color="#fbe18a"/>
+            <stop offset=".209" stop-color="#fcbb45"/>
+            <stop offset=".376" stop-color="#f75274"/>
+            <stop offset=".524" stop-color="#d53692"/>
+            <stop offset=".739" stop-color="#8f39ce"/>
+            <stop offset="1" stop-color="#5b4fe9"/>
+        </linearGradient>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <circle id="Ellipse_775" cx="13.917" cy="13.917" r="13.917" fill="url(#linear-gradient)"/>
+    <g id="Group_6908" transform="translate(5.758 5.739)">
+        <g id="Group_6907">
+            <path id="Path_13977" d="M96.3 68.693a.957.957 0 1 0 .957.957.957.957 0 0 0-.957-.957z" class="cls-2" transform="translate(-83.82 -65.78)"/>
+            <path id="Path_13978" d="M91.674 69.982A4.018 4.018 0 1 0 95.693 74a4.023 4.023 0 0 0-4.019-4.018zm0 6.592A2.574 2.574 0 1 1 94.249 74a2.577 2.577 0 0 1-2.575 2.574z" class="cls-2" transform="translate(-83.449 -65.842)"/>
+            <path id="Path_13979" d="M94.652 81.949h-6.514a4.906 4.906 0 0 1-4.9-4.9v-6.516a4.907 4.907 0 0 1 4.9-4.9h6.514a4.907 4.907 0 0 1 4.9 4.9v6.515a4.907 4.907 0 0 1-4.9 4.901zm-6.514-14.782a3.369 3.369 0 0 0-3.367 3.366v6.515a3.37 3.37 0 0 0 3.367 3.367h6.514a3.371 3.371 0 0 0 3.367-3.367v-6.515a3.37 3.37 0 0 0-3.367-3.366z" class="cls-2" transform="translate(-83.236 -65.632)"/>
+        </g>
+    </g>
+</svg>

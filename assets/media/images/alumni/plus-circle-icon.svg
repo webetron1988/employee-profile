@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19">
+    <defs>
+        <style>
+            .cls-2{stroke:#77b2ff;stroke-width:1.5px;fill:none;stroke-linecap:round}
+        </style>
+    </defs>
+    <g id="Group_9340" data-name="Group 9340" transform="translate(-993 -637)">
+        <g id="Ellipse_711" data-name="Ellipse 711" transform="translate(993 637)" style="stroke:#77b2ff;stroke-width:1.5px;fill:#fff">
+            <circle cx="9.5" cy="9.5" r="9.5" style="stroke:none"/>
+            <circle cx="9.5" cy="9.5" r="8.75" style="fill:none"/>
+        </g>
+        <path id="Line_220" data-name="Line 220" class="cls-2" transform="translate(1002.5 642.5)" d="M0 0v8"/>
+        <path id="Line_221" data-name="Line 221" class="cls-2" transform="rotate(90 180 826.5)" d="M0 0v8"/>
+    </g>
+</svg>

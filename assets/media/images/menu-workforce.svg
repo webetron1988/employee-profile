@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20.416" height="19.515" viewBox="0 0 20.416 19.515">
+    <g id="Group_7181" data-name="Group 7181" transform="translate(-26 -230.485)">
+        <g id="Group_7142" data-name="Group 7142" transform="translate(1.25 47.772)">
+            <rect id="Rectangle_2660" data-name="Rectangle 2660" width="18.416" height="13.741" rx="2" transform="translate(25.75 183.713)" style="stroke-width:2px;stroke-linejoin:round;stroke:#3699FF;fill:none"></rect>
+            <path id="Path_14302" data-name="Path 14302" style="stroke:#3699FF;stroke-width:2px;stroke-linecap:round;stroke-miterlimit:10" d="M16 416h7.031" transform="translate(15.481 -214.772)"></path>
+            <path id="Path_14303" data-name="Path 14303" class="cls-2" d="M0 0h2.591" transform="rotate(90 -81.82 116.818)"></path>
+            <rect id="Rectangle_2661" class="menuicon-light-part" data-name="Rectangle 2661" width="4.416" height="4.741" rx="1" transform="translate(29.75 187.713)" style="stroke-width:1.5px;stroke-linecap:round;stroke-linejoin:round;stroke:#3699FF;fill:none"></rect>
+        </g>
+        <g id="Group_7143" data-name="Group 7143" transform="translate(0 -5)">
+            <path id="Line_32111" class="menuicon-light-part" data-name="Line 32111" style="fill:none;stroke:#3699FF;stroke-linecap:round;stroke-width:1.5px" transform="translate(38.5 241.5)" d="M0 0h3"></path>
+            <path id="Line_32112" class="menuicon-light-part" data-name="Line 32112" style="fill:none;stroke:#3699FF;stroke-linecap:round;stroke-width:1.5px" transform="translate(38.5 244.5)" d="M0 0h3"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,187 @@
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li > .card{
+    background-color: #011f4b;
+    border-radius: 0.85rem;
+    padding: 1.25rem;
+}
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li li > .card{
+    background-color:  #fafdff !important;
+    border-radius: 0.85rem;
+    padding: 1.25rem;
+}
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li li li > .card {
+    background-color: rgb(235, 242, 255) !important;
+    border-radius: 0.85rem;
+    padding: 1.25rem;
+  }
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li li li li > .card {
+    background-color: rgb(67 168 237 / 11%) !important;
+    border-radius: 0.85rem;
+    padding: 0.75rem;
+  }
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .accordion{
+    padding-left: 0rem!important;
+}
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li > .card > .card-header > .cluster-list-item .card-title, .CP-accrodion .strategy-okr-accordion > .accordion > .card > .card-header > .cluster-list-item .card-title {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+.CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .dragHandle {
+    background-image: radial-gradient(circle at 2px 2px, var(--border-light-primary-v2) 2px, transparent 0) !important;
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .strategy-template-list .strategy-template-item .AL2-icon, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .strategy-template-list .strategy-template-item img:not(a img, 
+  .CP-accrodion.CP-accrodion-v2 .CPS2-element-actions img, .symbol img), 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .card-title img:not(a img, .symbol img), 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .card-title .AL2-icon {
+    filter: brightness(1);
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .text-black, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .strategy-template-item .card-title .text-black, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .cli-title,
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .strategy-template-item .card-title .cli-title :not(.text-warning, .text-white), 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .card-title .card-title-collapse::after, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .cli-title :not(.text-warning, .text-white){
+    color: #000!important;
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .text-dark:not(.header-menu .text-dark), 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .strategy-template-item .card-title .text-dark,
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .cli-title p:not(.text-warning, .text-white) {
+    color: #2b345f !important;
+  }
+
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .text-muted, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .strategy-template-item .card-title .text-muted{
+    color: rgba(43, 52, 95,0.6) !important;
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion .accordion > ul > li > .card .cluster-list-item::after, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion .accordion > .card .cluster-list-item::after,
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion .accordion > ul > li > .card::before, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion .accordion > .card::before,
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion.accordion-toggle-arrow.AL-assessment-accordion .card-title:hover::before,
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li > .card::before, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > .card:not(:last-child)::before{display:none!important}
+
+  .JD-card-v2 .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-header .cli-title.pr-4{padding-left:10px!important}
+  .CP-accrodion.CP-accrodion-v2 .accordion .card .card-header {
+    cursor: default;
+  }
+  .CP-accrodion .strategy-okr-accordion .accordion .strategy-template-list .strategy-template-item{margin-bottom: 0;}
+.CP-accrodion.CP-accrodion-v2 .accordion .str_collapse_inner_content[aria-expanded="true"] {
+    margin-top: 15px;
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .card-title{
+    background-color: transparent!important;
+    border:0!important;
+    box-shadow:none!important
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .dragHandle{
+    margin-left: 0;
+  }
+  .JD-card-v2 .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .card .dragHandle{
+    display: none;
+   }
+  .CP-accrodion.CP-accrodion-v2 .milestone-view-ul ul li .strategy-v2-keyresult-list:not(.keyresult-milestone-list-v2 li .strategy-v2-keyresult-list)::after,
+  .CP-accrodion.CP-accrodion-v2 .milestone-view-ul ul li:not(.keyresult-milestone-list-v2 li, 
+  .CP-accrodion.CP-accrodion-v2 .dropdown-menu li)::before{
+    border-color: var(--border-light-primary-v2);
+  }
+  .strategy-okr-accordion > .accordion ul li li:last-child {
+    margin: 0;
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .cluster-list-item .CPS2-element-actions {
+    left: unset;
+    right: 0;
+    bottom: unset;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px;
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .cluster-list-item{transition: all 0.2s;}
+  .CJDv2-card .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .cluster-list-item:hover{padding-right: 35px !important;}
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .cluster-list-item .CPS2-element-actions:hover, 
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion .accordion .cluster-list-item:hover .CPS2-element-actions {
+    bottom: unset;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  left: unset;
+  padding: 5px;
+  }
+  .CP-accrodion.CP-accrodion-v2 .collapsed-visible-50px .collapse:not(.show)::after, 
+  .CP-accrodion.CP-accrodion-v2 .str_collapse_inner_content:not(.show)::after {
+    background-image: linear-gradient(to top, rgb(221, 235, 255), rgba(255, 255, 255,0)80%);
+  }
+  .CP-accrodion.CP-accrodion-v2 .strategy-okr-accordion > .accordion > ul > li > .card .card-title .btn{white-space: nowrap;}
+  .card-title-collapse-v2[data-toggle="collapse"]{transition: all 0.2s;}
+  .card-title-collapse-v2[data-toggle="collapse"][aria-expanded="true"] {
+    transform: rotate(180deg);
+  }
+  .CP-accrodion.CP-accrodion-v2 .str_collapse_inner_content:not(.show){height:0px}
+  .strategy-okr-accordion > .accordion li:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /*  */
+  .CJD-form-sec-wrapper.readonly .Perspective_design_div_button {
+    filter: grayscale(1) opacity(0.75) brightness(1.4);
+  }
+  
+  .skeleton-loader {
+    width:100%;
+    height: 160px;
+    margin: 10px auto;
+    padding: 20px;
+    box-sizing: border-box;
+    position:relative;
+    overflow:hidden;
+  }
+  @keyframes loading {
+    to {
+      transform:translate(100%)
+    }
+  }
+  .skeleton-loader::after {
+    animation: loading 1.5s infinite;
+    background: linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.5),rgba(255,255,255,0));
+    transform: translate(-100%);
+    z-index: 1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .skeleton-title {
+    width: 60%;
+    height: 30px;
+    background: #ccc;
+    margin: 10px auto;
+    border-radius: 4px;
+  }
+  .skeleton-description {
+    width: 80%;
+    height: 15px;
+    background: #ddd;
+    margin: 10px auto;
+    border-radius: 4px;
+  }
+  
+  .rotating-loader {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border: 4px solid #ddd;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    margin: 10px auto;
+    display: block;
+    animation: none; /* Initially no rotation */
+  }
+  .spin {
+    animation: spin 1s linear infinite !important;
+  }
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }

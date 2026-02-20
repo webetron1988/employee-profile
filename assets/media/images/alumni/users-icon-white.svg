@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="14.5">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_10542" data-name="Group 10542" transform="translate(-21007 -4538.5)">
+        <circle id="Ellipse_1053" data-name="Ellipse 1053" class="cls-1" cx="2.5" cy="2.5" r="2.5" transform="translate(21008 4538.5)"/>
+        <path id="Path_17834" data-name="Path 17834" class="cls-1" d="M3.748 15.833a4.694 4.694 0 0 1 2.326-4.941A2.5 2.5 0 0 0 4.167 10H2.5A2.507 2.507 0 0 0 0 12.5v1.667a1.672 1.672 0 0 0 1.667 1.667z" transform="translate(21007 4534.5)"/>
+        <circle id="Ellipse_1054" data-name="Ellipse 1054" class="cls-1" cx="2.5" cy="2.5" r="2.5" transform="translate(21021 4538.5)"/>
+        <path id="Path_17835" data-name="Path 17835" class="cls-1" d="M20.285 10h-1.667a2.5 2.5 0 0 0-1.908.892c1.705 1.064 2.435 2.5 2.165 4.942h2.243a1.672 1.672 0 0 0 1.667-1.667V12.5a2.508 2.508 0 0 0-2.5-2.5z" transform="translate(21004.215 4534.5)"/>
+        <circle id="Ellipse_1055" data-name="Ellipse 1055" class="cls-1" cx="3" cy="3" r="3" transform="translate(21014 4538.5)"/>
+        <path id="Path_17836" data-name="Path 17836" class="cls-1" d="M6 17a2.508 2.508 0 0 0 2.5 2.5h5A2.507 2.507 0 0 0 16 17v-.833A4.167 4.167 0 0 0 11.833 12h-1.666A4.167 4.167 0 0 0 6 16.167z" transform="translate(21006 4533.5)"/>
+    </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27.833" height="27.833" viewBox="0 0 27.833 27.833">
+    <defs>
+        <linearGradient id="ixhoqppj8a" x1=".146" x2=".854" y1=".147" y2=".859" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#4676ed"/>
+            <stop offset=".185" stop-color="#436de4"/>
+            <stop offset=".487" stop-color="#3b54cd"/>
+            <stop offset=".865" stop-color="#2f2da8"/>
+            <stop offset="1" stop-color="#2b1e99"/>
+        </linearGradient>
+    </defs>
+    <g>
+        <path fill="url(#ixhoqppj8a)" d="M62.55 73.5a13.917 13.917 0 1 0-16.091 13.747v-9.725h-3.533V73.5h3.533v-3.067c0-3.487 2.078-5.415 5.257-5.415a21.383 21.383 0 0 1 3.115.272v3.425h-1.755a2.012 2.012 0 0 0-2.268 2.174V73.5h3.86l-.617 4.023h-3.243v9.725A13.92 13.92 0 0 0 62.55 73.5z" transform="translate(-34.717 -59.583)"/>
+        <path fill="#fff" d="M54.467 77.8l.617-4.023h-3.86v-2.61a2.012 2.012 0 0 1 2.268-2.174h1.755v-3.427a21.383 21.383 0 0 0-3.115-.272c-3.179 0-5.257 1.927-5.257 5.415v3.066h-3.533V77.8h3.533v9.725a14.038 14.038 0 0 0 4.349 0V77.8z" transform="translate(-35.133 -59.858)"/>
+    </g>
+</svg>

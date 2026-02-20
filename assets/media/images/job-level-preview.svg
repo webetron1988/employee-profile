@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="87.892" height="41.559" viewBox="0 0 87.892 41.559">
+    <defs>
+        <style>
+            .cls-4{stroke:#e8edf3;fill:none;stroke-linecap:round;stroke-width:4px}
+        </style>
+    </defs>
+    <g id="Group_11057" data-name="Group 11057" transform="translate(-1051 -607)">
+        <g id="Rectangle_3266" data-name="Rectangle 3266" transform="translate(1051 607)" style="stroke:#e8edf3;fill:#fff">
+            <rect width="87.892" height="41.559" rx="5" style="stroke:none"/>
+            <rect x=".5" y=".5" width="86.892" height="40.559" rx="4.5" style="fill:none"/>
+        </g>
+        <g id="Group_7209" data-name="Group 7209" transform="translate(1061.762 616.129)" style="opacity:.6">
+            <circle id="Ellipse_840" data-name="Ellipse 840" cx="10.271" cy="10.271" style="fill:#e8edf3" r="10.271"/>
+            <path id="Line_32134" data-name="Line 32134" class="cls-4" transform="translate(29.999 6.089)" d="M0 0h36.315"/>
+            <path id="Line_32135" data-name="Line 32135" class="cls-4" transform="translate(29.999 15.214)" d="M0 0h36.315"/>
+        </g>
+    </g>
+</svg>
