@@ -1,0 +1,59 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+.gitkeep
+
+# Application
+writable/logs/*
+writable/cache/*
+writable/uploads/*
+!writable/logs/.gitkeep
+!writable/cache/.gitkeep
+!writable/uploads/.gitkeep
+
+# Testing
+tests/_output/*
+.phpunit.result.cache
+coverage/
+
+# Build
+build/
+dist/
+
+# Node (if building frontend assets)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Database
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Security
+private_key.pem
+public_key.pem
