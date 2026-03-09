@@ -28,13 +28,8 @@ class Promotion extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'salary_increment_percentage' => 'float',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'promotion_date' => 'date',
-        'effective_date' => 'date',
-        'approved_date' => 'date'
+    protected array $casts = [
+        'salary_increment_percentage' => '?float',
     ];
 
     // Relationships

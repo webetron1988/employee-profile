@@ -87,9 +87,9 @@ class Encryption extends BaseConfig
     public $autoMask = true;
 
     /**
-     * Log encryption/decryption operations
+     * Log encryption/decryption operations (disable in production)
      */
-    public $logOperations = true;
+    public $logOperations = false;
 
     public function __construct()
     {

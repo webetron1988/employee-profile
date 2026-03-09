@@ -16,6 +16,8 @@ class CreateCoursesTable extends Migration
             'provider' => ['type' => 'VARCHAR', 'constraint' => 100],
             'course_type' => ['type' => 'ENUM', 'constraint' => ['Online', 'Classroom', 'Hybrid', 'Self-Paced'], 'default' => 'Online'],
             'duration_hours' => ['type' => 'INT', 'constraint' => 11],
+            'is_mandatory' => ['type' => 'BOOLEAN', 'default' => 0],
+            'passing_score' => ['type' => 'INT', 'constraint' => 11, 'null' => true],
             'cost' => ['type' => 'DECIMAL', 'constraint' => [10,2], 'null' => true],
             'skill_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'competency_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
@@ -24,7 +26,7 @@ class CreateCoursesTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('skill_id', 'skills', 'id', 'SET NULL', 'CASCADE', 'fk_course_skill');
         $this->forge->addForeignKey('competency_id', 'competencies', 'id', 'SET NULL', 'CASCADE', 'fk_course_competency');
         $this->forge->addKey('course_code');

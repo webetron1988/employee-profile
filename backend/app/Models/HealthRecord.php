@@ -13,9 +13,18 @@ class HealthRecord extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'employee_id',
         'blood_group',
+        'height',
+        'weight',
+        'is_blood_donor',
+        'vision_status',
+        'correction_type',
+        'color_blindness',
+        'physical_disability',
+        'identification_marks',
         'allergies',
         'chronic_conditions',
         'medications',
@@ -27,13 +36,19 @@ class HealthRecord extends Model
         'last_medical_checkup_date',
         'medical_notes',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'last_medical_checkup_date' => 'date'
+    protected array $casts = [
+    ];
+
+    protected $validationRules = [
+        'employee_id'              => 'required|integer',
+        'blood_group'              => 'permit_empty|in_list[A+,A-,B+,B-,AB+,AB-,O+,O-]',
+        'emergency_contact_phone'  => 'permit_empty|regex_match[/^\+?[0-9\s\-\(\)]{7,20}$/]',
+        'last_medical_checkup_date' => 'permit_empty|valid_date',
+        'health_insurance_provider' => 'permit_empty|max_length[255]',
     ];
 
     // Relationship

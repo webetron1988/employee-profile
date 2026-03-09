@@ -60,9 +60,8 @@ class CreateUsersTable extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
-        $this->forge->addKey('email');
-        $this->forge->addForeignKey('employee_id', 'employees', 'employee_id', 'SET NULL', 'CASCADE');
+        $this->forge->addPrimaryKey('id');
+        $this->forge->addForeignKey('employee_id', 'employees', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('users');
     }
 

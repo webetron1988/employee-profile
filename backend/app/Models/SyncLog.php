@@ -20,11 +20,6 @@ class SyncLog extends Model
         'completed_at'
     ];
 
-    protected $casts = [
-        'started_at' => 'datetime',
-        'completed_at' => 'datetime'
-    ];
-
     protected $validationRules = [
         'sync_type' => 'required|in_list[employee_master,job_info,org_hierarchy,manager_relationships]',
         'status' => 'required|in_list[pending,running,completed,failed]'

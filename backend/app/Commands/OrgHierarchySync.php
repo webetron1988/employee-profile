@@ -2,7 +2,7 @@
 
 namespace App\Commands;
 
-use App\Models\Employee;
+use App\Models\User;
 use App\Models\JobInformation;
 use App\Models\OrgHierarchy;
 use App\Models\SyncLog;
@@ -131,7 +131,7 @@ class OrgHierarchySync extends BaseCommand
         $this->isForce = $this->getOption('force') !== null;
 
         $this->hrmsClient = service('hrmsclient');
-        $this->employeeModel = new Employee();
+        $this->employeeModel = new User();
         $this->jobInfoModel = new JobInformation();
         $this->orgHierarchyModel = new OrgHierarchy();
         $this->syncLogModel = new SyncLog();

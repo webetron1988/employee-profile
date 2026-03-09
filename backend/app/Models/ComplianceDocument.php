@@ -25,12 +25,7 @@ class ComplianceDocument extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'issue_date' => 'date',
-        'expiry_date' => 'date',
-        'signed_date' => 'date'
+    protected array $casts = [
     ];
 
     // Relationships

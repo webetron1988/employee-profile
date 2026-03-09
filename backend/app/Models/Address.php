@@ -10,6 +10,7 @@ class Address extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'employee_id',
         'address_type',
@@ -20,13 +21,21 @@ class Address extends Model
         'country',
         'is_primary',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_primary' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+    ];
+
+    protected $validationRules = [
+        'employee_id'    => 'required|integer',
+        'address_type'   => 'permit_empty|in_list[Residential,Permanent,Official,Other]',
+        'street_address' => 'required|max_length[500]',
+        'city'           => 'required|max_length[100]',
+        'postal_code'    => 'permit_empty|max_length[20]',
+        'country'        => 'permit_empty|max_length[100]',
     ];
 
     // Relationship

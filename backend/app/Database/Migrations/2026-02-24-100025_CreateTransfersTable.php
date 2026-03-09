@@ -26,7 +26,7 @@ class CreateTransfersTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_transfer_employee');
         $this->forge->addKey('employee_id');
         $this->forge->addKey('transfer_date');

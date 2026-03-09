@@ -22,10 +22,7 @@ class EmployeeCompetency extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'assessment_date' => 'date'
+    protected array $casts = [
     ];
 
     // Relationships

@@ -26,10 +26,6 @@ class AuditLog extends Model
         'created_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime'
-    ];
-
     protected $allowedReturnTypes = ['array', 'object'];
 
     // Relationship

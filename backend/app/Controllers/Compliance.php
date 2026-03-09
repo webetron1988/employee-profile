@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\ComplianceDocument;
-use App\Models\Employee;
 use App\Models\User;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Controller;
@@ -14,13 +13,11 @@ class Compliance extends Controller
 
     protected $complianceDocument;
     protected $employee;
-    protected $user;
 
     public function __construct()
     {
         $this->complianceDocument = new ComplianceDocument();
-        $this->employee = new Employee();
-        $this->user = new User();
+        $this->employee = new User();
     }
 
     /**

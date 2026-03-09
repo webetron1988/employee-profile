@@ -19,7 +19,7 @@ class CreateCompetenciesTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addKey('competency_category');
         $this->forge->addUniqueKey('competency_name');
         $this->forge->createTable('competencies', true);

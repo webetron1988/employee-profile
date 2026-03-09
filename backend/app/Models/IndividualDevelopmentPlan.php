@@ -14,6 +14,12 @@ class IndividualDevelopmentPlan extends Model
         'employee_id',
         'plan_year',
         'career_goal',
+        'timeline',
+        'readiness_level',
+        'preferred_track',
+        'geographic_preference',
+        'functional_interest',
+        'international_assignment',
         'skill_gaps',
         'development_activities',
         'training_needs',
@@ -26,11 +32,16 @@ class IndividualDevelopmentPlan extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'plan_year' => 'int',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'reviewed_date' => 'date'
+    protected array $casts = [
+        'plan_year' => '?int',
+    ];
+
+    protected $validationRules = [
+        'employee_id' => 'required|integer',
+        'career_goal' => 'required|max_length[2000]',
+        'plan_year'   => 'permit_empty|integer|greater_than_equal_to[2020]|less_than_equal_to[2035]',
+        'status'      => 'permit_empty|in_list[Draft,In Progress,Completed,Postponed,Active,Cancelled]',
+        'reviewed_date' => 'permit_empty|valid_date',
     ];
 
     // Relationships

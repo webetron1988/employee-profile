@@ -28,12 +28,17 @@ class PerformanceReview extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'overall_rating' => 'float',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'review_date' => 'date',
-        'approved_at' => 'datetime'
+    protected array $casts = [
+        'overall_rating' => '?float',
+    ];
+
+    protected $validationRules = [
+        'employee_id'    => 'required|integer',
+        'review_period'  => 'permit_empty|max_length[100]',
+        'review_date'    => 'permit_empty|valid_date',
+        'overall_rating' => 'permit_empty|numeric|greater_than_equal_to[0]|less_than_equal_to[5]',
+        'performance_status' => 'permit_empty|in_list[Pending,In Progress,Completed,Cancelled]',
+        'approval_status'    => 'permit_empty|in_list[Pending,Approved,Rejected]',
     ];
 
     // Relationships

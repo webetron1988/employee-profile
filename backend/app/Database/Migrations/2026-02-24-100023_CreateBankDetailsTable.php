@@ -13,7 +13,7 @@ class CreateBankDetailsTable extends Migration
             'employee_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'bank_name' => ['type' => 'VARCHAR', 'constraint' => 100],
             'account_number_encrypted' => ['type' => 'LONGTEXT'],
-            'account_number_hash' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'account_number_hash' => ['type' => 'VARCHAR', 'constraint' => 64],
             'account_type' => ['type' => 'ENUM', 'constraint' => ['Savings', 'Current', 'Other'], 'default' => 'Savings'],
             'ifsc_code' => ['type' => 'VARCHAR', 'constraint' => 20, 'null' => true],
             'branch_name' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
@@ -24,7 +24,7 @@ class CreateBankDetailsTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_bank_employee');
         $this->forge->addKey('employee_id');
         $this->forge->addUniqueKey('account_number_hash');

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Employee;
+use App\Models\User;
 use App\Models\JobInformation;
 use App\Models\EmploymentHistory;
 use App\Models\OrgHierarchy;
@@ -24,7 +24,7 @@ class Job extends Controller
 
     public function __construct()
     {
-        $this->employee = new Employee();
+        $this->employee = new User();
         $this->jobInformation = new JobInformation();
         $this->employmentHistory = new EmploymentHistory();
         $this->orgHierarchy = new OrgHierarchy();
@@ -42,12 +42,42 @@ class Job extends Controller
             $userId = auth()->user()->id;
             $jobInfo = $this->jobInformation->where('employee_id', $userId)->first();
 
+            // Auto-create with defaults if no record exists
             if (!$jobInfo) {
-                return $this->failNotFound('Job information not found');
+                $user = $this->employee->find($userId);
+                $defaults = [
+                    'employee_id'       => $userId,
+                    'designation'       => $user['first_name'] ?? 'Employee',
+                    'department'        => 'General',
+                    'grade'             => '',
+                    'job_level'         => '',
+                    'employment_type'   => 'Full-Time',
+                    'employment_status' => 'Active',
+                    'salary_grade'      => '',
+                    'joined_date'       => date('Y-m-d'),
+                    'location'          => '',
+                    'cost_center'       => '',
+                    'business_unit'     => '',
+                    'flsa_status'       => '',
+                    'eeo_category'      => '',
+                    'job_family'        => '',
+                    'job_sub_family'    => '',
+                    'work_schedule'     => 'Standard',
+                    'weekly_hours'      => 40.0,
+                    'fte'               => 1.00,
+                    'union_member'      => 'No',
+                    'contract_end_date' => null,
+                    'budget_authority'  => null,
+                    'signing_authority' => null,
+                    'cost_centre_name'  => null,
+                    'gl_code'           => null,
+                ];
+                $this->jobInformation->insert($defaults);
+                $jobInfo = $this->jobInformation->where('employee_id', $userId)->first();
             }
 
             // Add manager details
-            if ($jobInfo['reporting_manager_id']) {
+            if (!empty($jobInfo['reporting_manager_id'])) {
                 $manager = $this->employee->find($jobInfo['reporting_manager_id']);
                 $jobInfo['reporting_manager'] = $manager ? [
                     'id' => $manager['id'],
@@ -58,7 +88,7 @@ class Job extends Controller
 
             return $this->respond(['data' => $jobInfo], 200);
         } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching job information');
+            return $this->failServerError('Error fetching job information: ' . $e->getMessage());
         }
     }
 
@@ -78,6 +108,49 @@ class Job extends Controller
             return $this->respond(['data' => $jobInfo], 200);
         } catch (\Throwable $e) {
             return $this->failServerError('Error fetching job information');
+        }
+    }
+
+    /**
+     * Create or update job information for current user
+     * PUT /job/information
+     */
+    public function updateJobInformation()
+    {
+        try {
+            $userId = auth()->user()->id;
+            $data = $this->request->getJSON(true);
+
+            $allowed = ['designation', 'department', 'grade', 'job_level', 'employment_type',
+                        'employment_status', 'salary_grade', 'joined_date', 'confirmation_date',
+                        'location', 'cost_center', 'business_unit', 'work_schedule', 'weekly_hours',
+                        'fte', 'union_member', 'contract_end_date', 'budget_authority', 'signing_authority',
+                        'cost_centre_name', 'gl_code', 'flsa_status', 'eeo_category',
+                        'job_family', 'job_sub_family', 'reporting_since', 'matrix_relationship'];
+            $updateData = [];
+            foreach ($allowed as $field) {
+                if (isset($data[$field])) {
+                    $updateData[$field] = $data[$field];
+                }
+            }
+
+            if (empty($updateData)) {
+                return $this->fail('No fields to update', 400);
+            }
+
+            $existing = $this->jobInformation->where('employee_id', $userId)->first();
+
+            if ($existing) {
+                $this->jobInformation->update($existing['id'], $updateData);
+            } else {
+                $updateData['employee_id'] = $userId;
+                $this->jobInformation->insert($updateData);
+            }
+
+            $jobInfo = $this->jobInformation->where('employee_id', $userId)->first();
+            return $this->respond(['data' => $jobInfo, 'message' => 'Job information updated'], 200);
+        } catch (\Throwable $e) {
+            return $this->failServerError('Error updating job information: ' . $e->getMessage());
         }
     }
 
@@ -303,14 +376,58 @@ class Job extends Controller
     {
         try {
             $data = $this->request->getJSON(true);
-
-            if ($this->promotion->insert($data)) {
-                return $this->respond(['message' => 'Promotion created'], 201);
+            $userId = auth()->user()->id;
+            if (empty($data['employee_id'])) {
+                $data['employee_id'] = $userId;
             }
 
-            return $this->fail($this->promotion->errors(), 422);
+            if ($this->promotion->insert($data)) {
+                return $this->respond(['message' => 'Promotion created', 'id' => $this->promotion->getInsertID()], 201);
+            }
+
+            return $this->respond(['status' => 422, 'messages' => ['error' => implode(', ', $this->promotion->errors())]], 422);
         } catch (\Throwable $e) {
-            return $this->failServerError('Error creating promotion');
+            return $this->failServerError('Error creating promotion: ' . $e->getMessage());
+        }
+    }
+
+    public function updatePromotion($id)
+    {
+        try {
+            $userId = auth()->user()->id;
+            $promo = $this->promotion->find($id);
+            if (!$promo || (int)$promo['employee_id'] !== (int)$userId) {
+                return $this->failForbidden('Promotion not found or unauthorized');
+            }
+
+            $data = $this->request->getJSON(true);
+
+            if ($this->promotion->update($id, $data)) {
+                return $this->respond(['message' => 'Promotion updated'], 200);
+            }
+
+            return $this->respond(['status' => 422, 'messages' => ['error' => implode(', ', $this->promotion->errors())]], 422);
+        } catch (\Throwable $e) {
+            return $this->failServerError('Error updating promotion');
+        }
+    }
+
+    public function deletePromotion($id)
+    {
+        try {
+            $userId = auth()->user()->id;
+            $promo = $this->promotion->find($id);
+            if (!$promo || (int)$promo['employee_id'] !== (int)$userId) {
+                return $this->failForbidden('Promotion not found or unauthorized');
+            }
+
+            if ($this->promotion->delete($id)) {
+                return $this->respond(['message' => 'Promotion deleted'], 200);
+            }
+
+            return $this->failServerError('Error deleting promotion');
+        } catch (\Throwable $e) {
+            return $this->failServerError('Error deleting promotion');
         }
     }
 
@@ -341,14 +458,58 @@ class Job extends Controller
     {
         try {
             $data = $this->request->getJSON(true);
-
-            if ($this->transfer->insert($data)) {
-                return $this->respond(['message' => 'Transfer created'], 201);
+            $userId = auth()->user()->id;
+            if (empty($data['employee_id'])) {
+                $data['employee_id'] = $userId;
             }
 
-            return $this->fail($this->transfer->errors(), 422);
+            if ($this->transfer->insert($data)) {
+                return $this->respond(['message' => 'Transfer created', 'id' => $this->transfer->getInsertID()], 201);
+            }
+
+            return $this->respond(['status' => 422, 'messages' => ['error' => implode(', ', $this->transfer->errors())]], 422);
         } catch (\Throwable $e) {
-            return $this->failServerError('Error creating transfer');
+            return $this->failServerError('Error creating transfer: ' . $e->getMessage());
+        }
+    }
+
+    public function updateTransfer($id)
+    {
+        try {
+            $userId = auth()->user()->id;
+            $transfer = $this->transfer->find($id);
+            if (!$transfer || (int)$transfer['employee_id'] !== (int)$userId) {
+                return $this->failForbidden('Transfer not found or unauthorized');
+            }
+
+            $data = $this->request->getJSON(true);
+
+            if ($this->transfer->update($id, $data)) {
+                return $this->respond(['message' => 'Transfer updated'], 200);
+            }
+
+            return $this->respond(['status' => 422, 'messages' => ['error' => implode(', ', $this->transfer->errors())]], 422);
+        } catch (\Throwable $e) {
+            return $this->failServerError('Error updating transfer');
+        }
+    }
+
+    public function deleteTransfer($id)
+    {
+        try {
+            $userId = auth()->user()->id;
+            $transfer = $this->transfer->find($id);
+            if (!$transfer || (int)$transfer['employee_id'] !== (int)$userId) {
+                return $this->failForbidden('Transfer not found or unauthorized');
+            }
+
+            if ($this->transfer->delete($id)) {
+                return $this->respond(['message' => 'Transfer deleted'], 200);
+            }
+
+            return $this->failServerError('Error deleting transfer');
+        } catch (\Throwable $e) {
+            return $this->failServerError('Error deleting transfer');
         }
     }
 }

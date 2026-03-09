@@ -44,7 +44,7 @@ class CreateSyncLogsTable extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addKey('sync_type');
         $this->forge->addKey('status');
         $this->forge->createTable('sync_logs');

@@ -27,17 +27,12 @@ class Employee extends Model
         'deleted_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
-    ];
-
     protected $validationRules = [
         'email' => 'required|valid_email|is_unique[employees.email]',
         'first_name' => 'required|string|max_length[100]',
         'last_name' => 'required|string|max_length[100]',
-        'hrms_employee_id' => 'required|string|is_unique[employees.hrms_employee_id]'
+        'hrms_employee_id' => 'required|string|is_unique[employees.hrms_employee_id]',
+        'phone' => 'permit_empty|regex_match[/^\+?[0-9\s\-\(\)]{7,20}$/]',
     ];
 
     // Relationships

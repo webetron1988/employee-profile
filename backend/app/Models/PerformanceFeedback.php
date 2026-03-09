@@ -27,11 +27,16 @@ class PerformanceFeedback extends Model
         'updated_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_anonymous' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'shared_date' => 'date'
+    ];
+
+    protected $validationRules = [
+        'employee_id'     => 'required|integer',
+        'feedback_type'   => 'permit_empty|in_list[Self,Peer,Manager,360,360 Degree,Check-in]',
+        'feedback_period' => 'permit_empty|max_length[100]',
+        'rating'          => 'permit_empty|numeric|greater_than_equal_to[0]|less_than_equal_to[5]',
+        'status'          => 'permit_empty|max_length[50]',
     ];
 
     // Relationships

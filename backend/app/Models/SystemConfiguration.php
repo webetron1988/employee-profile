@@ -21,11 +21,9 @@ class SystemConfiguration extends Model
         'updated_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_encrypted' => 'boolean',
         'is_active' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
     ];
 
     protected $validationRules = [

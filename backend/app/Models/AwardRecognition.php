@@ -24,11 +24,8 @@ class AwardRecognition extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'monetary_reward' => 'float',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'award_date' => 'date'
+    protected array $casts = [
+        'monetary_reward' => '?float',
     ];
 
     // Relationships

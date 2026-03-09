@@ -29,14 +29,11 @@ class TrainingHistory extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'cost' => 'float',
-        'duration_hours' => 'int',
-        'assessment_score' => 'float',
+    protected array $casts = [
+        'cost' => '?float',
+        'duration_hours' => '?int',
+        'assessment_score' => '?float',
         'certificate_obtained' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'training_date' => 'date'
     ];
 
     // Relationship

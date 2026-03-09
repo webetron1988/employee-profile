@@ -4,13 +4,13 @@ namespace App\Middleware;
 
 use App\Libraries\JwtHandler;
 use App\Libraries\PermissionChecker;
-use App\Models\AuditLogModel;
+use App\Models\AuditLog as AuditLogModel;
+use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use Closure;
 use Exception;
 
-class PermissionMiddleware
+class PermissionMiddleware implements FilterInterface
 {
     private $jwtHandler;
     private $auditLogModel;
@@ -18,7 +18,6 @@ class PermissionMiddleware
     // Routes that don't require authentication
     private const PUBLIC_ROUTES = [
         'auth/sso-login',
-        'auth/mfa-verify',
         'health',
         'docs'
     ];
@@ -48,14 +47,13 @@ class PermissionMiddleware
     /**
      * Process the request and enforce permissions
      */
-    public function before(RequestInterface &$request, ResponseInterface &$response = null)
+    public function before(RequestInterface $request, $arguments = null)
     {
         $uri = $request->getPath();
-        $method = $request->getMethod();
 
         // Check if route is public
         if ($this->isPublicRoute($uri)) {
-            return true;
+            return null;
         }
 
         // Get authorization token
@@ -63,46 +61,56 @@ class PermissionMiddleware
         $token = str_replace('Bearer ', '', $token);
 
         if (empty($token)) {
-            return $this->handleUnauthorized('No token provided', $request, $response);
+            return $this->buildUnauthorizedResponse('No token provided');
         }
 
         try {
-            // Validate JWT token
-            $claims = $this->jwtHandler->validateToken($token);
+            // Validate JWT token — returns ['status', 'claims', 'data']
+            $result = $this->jwtHandler->validateToken($token);
 
-            if (!$claims) {
-                return $this->handleUnauthorized('Invalid token', $request, $response);
+            if (!$result || !($result['status'] ?? false)) {
+                return $this->buildUnauthorizedResponse('Invalid token');
             }
 
-            // Attach user data to request for later use
-            $request->userId = $claims['user_id'];
-            $request->hrmsEmployeeId = $claims['hrms_employee_id'] ?? null;
-            $request->role = $claims['role'] ?? 'employee';
-            $request->permissions = $claims['permissions'] ?? [];
+            // Our payload data lives inside the 'data' key
+            $data = $result['data'] ?? [];
 
-            // Check module and action permissions
-            if (!$this->checkPermissions($request, $claims)) {
-                return $this->handleForbidden('Insufficient permissions', $request, $response);
+            if (empty($data['user_id'])) {
+                return $this->buildUnauthorizedResponse('Invalid token claims');
+            }
+
+            // Attach user data to request via setHeader (avoids deprecated dynamic properties)
+            $request->setHeader('X-Auth-User-Id',       (string) $data['user_id']);
+            $request->setHeader('X-Auth-Hrms-Emp-Id',   (string) ($data['hrms_employee_id'] ?? ''));
+            $request->setHeader('X-Auth-Role',          $data['role'] ?? 'employee');
+            $request->setHeader('X-Auth-Email',         $data['email'] ?? '');
+            $request->setHeader('X-Auth-Permissions',   json_encode($data['permissions'] ?? []));
+            $request->setHeader('X-Auth-Employee-Id',   (string) $data['user_id']);
+
+            // Check module and action permissions (pass parsed data, not dynamic props)
+            if (!$this->checkPermissions($request, $data)) {
+                return $this->buildForbiddenResponse('Insufficient permissions');
             }
 
             // Log access attempt
-            $this->logAccessAttempt($request, 'allowed', $claims);
+            $this->logAccessAttempt($request, 'allowed', $data);
 
-            return true;
+            return null;
         } catch (Exception $e) {
             log_message('warning', 'Permission middleware error: ' . $e->getMessage());
-            return $this->handleUnauthorized('Token validation failed', $request, $response);
+            return $this->buildUnauthorizedResponse('Token validation failed');
         }
     }
 
     /**
      * Process response after controller
      */
-    public function after(RequestInterface $request, ResponseInterface &$response = null)
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
         // Apply field masking to response if needed
-        if (isset($request->userId) && $response) {
-            $permissionChecker = new PermissionChecker($request->userId);
+        $authUserId = $request->getHeaderLine('X-Auth-User-Id');
+        if ($authUserId && $response) {
+            $permissionChecker = new PermissionChecker((int) $authUserId);
 
             // Get response body
             $body = $response->getBody();
@@ -124,7 +132,7 @@ class PermissionMiddleware
             }
         }
 
-        return true;
+        return $response;
     }
 
     /**
@@ -140,12 +148,12 @@ class PermissionMiddleware
             if (strpos($uri, $route) === 0) {
                 [$module, $action] = $requiredPerms;
 
-                $permissionChecker = new PermissionChecker($claims['user_id']);
+                $permissionChecker = new PermissionChecker($claims['user_id'] ?? null);
 
                 // Check module access
                 if (!$permissionChecker->hasModuleAccess($module)) {
                     log_message('warning', 'Module access denied', [
-                        'user_id' => $claims['user_id'],
+                        'user_id' => $claims['user_id'] ?? null,
                         'module' => $module,
                         'uri' => $uri
                     ]);
@@ -155,7 +163,7 @@ class PermissionMiddleware
                 // Check action access
                 if (!$permissionChecker->hasActionAccess($module, $action)) {
                     log_message('warning', 'Action access denied', [
-                        'user_id' => $claims['user_id'],
+                        'user_id' => $claims['user_id'] ?? null,
                         'module' => $module,
                         'action' => $action,
                         'uri' => $uri
@@ -222,7 +230,8 @@ class PermissionMiddleware
      */
     private function isOwnData($record, RequestInterface $request)
     {
-        if (!isset($request->userId)) {
+        $authUserId = $request->getHeaderLine('X-Auth-User-Id');
+        if (!$authUserId) {
             return false;
         }
 
@@ -230,7 +239,7 @@ class PermissionMiddleware
         $identifierFields = ['employee_id', 'user_id', 'id'];
 
         foreach ($identifierFields as $field) {
-            if (isset($record[$field]) && $record[$field] == $request->userId) {
+            if (isset($record[$field]) && $record[$field] == $authUserId) {
                 return true;
             }
         }
@@ -286,7 +295,7 @@ class PermissionMiddleware
     {
         try {
             $this->auditLogModel->insert([
-                'user_id' => $claims['user_id'] ?? null,
+                'user_id' => $claims['user_id'] ?? $request->getHeaderLine('X-Auth-User-Id') ?: null,
                 'employee_id' => null,
                 'module' => 'api',
                 'action' => strtoupper($request->getMethod()),
@@ -306,47 +315,33 @@ class PermissionMiddleware
     }
 
     /**
-     * Handle unauthorized response
+     * Build a 401 Unauthorized response
      */
-    private function handleUnauthorized($message, RequestInterface $request, ResponseInterface &$response)
+    private function buildUnauthorizedResponse(string $message): ResponseInterface
     {
-        if ($response === null) {
-            $response = response();
-        }
-
-        $this->logAccessAttempt($request, 'denied - unauthorized', ['user_id' => null]);
-
-        $response->setStatusCode(401);
-        $response->setContentType('application/json');
-        $response->setBody(json_encode([
-            'status' => 'error',
-            'message' => $message,
-            'code' => 'UNAUTHORIZED'
-        ]));
-
-        return false;
+        return response()
+            ->setStatusCode(401)
+            ->setContentType('application/json')
+            ->setBody(json_encode([
+                'status' => 'error',
+                'message' => $message,
+                'code' => 'UNAUTHORIZED'
+            ]));
     }
 
     /**
-     * Handle forbidden response
+     * Build a 403 Forbidden response
      */
-    private function handleForbidden($message, RequestInterface $request, ResponseInterface &$response)
+    private function buildForbiddenResponse(string $message): ResponseInterface
     {
-        if ($response === null) {
-            $response = response();
-        }
-
-        $this->logAccessAttempt($request, 'denied - forbidden', ['user_id' => $request->userId ?? null]);
-
-        $response->setStatusCode(403);
-        $response->setContentType('application/json');
-        $response->setBody(json_encode([
-            'status' => 'error',
-            'message' => $message,
-            'code' => 'FORBIDDEN'
-        ]));
-
-        return false;
+        return response()
+            ->setStatusCode(403)
+            ->setContentType('application/json')
+            ->setBody(json_encode([
+                'status' => 'error',
+                'message' => $message,
+                'code' => 'FORBIDDEN'
+            ]));
     }
 
     /**

@@ -10,6 +10,7 @@ class EmergencyContact extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'employee_id',
         'contact_name',
@@ -19,13 +20,20 @@ class EmergencyContact extends Model
         'address',
         'is_primary',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_primary' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+    ];
+
+    protected $validationRules = [
+        'employee_id'  => 'required|integer',
+        'contact_name' => 'required|max_length[255]',
+        'phone_number' => 'required|regex_match[/^\+?[0-9\s\-\(\)]{7,20}$/]',
+        'email'        => 'permit_empty|valid_email',
+        'relationship' => 'permit_empty|max_length[100]',
     ];
 
     // Relationship

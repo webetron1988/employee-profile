@@ -9,11 +9,16 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         $this->forge->addField([
-            'employee_id' => [
+            'id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true,
+            ],
+            'employee_id' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+                'unique' => true,
             ],
             'hrms_employee_id' => [
                 'type' => 'VARCHAR',
@@ -72,9 +77,7 @@ class CreateEmployeesTable extends Migration
             ],
         ]);
 
-        $this->forge->addKey('employee_id', false, false, 'PRIMARY');
-        $this->forge->addKey('hrms_employee_id');
-        $this->forge->addKey('email');
+        $this->forge->addPrimaryKey('id');
         $this->forge->createTable('employees');
     }
 

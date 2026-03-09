@@ -21,7 +21,7 @@ class CreateEmployeeCompetenciesTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_emp_comp_employee');
         $this->forge->addForeignKey('competency_id', 'competencies', 'id', 'CASCADE', 'CASCADE', 'fk_emp_comp_competency');
         $this->forge->addKey('employee_id');

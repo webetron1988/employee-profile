@@ -72,8 +72,8 @@ class CreatePersonalDetailsTable extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
-        $this->forge->addForeignKey('employee_id', 'employees', 'employee_id', 'CASCADE', 'CASCADE');
+        $this->forge->addPrimaryKey('id');
+        $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('personal_details');
     }
 

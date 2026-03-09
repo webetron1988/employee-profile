@@ -27,7 +27,7 @@ class CreatePromotionsTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_promotion_employee');
         $this->forge->addKey('employee_id');
         $this->forge->addKey('promotion_date');

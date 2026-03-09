@@ -20,10 +20,8 @@ class Competency extends Model
         'updated_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'proficiency_levels' => 'json',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
     ];
 
     protected $validationRules = [

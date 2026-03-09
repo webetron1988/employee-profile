@@ -13,21 +13,22 @@ class User extends Model
     protected $allowedFields = [
         'email',
         'password_hash',
-        'employee_id',
+        'hrms_employee_id',
+        'first_name',
+        'last_name',
+        'phone',
+        'profile_picture_url',
         'role',
         'permissions',
         'is_active',
         'last_login_at',
+        'refresh_token_hash',
         'created_at',
         'updated_at'
     ];
 
-    protected $casts = [
-        'permissions' => 'json',
+    protected array $casts = [
         'is_active' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'last_login_at' => 'datetime'
     ];
 
     protected $validationRules = [
@@ -36,16 +37,15 @@ class User extends Model
         'is_active' => 'permit_empty|in_list[0,1]'
     ];
 
-    // Relationship
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class, 'employee_id', 'id');
-    }
-
     // Check if user has permission
     public function hasPermission($action)
     {
         $permissions = $this->permissions ?? [];
         return in_array($action, $permissions['actions'] ?? []);
+    }
+
+    public function getFullName()
+    {
+        return trim(($this->first_name ?? '') . ' ' . ($this->last_name ?? ''));
     }
 }

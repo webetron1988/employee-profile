@@ -13,7 +13,7 @@ class CreateGovtIdsTable extends Migration
             'employee_id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'id_type' => ['type' => 'ENUM', 'constraint' => ['Aadhaar', 'PAN', 'Passport', 'Driving License', 'Voter ID', 'Other'], 'default' => 'Aadhaar'],
             'id_number_encrypted' => ['type' => 'LONGTEXT'],
-            'id_number_hash' => ['type' => 'VARCHAR', 'constraint' => 255],
+            'id_number_hash' => ['type' => 'VARCHAR', 'constraint' => 64],
             'issue_date' => ['type' => 'DATE', 'null' => true],
             'expiry_date' => ['type' => 'DATE', 'null' => true],
             'issuing_country' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
@@ -26,7 +26,7 @@ class CreateGovtIdsTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_govt_id_employee');
         $this->forge->addKey('employee_id');
         $this->forge->addUniqueKey('id_number_hash');

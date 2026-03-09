@@ -13,6 +13,7 @@ class GovtId extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'employee_id',
         'id_type',
@@ -27,17 +28,22 @@ class GovtId extends Model
         'verified',
         'verification_date',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_primary' => 'boolean',
         'verified' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'issue_date' => 'date',
-        'expiry_date' => 'date',
-        'verification_date' => 'date'
+    ];
+
+    protected $validationRules = [
+        'employee_id'        => 'required|integer',
+        'id_type'            => 'required|max_length[100]',
+        'issue_date'         => 'permit_empty|valid_date',
+        'expiry_date'        => 'permit_empty|valid_date',
+        'issuing_country'    => 'permit_empty|max_length[100]',
+        'issuing_authority'  => 'permit_empty|max_length[255]',
     ];
 
     // Relationship

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         backupGlobals="false"
+         colors="true"
+         stopOnError="false"
+         stopOnFailure="false">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">app/Controllers</directory>
+            <directory suffix=".php">app/Libraries</directory>
+            <directory suffix=".php">app/Models</directory>
+            <directory suffix=".php">app/Middleware</directory>
+        </include>
+    </source>
+
+    <php>
+        <!-- Test environment -->
+        <env name="CI_ENVIRONMENT" value="testing"/>
+        <env name="app.baseURL" value="http://localhost:8000"/>
+
+        <!-- Test database (set to your local test DB) -->
+        <env name="database.default.hostname" value="localhost"/>
+        <env name="database.default.database" value="employee_profile_test"/>
+        <env name="database.default.username" value="root"/>
+        <env name="database.default.password" value=""/>
+        <env name="database.default.DBDriver" value="MySQLi"/>
+        <env name="database.default.port" value="3306"/>
+
+        <!-- Encryption key for tests (32 chars = 256 bits) -->
+        <env name="encryption.key" value="testkey_employee_profile_app_256"/>
+
+        <!-- Dummy HRMS config (not used in most tests) -->
+        <env name="hrms.sso_endpoint" value="http://mock-hrms.test/api/sso"/>
+        <env name="hrms.api_base_url" value="http://mock-hrms.test/api"/>
+        <env name="hrms.jwt_secret_key" value="test_secret_key"/>
+        <env name="hrms.jwt_algorithm" value="RS256"/>
+    </php>
+
+</phpunit>

@@ -27,12 +27,38 @@ class EmploymentHistory extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'start_date' => 'date',
-        'end_date' => 'date'
+    protected array $casts = [
     ];
+
+    protected $validationRules = [
+        'employee_id'      => 'required|integer',
+        'designation'      => 'permit_empty|max_length[255]',
+        'department'       => 'permit_empty|max_length[255]',
+        'start_date'       => 'permit_empty|valid_date',
+        'end_date'         => 'permit_empty|valid_date',
+        'employment_type'  => 'permit_empty|in_list[Full-time,Part-time,Contract,Intern]',
+    ];
+
+    /**
+     * Validate date ranges before insert/update
+     */
+    protected function initialize()
+    {
+        parent::initialize();
+        $this->beforeInsert[] = 'validateDateRange';
+        $this->beforeUpdate[] = 'validateDateRange';
+    }
+
+    protected function validateDateRange(array $data): array
+    {
+        $d = $data['data'] ?? $data;
+        if (!empty($d['start_date']) && !empty($d['end_date'])) {
+            if (strtotime($d['end_date']) < strtotime($d['start_date'])) {
+                throw new \InvalidArgumentException('end_date must be after start_date');
+            }
+        }
+        return $data;
+    }
 
     // Relationships
     public function employee()

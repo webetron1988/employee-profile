@@ -30,11 +30,13 @@ $routes->get('health', 'Health::check', ['namespace' => 'App\Controllers']);
  * ===================================
  */
 $routes->group('auth', static function ($routes) {
-    // Public endpoints
-    $routes->post('sso-login', 'Auth::ssoLogin');
-    
+    // Public endpoints (rate-limited: 10 req/min)
+    $routes->post('sso-login', 'Auth::ssoLogin', ['filter' => 'ratelimit:10,60']);
+    $routes->post('login',     'Auth::login',    ['filter' => 'ratelimit:10,60']);
+    $routes->post('refresh',       'Auth::refresh',      ['filter' => 'ratelimit:10,60']);
+    $routes->post('service-login', 'Auth::serviceLogin', ['filter' => 'ratelimit:10,60']);
+
     // Protected endpoints
-    $routes->post('refresh', 'Auth::refresh', ['filter' => 'permission']);
     $routes->get('verify', 'Auth::verify', ['filter' => 'permission']);
     $routes->post('logout', 'Auth::logout', ['filter' => 'permission']);
 });
@@ -81,8 +83,58 @@ $routes->group('profile', ['filter' => 'permission'], static function ($routes) 
     
     // Family Dependents
     $routes->get('family-dependents', 'Profile::getFamilyDependents');
+    $routes->get('family-dependents/(:num)', 'Profile::getFamilyDependent/$1');
     $routes->post('family-dependents', 'Profile::addFamilyDependent');
     $routes->put('family-dependents/(:num)', 'Profile::updateFamilyDependent/$1');
+    $routes->delete('family-dependents/(:num)', 'Profile::deleteFamilyDependent/$1');
+
+    // Languages
+    $routes->get('languages', 'Profile::getLanguages');
+    $routes->get('languages/(:num)', 'Profile::getLanguage/$1');
+    $routes->post('languages', 'Profile::addLanguage');
+    $routes->put('languages/(:num)', 'Profile::updateLanguage/$1');
+    $routes->delete('languages/(:num)', 'Profile::deleteLanguage/$1');
+
+    // Hobbies / Sports / Talents
+    $routes->get('hobbies', 'Profile::getHobbies');
+    $routes->get('hobbies/(:num)', 'Profile::getHobby/$1');
+    $routes->post('hobbies', 'Profile::addHobby');
+    $routes->put('hobbies/(:num)', 'Profile::updateHobby/$1');
+    $routes->delete('hobbies/(:num)', 'Profile::deleteHobby/$1');
+
+    // Volunteer Activities
+    $routes->get('volunteer-activities', 'Profile::getVolunteerActivities');
+    $routes->get('volunteer-activities/(:num)', 'Profile::getVolunteerActivity/$1');
+    $routes->post('volunteer-activities', 'Profile::addVolunteerActivity');
+    $routes->put('volunteer-activities/(:num)', 'Profile::updateVolunteerActivity/$1');
+    $routes->delete('volunteer-activities/(:num)', 'Profile::deleteVolunteerActivity/$1');
+
+    // Patents
+    $routes->get('patents', 'Profile::getPatents');
+    $routes->get('patents/(:num)', 'Profile::getPatent/$1');
+    $routes->post('patents', 'Profile::addPatent');
+    $routes->put('patents/(:num)', 'Profile::updatePatent/$1');
+    $routes->delete('patents/(:num)', 'Profile::deletePatent/$1');
+
+    // Physical Location
+    $routes->get('physical-location', 'Profile::getPhysicalLocation');
+    $routes->put('physical-location', 'Profile::updatePhysicalLocation');
+
+    // Working Conditions
+    $routes->get('working-conditions', 'Profile::getWorkingConditions');
+    $routes->put('working-conditions', 'Profile::updateWorkingConditions');
+
+    // Mobility Preferences
+    $routes->get('mobility-preferences', 'Profile::getMobilityPreferences');
+    $routes->put('mobility-preferences', 'Profile::updateMobilityPreferences');
+
+    // GDPR Consents
+    $routes->get('consents', 'Profile::getConsents');
+    $routes->post('consents', 'Profile::recordConsent');
+    $routes->delete('consents', 'Profile::withdrawAllConsents');
+
+    // Data Version History
+    $routes->get('versions', 'Profile::getVersionHistory');
 });
 
 /**
@@ -94,6 +146,7 @@ $routes->group('job', ['filter' => 'permission'], static function ($routes) {
     // Current Job Information
     $routes->get('information', 'Job::getJobInformation');
     $routes->get('information/(:num)', 'Job::getJobInformationById/$1');
+    $routes->put('information', 'Job::updateJobInformation');
     
     // Employment History
     $routes->get('history', 'Job::getEmploymentHistory');
@@ -109,10 +162,14 @@ $routes->group('job', ['filter' => 'permission'], static function ($routes) {
     // Promotions
     $routes->get('promotions', 'Job::getPromotions');
     $routes->post('promotions', 'Job::createPromotion');
-    
+    $routes->put('promotions/(:num)', 'Job::updatePromotion/$1');
+    $routes->delete('promotions/(:num)', 'Job::deletePromotion/$1');
+
     // Transfers
     $routes->get('transfers', 'Job::getTransfers');
     $routes->post('transfers', 'Job::createTransfer');
+    $routes->put('transfers/(:num)', 'Job::updateTransfer/$1');
+    $routes->delete('transfers/(:num)', 'Job::deleteTransfer/$1');
 });
 
 /**
@@ -132,11 +189,14 @@ $routes->group('performance', ['filter' => 'permission'], static function ($rout
     $routes->get('goals/(:num)', 'Performance::getGoalId/$1');
     $routes->post('goals', 'Performance::createGoal');
     $routes->put('goals/(:num)', 'Performance::updateGoal/$1');
-    
+    $routes->delete('goals/(:num)', 'Performance::deleteGoal/$1');
+
     // Performance Feedback
     $routes->get('feedback', 'Performance::getFeedback');
     $routes->get('feedback/(:num)', 'Performance::getFeedbackId/$1');
     $routes->post('feedback', 'Performance::createFeedback');
+    $routes->put('feedback/(:num)', 'Performance::updateFeedback/$1');
+    $routes->delete('feedback/(:num)', 'Performance::deleteFeedback/$1');
     
     // Ratings
     $routes->get('ratings', 'Performance::getRatings');
@@ -170,13 +230,27 @@ $routes->group('talent', ['filter' => 'permission'], static function ($routes) {
     $routes->put('certifications/(:num)', 'Talent::updateCertification/$1');
     
     // Individual Development Plan
+    $routes->get('idp/all', 'Talent::getIdpAll');
     $routes->get('idp', 'Talent::getIdp');
     $routes->post('idp', 'Talent::createIdp');
     $routes->put('idp/(:num)', 'Talent::updateIdp/$1');
     
+    // Succession Plans
+    $routes->get('succession', 'Talent::getSuccessionPlans');
+    $routes->get('succession/(:num)', 'Talent::getSuccessionPlan/$1');
+    $routes->post('succession', 'Talent::createSuccessionPlan');
+    $routes->put('succession/(:num)', 'Talent::updateSuccessionPlan/$1');
+    $routes->delete('succession/(:num)', 'Talent::deleteSuccessionPlan/$1');
+
     // Awards
     $routes->get('awards', 'Talent::getAwards');
     $routes->get('awards/(:num)', 'Talent::getAwardId/$1');
+
+    // Career Paths
+    $routes->get('career-paths', 'Talent::getCareerPaths');
+    $routes->post('career-paths', 'Talent::createCareerPath');
+    $routes->put('career-paths/(:num)', 'Talent::updateCareerPath/$1');
+    $routes->delete('career-paths/(:num)', 'Talent::deleteCareerPath/$1');
 });
 
 /**
@@ -198,9 +272,24 @@ $routes->group('learning', ['filter' => 'permission'], static function ($routes)
     // Training History
     $routes->get('training-history', 'Learning::getTrainingHistory');
     $routes->get('training-history/(:num)', 'Learning::getTrainingHistoryId/$1');
+    $routes->post('training-history', 'Learning::createTrainingHistory');
+    $routes->put('training-history/(:num)', 'Learning::updateTrainingHistory/$1');
+    $routes->delete('training-history/(:num)', 'Learning::deleteTrainingHistory/$1');
     
     // Learning Paths
     $routes->get('learning-paths', 'Learning::getLearningPaths');
+
+    // Mentoring Programs
+    $routes->get('mentoring', 'Learning::getMentoring');
+    $routes->post('mentoring', 'Learning::createMentoring');
+    $routes->put('mentoring/(:num)', 'Learning::updateMentoring/$1');
+    $routes->delete('mentoring/(:num)', 'Learning::deleteMentoring/$1');
+
+    // Skills Gap Analysis
+    $routes->get('skills-gap', 'Learning::getSkillsGap');
+    $routes->post('skills-gap', 'Learning::createSkillsGap');
+    $routes->put('skills-gap/(:num)', 'Learning::updateSkillsGap/$1');
+    $routes->delete('skills-gap/(:num)', 'Learning::deleteSkillsGap/$1');
 });
 
 /**
@@ -236,19 +325,21 @@ $routes->group('admin', ['filter' => 'permission'], static function ($routes) {
     $routes->get('users', 'Admin::listUsers');
     $routes->post('users', 'Admin::createUser');
     $routes->put('users/(:num)', 'Admin::updateUser/$1');
-    
-    // Sync Management
+    $routes->get('users/hrms-compare', 'Admin::usersHrmsCompare');
+
+    // Sync Management (reads from HRMS DB directly)
     $routes->post('sync/employees', 'Admin::syncEmployees');
     $routes->get('sync/status', 'Admin::getSyncStatus');
     $routes->get('sync/logs', 'Admin::getSyncLogs');
     
-    // Audit Logs
+    // Audit Logs (enhanced: search, filter, export)
     $routes->get('audit-logs', 'Admin::getAuditLogs');
+    $routes->get('audit-logs/export', 'Admin::exportAuditLogs');
     $routes->get('audit-logs/(:num)', 'Admin::getAuditLogId/$1');
-    
+
     // System Configuration
     $routes->get('configuration', 'Admin::getConfiguration');
-    $routes->put('configuration/(:alphanum)', 'Admin::updateConfiguration/$1');
+    $routes->put('configuration/(:segment)', 'Admin::updateConfiguration/$1');
 });
 
 /**

@@ -2,8 +2,8 @@
 
 namespace App\Libraries;
 
-use App\Models\UserModel;
-use App\Models\AuditLogModel;
+use App\Models\User as UserModel;
+use App\Models\AuditLog as AuditLogModel;
 use Exception;
 
 class PermissionChecker
@@ -117,7 +117,7 @@ class PermissionChecker
      */
     public function hasModuleAccess($module)
     {
-        $roles = $this->ROLE_MODULE_ACCESS[$this->role] ?? [];
+        $roles = self::ROLE_MODULE_ACCESS[$this->role] ?? [];
         $hasAccess = in_array($module, $roles);
 
         $this->logAccessAttempt('module_check', $module, $hasAccess ? 'allowed' : 'denied');
@@ -134,7 +134,7 @@ class PermissionChecker
             return false;
         }
 
-        $allowedActions = $this->ROLE_ACTION_ACCESS[$this->role][$module] ?? [];
+        $allowedActions = self::ROLE_ACTION_ACCESS[$this->role][$module] ?? [];
         $hasAccess = in_array($action, $allowedActions);
 
         $this->logAccessAttempt('action_check', "{$module}:{$action}", $hasAccess ? 'allowed' : 'denied');
@@ -183,7 +183,7 @@ class PermissionChecker
      */
     public function getDataScope($employeeId)
     {
-        $scope = $this->DATA_SCOPE_RULES[$this->role] ?? ['self'];
+        $scope = self::DATA_SCOPE_RULES[$this->role] ?? ['self'];
 
         // If user has custom scope from permissions JSON
         if (isset($this->permissions['data_scope']) && is_array($this->permissions['data_scope'])) {
@@ -335,7 +335,7 @@ class PermissionChecker
      */
     public function getAvailableModules()
     {
-        return $this->ROLE_MODULE_ACCESS[$this->role] ?? [];
+        return self::ROLE_MODULE_ACCESS[$this->role] ?? [];
     }
 
     /**

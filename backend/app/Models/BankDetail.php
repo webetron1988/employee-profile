@@ -13,6 +13,7 @@ class BankDetail extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'employee_id',
         'bank_name',
@@ -25,14 +26,20 @@ class BankDetail extends Model
         'is_primary',
         'verified',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_primary' => 'boolean',
         'verified' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+    ];
+
+    protected $validationRules = [
+        'employee_id'        => 'required|integer',
+        'bank_name'          => 'required|max_length[255]',
+        'account_holder_name' => 'required|max_length[255]',
+        'ifsc_code'          => 'permit_empty|regex_match[/^[A-Z]{4}0[A-Z0-9]{6}$/]',
     ];
 
     // Relationship

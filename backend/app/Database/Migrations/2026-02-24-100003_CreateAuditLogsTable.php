@@ -79,7 +79,7 @@ class CreateAuditLogsTable extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addKey('employee_id');
         $this->forge->addKey('user_id');
         $this->forge->addKey('created_at');

@@ -25,11 +25,9 @@ class Course extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'cost' => 'float',
-        'duration_hours' => 'int',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+    protected array $casts = [
+        'cost' => '?float',
+        'duration_hours' => '?int',
     ];
 
     protected $validationRules = [

@@ -25,10 +25,8 @@ class OrgHierarchy extends Model
         'updated_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'is_manager' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
     ];
 
     // Relationships

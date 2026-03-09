@@ -22,12 +22,16 @@ class EmployeeSkill extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'years_of_experience' => 'float',
+    protected array $casts = [
+        'years_of_experience' => '?float',
         'verified' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'last_used_date' => 'date'
+    ];
+
+    protected $validationRules = [
+        'employee_id'        => 'required|integer',
+        'skill_id'           => 'required|integer',
+        'proficiency_level'  => 'permit_empty|in_list[Beginner,Intermediate,Advanced,Expert]',
+        'years_of_experience' => 'permit_empty|numeric|greater_than_equal_to[0]',
     ];
 
     // Relationships

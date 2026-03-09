@@ -30,7 +30,7 @@ class CreateJobInformationTable extends Migration
             'deleted_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_job_info_employee');
         $this->forge->addUniqueKey('employee_id');
         $this->forge->addKey('department');

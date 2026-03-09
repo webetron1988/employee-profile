@@ -25,14 +25,31 @@ trait EncryptableModel
     protected $encryptionConfig;
 
     /**
-     * Initialize encryption handling
+     * Initialize encryption handling.
+     * Called automatically by CI4 model lifecycle via initEncryptable() or lazily.
      */
-    private function initializeEncryption()
+    protected function initializeEncryption()
     {
-        if (!$this->encryptor) {
-            $this->encryptor = service('encryptor');
+        if (!$this->encryptionConfig) {
             $this->encryptionConfig = config('Encryption');
         }
+        if (!$this->encryptor) {
+            try {
+                $this->encryptor = service('encryptor');
+            } catch (\Throwable $e) {
+                // Encryptor service not available — encryption disabled
+                log_message('warning', 'Encryptor service unavailable: ' . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Auto-initialize when trait is used in a CI4 model.
+     * CI4 calls initialize() on model construction.
+     */
+    protected function initEncryptable()
+    {
+        $this->initializeEncryption();
     }
 
     /**
@@ -216,7 +233,8 @@ trait EncryptableModel
      */
     protected function beforeInsert(array $data)
     {
-        if ($this->encryptionConfig->autoEncrypt) {
+        $this->initializeEncryption();
+        if ($this->encryptionConfig && $this->encryptionConfig->autoEncrypt) {
             $data['data'] = $this->encryptSensitiveData($data['data']);
         }
 
@@ -228,7 +246,8 @@ trait EncryptableModel
      */
     protected function beforeUpdate(array $data)
     {
-        if ($this->encryptionConfig->autoEncrypt) {
+        $this->initializeEncryption();
+        if ($this->encryptionConfig && $this->encryptionConfig->autoEncrypt) {
             $data['data'] = $this->encryptSensitiveData($data['data']);
         }
 
@@ -240,9 +259,10 @@ trait EncryptableModel
      */
     public function find($id = null)
     {
+        $this->initializeEncryption();
         $result = parent::find($id);
 
-        if ($result && $this->encryptionConfig->autoEncrypt) {
+        if ($result && $this->encryptionConfig && $this->encryptionConfig->autoEncrypt) {
             $result = $this->decryptSensitiveData($result);
         }
 
@@ -254,9 +274,10 @@ trait EncryptableModel
      */
     public function findAll($limit = 0, $offset = 0)
     {
+        $this->initializeEncryption();
         $results = parent::findAll($limit, $offset);
 
-        if ($results && $this->encryptionConfig->autoEncrypt) {
+        if ($results && $this->encryptionConfig && $this->encryptionConfig->autoEncrypt) {
             foreach ($results as &$result) {
                 $result = $this->decryptSensitiveData($result);
             }
@@ -270,9 +291,10 @@ trait EncryptableModel
      */
     public function first()
     {
+        $this->initializeEncryption();
         $result = parent::first();
 
-        if ($result && $this->encryptionConfig->autoEncrypt) {
+        if ($result && $this->encryptionConfig && $this->encryptionConfig->autoEncrypt) {
             $result = $this->decryptSensitiveData($result);
         }
 
@@ -287,7 +309,8 @@ trait EncryptableModel
      */
     public function getMasked($data)
     {
-        if (!$this->encryptionConfig->autoMask) {
+        $this->initializeEncryption();
+        if (!$this->encryptionConfig || !$this->encryptionConfig->autoMask) {
             return $data;
         }
 

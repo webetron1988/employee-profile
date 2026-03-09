@@ -28,7 +28,7 @@ class CreateCourseEnrollmentsTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_enrollment_employee');
         $this->forge->addForeignKey('course_id', 'courses', 'id', 'CASCADE', 'CASCADE', 'fk_enrollment_course');
         $this->forge->addKey('employee_id');

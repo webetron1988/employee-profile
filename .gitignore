@@ -1,0 +1,34 @@
+# Environment & secrets
+backend/.env
+backend/.env.testing
+frontend/.env
+
+# RSA keys (generate per-environment, never commit)
+backend/config/keys/private.pem
+backend/config/keys/public.pem
+
+# CI4 writable directory (logs, cache, uploads, sessions, debugbar)
+backend/writable/
+
+# Composer
+backend/vendor/
+backend/composer.phar
+
+# PHPUnit
+backend/.phpunit.result.cache
+
+# IDE / OS
+.claude/
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# Backups & dev artifacts
+backup/
+Status/
+Design/
+*.bak
+*.old

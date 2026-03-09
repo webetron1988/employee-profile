@@ -24,11 +24,12 @@ class Certification extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'issue_date' => 'date',
-        'expiry_date' => 'date'
+    protected $validationRules = [
+        'employee_id'        => 'required|integer',
+        'certification_name' => 'required|max_length[255]',
+        'issue_date'         => 'permit_empty|valid_date',
+        'expiry_date'        => 'permit_empty|valid_date',
+        'status'             => 'permit_empty|in_list[Active,Expired,Revoked,Pending]',
     ];
 
     // Relationship

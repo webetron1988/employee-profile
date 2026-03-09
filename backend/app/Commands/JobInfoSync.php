@@ -2,7 +2,7 @@
 
 namespace App\Commands;
 
-use App\Models\Employee;
+use App\Models\User;
 use App\Models\JobInformation;
 use App\Models\SyncLog;
 use CodeIgniter\CLI\BaseCommand;
@@ -129,7 +129,7 @@ class JobInfoSync extends BaseCommand
         $this->isDryRun = $this->getOption('dry-run') !== null;
 
         $this->hrmsClient = service('hrmsclient');
-        $this->employeeModel = new Employee();
+        $this->employeeModel = new User();
         $this->jobInfoModel = new JobInformation();
         $this->syncLogModel = new SyncLog();
     }

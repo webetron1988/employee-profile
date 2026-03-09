@@ -22,30 +22,44 @@ class JobInformation extends Model
         'joined_date',
         'confirmation_date',
         'reporting_manager_id',
+        'reporting_since',
         'functional_manager_id',
+        'matrix_relationship',
         'location',
         'cost_center',
         'business_unit',
+        'work_schedule',
+        'weekly_hours',
+        'fte',
+        'union_member',
+        'contract_end_date',
+        'budget_authority',
+        'signing_authority',
+        'cost_centre_name',
+        'gl_code',
+        'flsa_status',
+        'eeo_category',
+        'job_family',
+        'job_sub_family',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
-        'joined_date' => 'date',
-        'confirmation_date' => 'date'
+    protected array $casts = [
     ];
 
     protected $useSoftDeletes = true;
 
     protected $validationRules = [
         'employee_id' => 'required',
-        'designation' => 'required|string|max_length[100]',
-        'department' => 'required|string|max_length[100]',
-        'employment_type' => 'required|in_list[Full-Time,Part-Time,Contract,Temporary,Intern]'
+        'designation' => 'permit_empty|string|max_length[100]',
+        'department' => 'permit_empty|string|max_length[100]',
+        'employment_type' => 'permit_empty|in_list[Full-Time,Part-Time,Contract,Temporary,Intern]',
+        'flsa_status' => 'permit_empty|max_length[50]',
+        'eeo_category' => 'permit_empty|max_length[100]',
+        'job_family' => 'permit_empty|max_length[100]',
+        'job_sub_family' => 'permit_empty|max_length[100]',
     ];
 
     // Relationships

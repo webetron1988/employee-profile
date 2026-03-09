@@ -19,7 +19,7 @@ class CreateSkillsTable extends Migration
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addKey('skill_category');
         $this->forge->addUniqueKey('skill_name');
         $this->forge->createTable('skills', true);

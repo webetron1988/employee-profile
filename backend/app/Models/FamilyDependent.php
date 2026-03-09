@@ -10,23 +10,31 @@ class FamilyDependent extends Model
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'employee_id',
         'name',
         'relationship',
         'date_of_birth',
+        'gender',
+        'contact_number',
         'occupation',
         'education_level',
         'dependent_for_insurance',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
-    protected $casts = [
+    protected array $casts = [
         'dependent_for_insurance' => 'boolean',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'date_of_birth' => 'date'
+    ];
+
+    protected $validationRules = [
+        'employee_id'   => 'required|integer',
+        'name'          => 'required|max_length[255]',
+        'relationship'  => 'required|max_length[100]',
+        'date_of_birth' => 'permit_empty|valid_date',
     ];
 
     // Relationship

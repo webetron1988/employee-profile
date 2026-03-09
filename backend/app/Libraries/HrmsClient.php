@@ -4,6 +4,8 @@ namespace App\Libraries;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Exception;
 
 class HrmsClient
@@ -12,6 +14,7 @@ class HrmsClient
     private $hrmsBaseUrl;
     private $hrmsApiKey;
     private $hrmsApiSecret;
+    private $hrmsJwtKey;
     private $jwtHandler;
 
     public function __construct()
@@ -19,7 +22,9 @@ class HrmsClient
         $this->hrmsBaseUrl = getenv('hrms.base_url') ?: 'https://hrms.api.example.com';
         $this->hrmsApiKey = getenv('hrms.api_key');
         $this->hrmsApiSecret = getenv('hrms.api_secret');
-        
+        // Force-read from .env (CI4 DotEnv won't overwrite cached vars)
+        $this->hrmsJwtKey = $this->readEnvKey('hrms.jwt_secret_key') ?: '';
+
         $this->httpClient = new Client([
             'base_uri' => $this->hrmsBaseUrl,
             'timeout' => 30,
@@ -30,18 +35,67 @@ class HrmsClient
     }
 
     /**
-     * Validate JWT token received from HRMS
-     * @param string $token JWT token from HRMS
-     * @return array|null Claims if valid, null if invalid
+     * Validate JWT token received from HRMS.
+     *
+     * Tries HS256 first (real HRMS tokens signed with shared key), then
+     * falls back to RS256 (dev tokens signed with this app's own key pair).
+     *
+     * @param string $token JWT token (HRMS-issued HS256, or locally-signed RS256 for dev)
+     * @return array|null Flat claims array ['sub', 'email', 'role'] if valid, null if invalid
      */
     public function validateHrmsToken($token)
     {
+        // ── Try 1: HS256 validation using HRMS shared key ──
+        if (!empty($this->hrmsJwtKey)) {
+            try {
+                $decoded = JWT::decode($token, new Key($this->hrmsJwtKey, 'HS256'));
+                $data = (array) $decoded;
+
+                // Verify this is an SSO token from HRMS
+                if (($data['type'] ?? '') === 'ep_sso') {
+                    // HRMS tokens use API_TIME instead of exp — enforce 120-second window
+                    if (!empty($data['API_TIME']) && (time() - (int) $data['API_TIME']) > 120) {
+                        log_message('warning', 'HRMS SSO token expired (age > 120s)');
+                        return null;
+                    }
+
+                    log_message('info', 'HRMS HS256 SSO token validated', ['sub' => $data['sub'] ?? null]);
+
+                    return [
+                        'sub'   => $data['sub'] ?? (string) ($data['empID'] ?? ''),
+                        'email' => $data['email'] ?? null,
+                        'role'  => $data['role'] ?? 'employee',
+                    ];
+                }
+
+                // Generic HRMS HS256 token (non-SSO)
+                log_message('info', 'HRMS HS256 token validated', ['email' => $data['email'] ?? null]);
+                return [
+                    'sub'   => $data['sub'] ?? $data['empID'] ?? (string) ($data['id'] ?? ''),
+                    'email' => $data['email'] ?? null,
+                    'role'  => $data['role'] ?? $data['role_code'] ?? 'employee',
+                ];
+            } catch (Exception $e) {
+                log_message('info', 'HS256 validation failed, trying RS256: ' . $e->getMessage());
+            }
+        }
+
+        // ── Try 2: RS256 validation (dev mode — token signed with this app's RSA key) ──
         try {
-            $claims = $this->jwtHandler->validateToken($token);
-            log_message('info', 'HRMS Token validated successfully', [
-                'hrms_employee_id' => $claims['sub'] ?? null
-            ]);
-            return $claims;
+            $result = $this->jwtHandler->validateToken($token);
+
+            if (!$result || !($result['status'] ?? false)) {
+                log_message('warning', 'HRMS Token validation failed: invalid or expired');
+                return null;
+            }
+
+            $data = $result['data'] ?? [];
+
+            return [
+                'sub'   => $data['hrms_employee_id'] ?? (string) ($data['user_id'] ?? ''),
+                'email' => $data['email'] ?? null,
+                'role'  => $data['role'] ?? 'employee',
+            ];
         } catch (Exception $e) {
             log_message('warning', 'HRMS Token validation failed: ' . $e->getMessage());
             return null;
@@ -311,5 +365,39 @@ class HrmsClient
             'actions' => ['read'],
             'data_scope' => ['self']
         ];
+    }
+
+    /**
+     * Read a key directly from the .env file, bypassing getenv() cache.
+     * CI4's DotEnv won't overwrite existing env vars, so stale values
+     * persist across server restarts.
+     */
+    private function readEnvKey(string $key): string
+    {
+        $envFile = ROOTPATH . '.env';
+        if (!is_file($envFile)) {
+            return getenv($key) ?: '';
+        }
+
+        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || $line[0] === '#') {
+                continue;
+            }
+            if (strpos($line, '=') === false) {
+                continue;
+            }
+            [$name, $value] = array_map('trim', explode('=', $line, 2));
+            if ($name === $key) {
+                // Strip surrounding quotes
+                if ((strlen($value) > 1) && ($value[0] === "'" || $value[0] === '"')) {
+                    $value = substr($value, 1, -1);
+                }
+                return $value;
+            }
+        }
+
+        return getenv($key) ?: '';
     }
 }

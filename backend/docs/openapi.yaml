@@ -1,0 +1,1763 @@
+openapi: 3.0.3
+
+info:
+  title: Employee Profile & HRMS System API
+  description: |
+    Comprehensive HR management and employee profile REST API built on CodeIgniter 4.
+
+    ## Authentication
+    All protected endpoints require a valid Bearer JWT token in the `Authorization` header.
+
+    **Flow:**
+    1. User logs into HRMS — HRMS issues a signed RS256 JWT
+    2. Client sends the HRMS JWT to `POST /auth/sso-login`
+    3. API validates the JWT, syncs the user, and returns an `access_token` + `refresh_token`
+    4. Client uses the `access_token` for all subsequent calls
+    5. When the access token expires, call `POST /auth/refresh`
+
+    ## Roles
+    | Role | Scope |
+    |------|-------|
+    | `admin` | Full access to all modules and all employee data |
+    | `hr` | Talent, compliance, reporting — department-scoped |
+    | `manager` | Own profile + direct reports + team analytics |
+    | `employee` | Own profile only |
+    | `system` | Service account for HRMS sync operations |
+
+  version: 1.0.0
+  contact:
+    name: HR Systems Team
+
+servers:
+  - url: http://localhost:8000
+    description: Local development (php spark serve)
+  - url: http://localhost/employee-profile/backend/public
+    description: WAMP local server
+
+tags:
+  - name: Health
+  - name: Auth
+  - name: Profile
+  - name: Job
+  - name: Performance
+  - name: Talent
+  - name: Learning
+  - name: Compliance
+  - name: Admin
+  - name: Analytics
+  - name: Dashboard
+  - name: Reports
+  - name: Search
+  - name: Upload
+  - name: Export
+  - name: Docs
+
+# ============================================================
+# Security scheme
+# ============================================================
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # ---- Generic ----
+    SuccessResponse:
+      type: object
+      properties:
+        data:
+          type: object
+        message:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        messages:
+          type: object
+        status:
+          type: integer
+
+    PaginatedResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+        total:
+          type: integer
+        page:
+          type: integer
+        per_page:
+          type: integer
+        pages:
+          type: integer
+
+    # ---- Employee ----
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+        employee_id:
+          type: string
+          example: EMP-0001
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+        nationality:
+          type: string
+        profile_picture_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          enum: [Active, Inactive, On Leave, Terminated]
+
+    # ---- Auth ----
+    TokenResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+            expires_in:
+              type: integer
+            refresh_token:
+              type: string
+            user:
+              type: object
+
+# ============================================================
+# Global security (override per-endpoint for public routes)
+# ============================================================
+security:
+  - BearerAuth: []
+
+# ============================================================
+# Paths
+# ============================================================
+paths:
+
+  # ----------------------------------------------------------
+  # Health
+  # ----------------------------------------------------------
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check
+      description: Returns API status and DB connectivity. Public — no auth required.
+      security: []
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  timestamp:
+                    type: string
+                  environment:
+                    type: string
+                  version:
+                    type: string
+                    example: 1.0.0
+        '500':
+          description: DB connection failure
+
+  # ----------------------------------------------------------
+  # Auth
+  # ----------------------------------------------------------
+  /auth/sso-login:
+    post:
+      tags: [Auth]
+      summary: SSO Login
+      description: Exchange an HRMS-issued RS256 JWT for an application access token.
+      security: []
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: "Bearer <hrms_jwt_token>"
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Missing token claims
+        '401':
+          description: Invalid or missing HRMS token
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Refresh access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: New access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          description: Refresh token missing
+        '401':
+          description: Invalid or expired refresh token
+
+  /auth/verify:
+    get:
+      tags: [Auth]
+      summary: Verify access token
+      responses:
+        '200':
+          description: Token is valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      claims:
+                        type: object
+                      expires_at:
+                        type: string
+                      expires_in:
+                        type: integer
+        '401':
+          description: Token invalid or expired
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout
+      description: Invalidates the current session and logs the event.
+      responses:
+        '200':
+          description: Logged out successfully
+        '401':
+          description: Unauthorized
+
+  # ----------------------------------------------------------
+  # Profile
+  # ----------------------------------------------------------
+  /profile:
+    get:
+      tags: [Profile]
+      summary: Get own profile
+      responses:
+        '200':
+          description: Full employee profile
+        '401':
+          description: Unauthorized
+    put:
+      tags: [Profile]
+      summary: Update own profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: Profile updated
+        '422':
+          description: Validation error
+
+  /profile/{id}:
+    get:
+      tags: [Profile]
+      summary: View another employee's profile (role-scoped)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee profile
+        '403':
+          description: Insufficient permissions
+        '404':
+          description: Employee not found
+
+  /profile/personal-details:
+    get:
+      tags: [Profile]
+      summary: Get personal details
+      responses:
+        '200':
+          description: Personal details (sensitive fields masked by role)
+    put:
+      tags: [Profile]
+      summary: Update personal details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /profile/addresses:
+    get:
+      tags: [Profile]
+      summary: List addresses
+      responses:
+        '200':
+          description: Address list
+    post:
+      tags: [Profile]
+      summary: Add address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address_type:
+                  type: string
+                  enum: [Home, Work, Permanent, Other]
+                street:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                country:
+                  type: string
+                postal_code:
+                  type: string
+      responses:
+        '201':
+          description: Address added
+
+  /profile/addresses/{id}:
+    put:
+      tags: [Profile]
+      summary: Update address
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Profile]
+      summary: Delete address
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Deleted
+
+  /profile/emergency-contacts:
+    get:
+      tags: [Profile]
+      summary: List emergency contacts
+      responses:
+        '200':
+          description: Contact list
+    post:
+      tags: [Profile]
+      summary: Add emergency contact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                relationship:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '201':
+          description: Contact added
+
+  /profile/emergency-contacts/{id}:
+    put:
+      tags: [Profile]
+      summary: Update emergency contact
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /profile/govt-ids:
+    get:
+      tags: [Profile]
+      summary: List government IDs (masked)
+      responses:
+        '200':
+          description: Govt ID list — sensitive fields masked
+    post:
+      tags: [Profile]
+      summary: Add government ID (stored encrypted)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_type:
+                  type: string
+                  enum: [Aadhaar, Passport, PAN, Driving Licence, Other]
+                id_number:
+                  type: string
+                issue_date:
+                  type: string
+                  format: date
+                expiry_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: ID added (encrypted at rest)
+
+  /profile/govt-ids/{id}:
+    put:
+      tags: [Profile]
+      summary: Update government ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /profile/bank-details:
+    get:
+      tags: [Profile]
+      summary: List bank details (masked)
+      responses:
+        '200':
+          description: Bank details — account numbers masked
+    post:
+      tags: [Profile]
+      summary: Add bank detail (stored encrypted)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bank_name:
+                  type: string
+                account_number:
+                  type: string
+                ifsc_code:
+                  type: string
+                account_type:
+                  type: string
+                  enum: [Savings, Current, Salary]
+      responses:
+        '201':
+          description: Bank detail added
+
+  /profile/bank-details/{id}:
+    put:
+      tags: [Profile]
+      summary: Update bank detail
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /profile/health:
+    get:
+      tags: [Profile]
+      summary: Get health records
+      responses:
+        '200':
+          description: Health records
+    put:
+      tags: [Profile]
+      summary: Update health records
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /profile/family-dependents:
+    get:
+      tags: [Profile]
+      summary: List family dependents
+      responses:
+        '200':
+          description: Dependents list
+    post:
+      tags: [Profile]
+      summary: Add family dependent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                relationship:
+                  type: string
+                date_of_birth:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Dependent added
+
+  /profile/family-dependents/{id}:
+    put:
+      tags: [Profile]
+      summary: Update family dependent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  # ----------------------------------------------------------
+  # Job & Organization
+  # ----------------------------------------------------------
+  /job/information:
+    get:
+      tags: [Job]
+      summary: Get own job information
+      responses:
+        '200':
+          description: Job info
+
+  /job/information/{id}:
+    get:
+      tags: [Job]
+      summary: Get job info by employee ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Job info
+        '403':
+          description: Insufficient permissions
+
+  /job/history:
+    get:
+      tags: [Job]
+      summary: Get employment history
+      responses:
+        '200':
+          description: History list
+    post:
+      tags: [Job]
+      summary: Add employment history
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                designation:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: History added
+
+  /job/history/{id}:
+    get:
+      tags: [Job]
+      summary: Get specific employment history record
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: History record
+
+  /job/org-hierarchy:
+    get:
+      tags: [Job]
+      summary: Get org hierarchy
+      responses:
+        '200':
+          description: Hierarchy tree
+
+  /job/org-hierarchy/{id}:
+    get:
+      tags: [Job]
+      summary: Get hierarchy for specific node
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Node hierarchy
+
+  /job/team-members:
+    get:
+      tags: [Job]
+      summary: List team members (manager view)
+      responses:
+        '200':
+          description: Team member list
+
+  /job/reporting-structure:
+    get:
+      tags: [Job]
+      summary: Get full reporting chain
+      responses:
+        '200':
+          description: Reporting chain
+
+  /job/promotions:
+    get:
+      tags: [Job]
+      summary: List promotions
+      responses:
+        '200':
+          description: Promotion history
+    post:
+      tags: [Job]
+      summary: Record a promotion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from_designation:
+                  type: string
+                to_designation:
+                  type: string
+                effective_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Promotion recorded
+
+  /job/transfers:
+    get:
+      tags: [Job]
+      summary: List transfers
+      responses:
+        '200':
+          description: Transfer history
+    post:
+      tags: [Job]
+      summary: Record a transfer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from_department:
+                  type: string
+                to_department:
+                  type: string
+                effective_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Transfer recorded
+
+  # ----------------------------------------------------------
+  # Performance
+  # ----------------------------------------------------------
+  /performance/reviews:
+    get:
+      tags: [Performance]
+      summary: List performance reviews
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Review list
+    post:
+      tags: [Performance]
+      summary: Create performance review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employee_id:
+                  type: integer
+                review_period:
+                  type: string
+                  example: 2025-Annual
+                overall_rating:
+                  type: number
+                  minimum: 1
+                  maximum: 5
+      responses:
+        '201':
+          description: Review created
+
+  /performance/reviews/{id}:
+    get:
+      tags: [Performance]
+      summary: Get specific review
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Review details
+    put:
+      tags: [Performance]
+      summary: Update review
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /performance/goals:
+    get:
+      tags: [Performance]
+      summary: List performance goals
+      responses:
+        '200':
+          description: Goal list
+    post:
+      tags: [Performance]
+      summary: Create goal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                goal_title:
+                  type: string
+                description:
+                  type: string
+                target_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Goal created
+
+  /performance/goals/{id}:
+    get:
+      tags: [Performance]
+      summary: Get specific goal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Goal details
+    put:
+      tags: [Performance]
+      summary: Update goal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  /performance/feedback:
+    get:
+      tags: [Performance]
+      summary: List performance feedback
+      responses:
+        '200':
+          description: Feedback list
+    post:
+      tags: [Performance]
+      summary: Submit feedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject_employee_id:
+                  type: integer
+                feedback_type:
+                  type: string
+                  enum: [Manager, Peer, Self, 360]
+                feedback_text:
+                  type: string
+      responses:
+        '201':
+          description: Feedback submitted
+
+  /performance/feedback/{id}:
+    get:
+      tags: [Performance]
+      summary: Get specific feedback
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Feedback details
+
+  /performance/ratings:
+    get:
+      tags: [Performance]
+      summary: Get performance ratings
+      responses:
+        '200':
+          description: Ratings
+
+  /performance/ratings/{id}:
+    put:
+      tags: [Performance]
+      summary: Update rating
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated
+
+  # ----------------------------------------------------------
+  # Search
+  # ----------------------------------------------------------
+  /search/employees:
+    get:
+      tags: [Search]
+      summary: Search employees
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+            minLength: 2
+          description: Search keyword (min 2 chars)
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            default: Active
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/PaginatedResponse'
+                  - type: object
+                    properties:
+                      query:
+                        type: string
+        '400':
+          description: Query too short (< 2 chars)
+        '401':
+          description: Unauthorized
+
+  /search/skills:
+    get:
+      tags: [Search]
+      summary: Search skill catalog
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+            minLength: 2
+        - in: query
+          name: category
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Skill search results
+        '400':
+          description: Query too short
+
+  /search/courses:
+    get:
+      tags: [Search]
+      summary: Search course catalog
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+            minLength: 2
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: [Online, Classroom, Blended, Self-Paced]
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course search results
+        '400':
+          description: Query too short
+
+  /search/global:
+    get:
+      tags: [Search]
+      summary: Global search across employees, skills, and courses
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+            minLength: 2
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 5
+            maximum: 20
+          description: Max results per entity type
+      responses:
+        '200':
+          description: Combined search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      employees:
+                        type: array
+                        items:
+                          type: object
+                      skills:
+                        type: array
+                        items:
+                          type: object
+                      courses:
+                        type: array
+                        items:
+                          type: object
+                  query:
+                    type: string
+                  total:
+                    type: integer
+        '400':
+          description: Query too short
+
+  # ----------------------------------------------------------
+  # Upload
+  # ----------------------------------------------------------
+  /upload/profile-picture:
+    post:
+      tags: [Upload]
+      summary: Upload profile picture
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: JPEG, PNG, WebP, or GIF — max 10 MB
+      responses:
+        '201':
+          description: Upload successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  url:
+                    type: string
+                  filename:
+                    type: string
+        '422':
+          description: Invalid file type or size exceeded
+
+  /upload/certificate:
+    post:
+      tags: [Upload]
+      summary: Upload certificate
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: PDF, JPEG, PNG, or Word — max 10 MB
+      responses:
+        '201':
+          description: Certificate uploaded
+        '422':
+          description: Invalid file
+
+  /upload/document:
+    post:
+      tags: [Upload]
+      summary: Upload compliance document
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Document uploaded
+        '422':
+          description: Invalid file
+
+  /upload/bulk-employees:
+    post:
+      tags: [Upload]
+      summary: Bulk import employees via CSV
+      description: |
+        **Required CSV columns:** `employee_id, first_name, last_name, email`
+
+        **Optional columns:** `phone, date_of_birth, nationality, status`
+
+        Max file size: 5 MB. Existing employees (matched by email) will be updated.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: CSV file — max 5 MB
+      responses:
+        '201':
+          description: Import completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  inserted:
+                    type: integer
+                  updated:
+                    type: integer
+                  failed:
+                    type: integer
+                  errors:
+                    type: array
+                    items:
+                      type: string
+        '422':
+          description: Invalid CSV or missing required columns
+
+  # ----------------------------------------------------------
+  # Export
+  # ----------------------------------------------------------
+  /export/employee-profile/{id}:
+    get:
+      tags: [Export]
+      summary: Export full employee profile as JSON
+      description: Returns personal info, job, history, skills, certifications, reviews, and awards.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee profile export
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename="employee_profile_1.json"
+        '404':
+          description: Employee not found
+
+  /export/org-chart:
+    get:
+      tags: [Export]
+      summary: Export org chart data as JSON
+      parameters:
+        - in: query
+          name: department
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Org chart export
+
+  /export/performance-report:
+    get:
+      tags: [Export]
+      summary: Export performance report as JSON
+      parameters:
+        - in: query
+          name: period
+          schema:
+            type: string
+        - in: query
+          name: department
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Performance report export
+
+  /export/skill-audit:
+    get:
+      tags: [Export]
+      summary: Export skill audit as JSON
+      description: Includes all employee skills and a skill gap report (employees with < 3 skills).
+      parameters:
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Skill audit export
+
+  # ----------------------------------------------------------
+  # Analytics
+  # ----------------------------------------------------------
+  /analytics/org-structure:
+    get:
+      tags: [Analytics]
+      summary: Org structure analytics
+      responses:
+        '200':
+          description: Department headcount, manager ratio, org levels
+
+  /analytics/department-stats:
+    get:
+      tags: [Analytics]
+      summary: Department headcount and employment-type breakdown
+      responses:
+        '200':
+          description: Department statistics
+
+  /analytics/performance-summary:
+    get:
+      tags: [Analytics]
+      summary: Performance rating summary
+      responses:
+        '200':
+          description: Avg rating, distribution, pending reviews
+
+  /analytics/skill-inventory:
+    get:
+      tags: [Analytics]
+      summary: Skill catalog and proficiency distribution
+      responses:
+        '200':
+          description: Skill inventory
+
+  /analytics/competency-matrix:
+    get:
+      tags: [Analytics]
+      summary: Competency assessment heatmap (gap detection)
+      responses:
+        '200':
+          description: Competency matrix
+
+  /analytics/training-stats:
+    get:
+      tags: [Analytics]
+      summary: Training enrollment and completion rates
+      responses:
+        '200':
+          description: Training statistics
+
+  /analytics/course-effectiveness:
+    get:
+      tags: [Analytics]
+      summary: Course pass rates and scores
+      responses:
+        '200':
+          description: Course effectiveness
+
+  /analytics/hr-dashboard:
+    get:
+      tags: [Analytics]
+      summary: HR overview metrics
+      responses:
+        '200':
+          description: HR KPIs
+
+  /analytics/employee-engagement:
+    get:
+      tags: [Analytics]
+      summary: Employee engagement rates
+      responses:
+        '200':
+          description: Engagement metrics
+
+  # ----------------------------------------------------------
+  # Dashboard
+  # ----------------------------------------------------------
+  /dashboard/my-dashboard:
+    get:
+      tags: [Dashboard]
+      summary: Current employee's personal dashboard
+      responses:
+        '200':
+          description: Employee dashboard data
+
+  /dashboard/manager-dashboard:
+    get:
+      tags: [Dashboard]
+      summary: Manager team dashboard
+      responses:
+        '200':
+          description: Team KPIs and member summaries
+
+  /dashboard/hr-dashboard:
+    get:
+      tags: [Dashboard]
+      summary: HR overview dashboard
+      responses:
+        '200':
+          description: HR-wide metrics
+
+  /dashboard/admin-dashboard:
+    get:
+      tags: [Dashboard]
+      summary: Admin system dashboard
+      responses:
+        '200':
+          description: System health, sync status, user stats
+
+  # ----------------------------------------------------------
+  # Reports
+  # ----------------------------------------------------------
+  /reports/employee-summary:
+    get:
+      tags: [Reports]
+      summary: Employee list report
+      parameters:
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            default: Active
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+            maximum: 200
+      responses:
+        '200':
+          description: Paginated employee report
+
+  /reports/org-structure:
+    get:
+      tags: [Reports]
+      summary: Org structure report grouped by department
+      parameters:
+        - in: query
+          name: department
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Org structure report
+
+  /reports/performance:
+    get:
+      tags: [Reports]
+      summary: Performance reviews report
+      parameters:
+        - in: query
+          name: period
+          schema:
+            type: string
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Performance report with avg rating summary
+
+  /reports/training:
+    get:
+      tags: [Reports]
+      summary: Training enrollment and completion report
+      parameters:
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [Enrolled, In Progress, Completed, Dropped]
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Training report with hours summary
+
+  /reports/compliance:
+    get:
+      tags: [Reports]
+      summary: Compliance document status report
+      parameters:
+        - in: query
+          name: document_type
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Compliance report with expiring count
+
+  /reports/headcount:
+    get:
+      tags: [Reports]
+      summary: Headcount by department, location, and employment type
+      parameters:
+        - in: query
+          name: business_unit
+          schema:
+            type: string
+        - in: query
+          name: location
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Headcount breakdown with summary totals
+
+  # ----------------------------------------------------------
+  # Admin
+  # ----------------------------------------------------------
+  /admin/employees:
+    get:
+      tags: [Admin]
+      summary: List all employees (paginated + filterable)
+      parameters:
+        - in: query
+          name: department
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee list
+    post:
+      tags: [Admin]
+      summary: Create employee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '201':
+          description: Employee created
+        '422':
+          description: Validation error
+
+  /admin/employees/{id}:
+    put:
+      tags: [Admin]
+      summary: Update employee
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin]
+      summary: Soft-delete employee
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee deactivated
+
+  /admin/sync/employees:
+    post:
+      tags: [Admin]
+      summary: Trigger HRMS employee sync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mode:
+                  type: string
+                  enum: [full, incremental]
+                  default: incremental
+      responses:
+        '200':
+          description: Sync initiated
+
+  /admin/sync/status:
+    get:
+      tags: [Admin]
+      summary: Get latest sync status
+      responses:
+        '200':
+          description: Sync status
+
+  /admin/audit-logs:
+    get:
+      tags: [Admin]
+      summary: Get audit logs (paginated + filterable)
+      parameters:
+        - in: query
+          name: module
+          schema:
+            type: string
+        - in: query
+          name: user_id
+          schema:
+            type: integer
+        - in: query
+          name: from_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: to_date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Audit log entries
+
+  /admin/configuration:
+    get:
+      tags: [Admin]
+      summary: Get system configuration
+      responses:
+        '200':
+          description: All configuration key-value pairs
+
+  /admin/configuration/{key}:
+    put:
+      tags: [Admin]
+      summary: Update a configuration value
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+          example: performance.rating_scale
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+      responses:
+        '200':
+          description: Configuration updated
+
+  # ----------------------------------------------------------
+  # Docs (Public)
+  # ----------------------------------------------------------
+  /docs:
+    get:
+      tags: [Docs]
+      summary: API documentation index
+      security: []
+      responses:
+        '200':
+          description: Module overview and links
+
+  /docs/api:
+    get:
+      tags: [Docs]
+      summary: Authentication documentation
+      security: []
+      responses:
+        '200':
+          description: Auth flow, roles, response format, HTTP codes
+
+  /docs/endpoints:
+    get:
+      tags: [Docs]
+      summary: Full endpoint reference
+      security: []
+      responses:
+        '200':
+          description: All endpoints grouped by module

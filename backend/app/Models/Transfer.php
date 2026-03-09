@@ -20,6 +20,8 @@ class Transfer extends Model
         'transfer_date',
         'effective_date',
         'transfer_reason',
+        'key_achievement',
+        'skills_gained',
         'approval_status',
         'approved_by_id',
         'approved_date',
@@ -27,12 +29,7 @@ class Transfer extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'transfer_date' => 'date',
-        'effective_date' => 'date',
-        'approved_date' => 'date'
+    protected array $casts = [
     ];
 
     // Relationships

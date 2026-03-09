@@ -17,14 +17,14 @@ class CreateOrgHierarchyTable extends Migration
             'section' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'team' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'org_level' => ['type' => 'INT', 'constraint' => 11],
-            'hierarchy_path' => ['type' => 'VARCHAR', 'constraint' => 500],
+            'hierarchy_path' => ['type' => 'VARCHAR', 'constraint' => 191],
             'is_manager' => ['type' => 'BOOLEAN', 'default' => 0],
             'team_size' => ['type' => 'INT', 'constraint' => 11, 'default' => 0],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
 
-        $this->forge->addKey('id', false, false, 'PRIMARY');
+        $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('employee_id', 'employees', 'id', 'CASCADE', 'CASCADE', 'fk_org_hierarchy_employee');
         $this->forge->addKey('department');
         $this->forge->addKey('parent_id');

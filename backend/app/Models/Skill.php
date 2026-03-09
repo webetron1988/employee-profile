@@ -20,11 +20,6 @@ class Skill extends Model
         'updated_at'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
-    ];
-
     protected $validationRules = [
         'skill_name' => 'required|is_unique[skills.skill_name]',
         'skill_category' => 'required|string'
