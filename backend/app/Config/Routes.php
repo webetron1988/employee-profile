@@ -448,4 +448,4 @@ $routes->group('docs', static function ($routes) {
  * Catch-all route (404)
  * ===================================
  */
-$routes->match(['get', 'post', 'put', 'delete', 'patch'], '(:any)', 'NotFound::handle');
+$routes->match(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '(:any)', 'NotFound::handle');
