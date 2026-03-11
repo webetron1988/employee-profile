@@ -109,28 +109,10 @@ class HrmsClient
      */
     public function fetchUserPermissions($hrmsEmployeeId)
     {
-        try {
-            $response = $this->makeRequest('GET', "/api/employees/{$hrmsEmployeeId}/permissions");
-
-            if (!$response || !isset($response['data'])) {
-                log_message('warning', 'No permissions data from HRMS', [
-                    'hrms_employee_id' => $hrmsEmployeeId
-                ]);
-                return $this->getDefaultPermissions();
-            }
-
-            log_message('info', 'User permissions fetched from HRMS', [
-                'hrms_employee_id' => $hrmsEmployeeId,
-                'permission_count' => count($response['data'])
-            ]);
-
-            return $this->formatPermissions($response['data']);
-        } catch (Exception $e) {
-            log_message('error', 'Failed to fetch permissions from HRMS: ' . $e->getMessage(), [
-                'hrms_employee_id' => $hrmsEmployeeId
-            ]);
-            return $this->getDefaultPermissions();
-        }
+        // HRMS does not expose a permissions endpoint — return defaults.
+        // If HRMS adds /api/employees/{id}/permissions in the future,
+        // uncomment the API call below.
+        return $this->getDefaultPermissions();
     }
 
     /**
