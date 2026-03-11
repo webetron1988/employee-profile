@@ -358,7 +358,7 @@ class Auth extends BaseController
                 'permissions' => $permissions,
                 'iat' => time(),
                 'sub' => $userId
-            ], 300);
+            ]);
 
             // Rotate: generate new refresh token and store its hash
             $newRefreshToken = $this->jwtHandler->generateRefreshToken([

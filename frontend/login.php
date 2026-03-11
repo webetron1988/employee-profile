@@ -13,6 +13,7 @@ if (!$hasSsoToken && is_logged_in()) {
 <head>
   <meta charset="utf-8" />
   <title>Login – Employee Profile System</title>
+  <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
   <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
