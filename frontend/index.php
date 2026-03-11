@@ -10,7 +10,7 @@ if (!$profile) { $profile = []; }
 // Fallback: if HRMS data is empty/missing, fill from employee_profile_db
 if (empty($profile['name']) || empty($profile['email'])) {
     try {
-        $epDb = new PDO('mysql:host=127.0.0.1;port=3306;dbname=employee_profile_db', 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        $epDb = get_ep_db();
         $epStmt = $epDb->prepare("SELECT first_name, last_name, email, phone, profile_picture_url, role FROM users WHERE hrms_employee_id = ? LIMIT 1");
         $epStmt->execute([$empId]);
         $epUser = $epStmt->fetch(PDO::FETCH_ASSOC);
@@ -9960,7 +9960,6 @@ function menuIcon($item) {
     const res = await fetch(HRMS_BASE + path, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCsrfToken(), 'X-Api-Key': HRMS_API_KEY },
-      credentials: 'include',
       body: JSON.stringify(body)
     });
     var text = await res.text();
@@ -10153,11 +10152,11 @@ function menuIcon($item) {
   }
 
   // ============================================================
-  // loadProfile — from hrms get_employee_full_profile
+  // loadProfile — from CI4 hrms-data/full-profile proxy
   // ============================================================
   async function loadProfile(empId) {
     try {
-      const resp = await hrmsPost('/api/get_employee_full_profile', { id: empId });
+      const resp = await ci4Api('GET', '/hrms-data/full-profile');
       if (!resp || !resp.data) { console.warn('No profile data'); return; }
       const p = resp.data;
 
@@ -10244,12 +10243,11 @@ function menuIcon($item) {
     window._loadedTabs['identity'] = true;
 
     try {
-      // Load govt IDs, health records, bank details, consents in parallel
-      var [govtResp, healthResp, bankResp, consentResp] = await Promise.all([
+      // Load govt IDs, health records, bank details in parallel
+      var [govtResp, healthResp, bankResp] = await Promise.all([
         ci4Api('GET', '/profile/govt-ids'),
         ci4Api('GET', '/profile/health'),
         ci4Api('GET', '/profile/bank-details'),
-        ci4Api('GET', '/profile/consents'),
       ]);
 
       // Render Govt IDs
@@ -10315,46 +10313,9 @@ function menuIcon($item) {
       var bankEl = document.getElementById('bank-details-list');
       if (bankEl) bankEl.innerHTML = bankHtml;
 
-      // Load GDPR Consent states
-      var consents = (consentResp && consentResp.data) ? consentResp.data : [];
-      consents.forEach(function(c) {
-        var toggle = document.getElementById('consent-' + c.consent_type);
-        if (toggle) toggle.checked = !!c.consent_given;
-      });
-
     } catch (err) {
       console.error('loadIdentityData error:', err);
     }
-  }
-
-  // ── GDPR Consent Toggle Handlers ──
-  document.addEventListener('change', function(e) {
-    if (!e.target.classList.contains('gdpr-consent-toggle')) return;
-    var consentType = e.target.getAttribute('data-consent-type');
-    var consentGiven = e.target.checked ? 1 : 0;
-    ci4Api('POST', '/profile/consents', {
-      consent_type: consentType,
-      consent_given: consentGiven,
-      consent_version: '1.0'
-    }).then(function() {
-      showToast('Consent ' + (consentGiven ? 'granted' : 'withdrawn'), 'success');
-    }).catch(function() {
-      showToast('Failed to update consent', 'error');
-      e.target.checked = !e.target.checked; // revert
-    });
-  });
-
-  var withdrawBtn = document.getElementById('btn-withdraw-all-consents');
-  if (withdrawBtn) {
-    withdrawBtn.addEventListener('click', function() {
-      if (!confirm('Are you sure you want to withdraw all data processing consents?')) return;
-      ci4Api('DELETE', '/profile/consents').then(function() {
-        document.querySelectorAll('.gdpr-consent-toggle').forEach(function(t) { t.checked = false; });
-        showToast('All consents withdrawn', 'success');
-      }).catch(function() {
-        showToast('Failed to withdraw consents', 'error');
-      });
-    });
   }
 
   // ============================================================
@@ -10369,11 +10330,11 @@ function menuIcon($item) {
     try {
       // Fire all requests in parallel
       const [skillsResp, workExpResp, eduResp, awardsResp, projectsResp] = await Promise.all([
-        hrmsPost('/api/get_employee_skills', { id: empId }),
-        hrmsPost('/api/get_employee_work_experience', { id: empId }),
-        hrmsPost('/api/get_employee_education', { id: empId }),
-        hrmsPost('/api/get_employee_awards', { id: empId }),
-        hrmsPost('/api/get_employee_projects', { id: empId })
+        ci4Api('GET', '/hrms-data/skills'),
+        ci4Api('GET', '/hrms-data/work-experience'),
+        ci4Api('GET', '/hrms-data/education'),
+        ci4Api('GET', '/hrms-data/awards'),
+        ci4Api('GET', '/hrms-data/projects')
       ]);
 
       // ---- Skills ----
@@ -10762,12 +10723,10 @@ function menuIcon($item) {
               if (!confirm('Delete this work experience record?')) return;
               var wId = btn.getAttribute('data-id');
               try {
-                var resp = await hrmsPost('/api/save_employee_work_experience', { emp_id: empId, experience_id: parseInt(wId), is_deleted: 1 });
-                if (resp.status === 'success') {
-                  showToast('Experience deleted', 'success');
-                  window._loadedTabs['talent'] = false;
-                  loadTalentData(empId);
-                } else { showToast(resp.message || 'Delete failed', 'error'); }
+                var resp = await ci4Api('DELETE', '/hrms-data/work-experience/' + wId, {hrms_original_id: parseInt(wId)});
+                showToast('Experience deleted', 'success');
+                window._loadedTabs['talent'] = false;
+                loadTalentData(empId);
               } catch (err) { showToast('Delete failed', 'error'); }
             });
           });
@@ -11043,7 +11002,7 @@ function menuIcon($item) {
       // ════════════════════════════════════════════════════════════
       (async function() {
         try {
-          var compResp = await hrmsPost('/api/get_employee_job_competencies', { id: empId });
+          var compResp = await ci4Api('GET', '/hrms-data/competencies');
           var compResult = (compResp && compResp.data) ? compResp.data : {};
           var clusters = compResult.clusters || [];
           var profLevels = compResult.proficiency_levels || {};
@@ -11439,12 +11398,12 @@ function menuIcon($item) {
             } catch(e) {}
           }
 
-          // Parallel: CI4 reviews + HRMS employee profile
+          // Parallel: CI4 reviews + CI4 hrms-data profile proxy
           var reviewsResp = null, hrmsProfile = null;
           try {
             var results = await Promise.all([
               ci4Api('GET', '/performance/reviews').catch(function() { return null; }),
-              hrmsPost('/api/get_employee_full_profile', { id: empId })
+              ci4Api('GET', '/hrms-data/full-profile')
             ]);
             reviewsResp = results[0];
             hrmsProfile = results[1];
@@ -12091,7 +12050,7 @@ function menuIcon($item) {
   }
 
   // ============================================================
-  // loadJobOrgData — certifications from hrms
+  // loadJobOrgData — certifications from CI4 hrms-data proxy
   // ============================================================
   async function loadJobOrgData(empId) {
     if (window._loadedTabs['jobOrg']) return;
@@ -12100,7 +12059,7 @@ function menuIcon($item) {
     // ── Certifications (subTabWP7_2) ──
     (async function() {
       try {
-        var certsResp = await hrmsPost('/api/get_employee_certifications', { id: empId });
+        var certsResp = await ci4Api('GET', '/hrms-data/certifications');
         var items = (certsResp && certsResp.data) ? certsResp.data : [];
         window._certificationData = items;
 
@@ -12816,7 +12775,7 @@ function menuIcon($item) {
     var epData = null;
     try {
       var results = await Promise.all([
-        hrmsPost('/api/get_employee_full_profile', { id: empId }).catch(function() { return null; }),
+        ci4Api('GET', '/hrms-data/full-profile').catch(function() { return null; }),
         ci4Api('GET', '/profile/personal-details').catch(function() { return null; })
       ]);
       hrmsData = (results[0] && results[0].data) ? results[0].data : {};
@@ -13717,7 +13676,7 @@ function menuIcon($item) {
 
     try {
       // Fetch HRMS profile data (primary source for all fields)
-      var resp = await hrmsPost('/api/get_employee_full_profile', { id: empId });
+      var resp = await ci4Api('GET', '/hrms-data/full-profile');
       var p = (resp && resp.data) ? resp.data : {};
 
       // Fetch CI4 job_information (only for FLSA + EEO)
@@ -13730,7 +13689,7 @@ function menuIcon($item) {
       // Fetch job family hierarchy chain from HRMS
       var jobFamilyData = { chain: [], breadcrumb: '' };
       try {
-        var jfResp = await hrmsPost('/api/get_employee_job_family', { id: empId });
+        var jfResp = await ci4Api('GET', '/hrms-data/job-family');
         if (jfResp && jfResp.data) jobFamilyData = jfResp.data;
       } catch (e) { console.error('Job family fetch failed'); }
 
@@ -13790,7 +13749,7 @@ function menuIcon($item) {
 
       // Direct reports count (from HRMS)
       try {
-        var drResp = await hrmsPost('/api/get_employee_direct_reports', { id: empId });
+        var drResp = await ci4Api('GET', '/hrms-data/direct-reports');
         var drData = (drResp && drResp.data) ? drResp.data : {};
         var drCount = drData.count || 0;
         setTextById('rm-direct-reports-count', drCount.toString());
@@ -13838,7 +13797,7 @@ function menuIcon($item) {
 
       // ── subTabWP3_2: Job Grade & JE Score from HRMS ──
       try {
-        var jeResp = await hrmsPost('/api/get_employee_je_score', { id: empId });
+        var jeResp = await ci4Api('GET', '/hrms-data/je-score');
         var je = (jeResp && jeResp.data) ? jeResp.data : {};
 
         setTextById('je-grade-name', je.grade_name || '–');
@@ -14064,7 +14023,7 @@ function menuIcon($item) {
         // Fetch HRMS work classification data
         var wc = {};
         try {
-          var wcResp = await hrmsPost('/api/get_employee_work_classification', { id: empId });
+          var wcResp = await ci4Api('GET', '/hrms-data/work-classification');
           if (wcResp && wcResp.data) wc = wcResp.data;
         } catch (e) { console.error('Work classification fetch failed:', e); }
 
@@ -14124,7 +14083,7 @@ function menuIcon($item) {
         // Fetch HRMS org structure
         var os = {};
         try {
-          var osResp = await hrmsPost('/api/get_employee_org_structure', { id: empId });
+          var osResp = await ci4Api('GET', '/hrms-data/org-structure');
           if (osResp && osResp.data) os = osResp.data;
         } catch (e) { console.error('Org structure fetch failed:', e); }
 
@@ -14349,31 +14308,19 @@ function menuIcon($item) {
       'volunteer': '/profile/volunteer-activities/' + id,
       'patent': '/profile/patents/' + id,
       'goal': '/performance/goals/' + id,
-      'idp': '/talent/idp/' + id
-    };
-    var hrmsEndpoints = {
-      'education': '/api/save_employee_education',
-      'experience': '/api/save_employee_work_experience',
-      'skill': '/api/save_employee_skill',
-      'certification': '/api/save_employee_certification',
-      'award': '/api/save_employee_award'
+      'idp': '/talent/idp/' + id,
+      'education': '/hrms-data/education/' + id,
+      'experience': '/hrms-data/work-experience/' + id,
+      'skill': '/hrms-data/skills/' + id,
+      'certification': '/hrms-data/certifications/' + id,
+      'award': '/hrms-data/awards/' + id
     };
 
     var ci4Endpoint = ci4Endpoints[type];
-    var hrmsEndpoint = hrmsEndpoints[type];
-    if (!ci4Endpoint && !hrmsEndpoint) return;
+    if (!ci4Endpoint) return;
 
     try {
-      if (hrmsEndpoint) {
-        // HRMS soft delete — set is_deleted flag
-        var fieldMap = { education: 'education_id', experience: 'experience_id', skill: 'emp_skill_id', certification: 'certification_id', award: 'award_id' };
-        var deletePayload = { emp_id: empId, is_deleted: 1 };
-        deletePayload[fieldMap[type]] = id;
-        await hrmsPost(hrmsEndpoint, deletePayload);
-      } else {
-        // CI4 backend delete
-        await ci4Api('DELETE', ci4Endpoint);
-      }
+      await ci4Api('DELETE', ci4Endpoint, {hrms_original_id: id});
       showToast('Item deleted', 'success');
 
       // Refresh the relevant tab
@@ -14555,14 +14502,12 @@ function menuIcon($item) {
       var token = localStorage.getItem('ep_access_token');
       if (!token) return;
 
-      var [trainingRes, enrollmentRes, goalsRes] = await Promise.all([
+      var [trainingRes, goalsRes] = await Promise.all([
         ci4Api('GET', '/learning/training-history'),
-        ci4Api('GET', '/learning/enrollments'),
         ci4Api('GET', '/performance/goals')
       ]);
 
       var trainings = (trainingRes && trainingRes.data) || [];
-      var enrollments = (enrollmentRes && enrollmentRes.data) || [];
       var goals = (goalsRes && goalsRes.data) || [];
 
       var tabContent = document.getElementById('tabWP4');
@@ -14592,26 +14537,6 @@ function menuIcon($item) {
       }
       html += '</div>';
 
-      // Course Enrollments Section
-      html += '<div><h5 class="text-black font-weight-bold mb-4"><i class="flaticon2-layers text-primary mr-2"></i>Course Enrollments</h5>';
-      if (enrollments.length > 0) {
-        html += '<div class="d-flex flex-column gap-10">';
-        enrollments.forEach(function(en) {
-          var progress = parseInt(en.progress_percentage) || 0;
-          var statusColor = en.status === 'completed' ? 'success' : 'primary';
-          html += '<div class="bg-white rounded-xl p-4 border">' +
-            '<div class="d-flex justify-content-between align-items-start mb-2">' +
-            '<div><h6 class="text-black font-weight-bold mb-1">' + (en.course_name || en.notes || 'Course #' + en.course_id) + '</h6>' +
-            '<span class="text-muted font-13">Enrolled: ' + (en.enrollment_date || '–') + '</span></div>' +
-            '<span class="label label-inline label-pill label-light-' + statusColor + '">' + (en.status || '–').replace('_', ' ') + '</span></div>' +
-            '<div class="progress mt-2" style="height:6px"><div class="progress-bar bg-' + statusColor + '" style="width:' + progress + '%"></div></div>' +
-            '<span class="font-13 text-muted">' + progress + '% complete</span></div>';
-        });
-        html += '</div>';
-      } else {
-        html += '<div class="text-muted text-center py-3">No course enrollments yet</div>';
-      }
-      html += '</div>';
 
       // Onboarding Goals Section
       html += '<div><h5 class="text-black font-weight-bold mb-4"><i class="flaticon2-target text-primary mr-2"></i>Onboarding Goals</h5>';
@@ -14989,17 +14914,18 @@ function menuIcon($item) {
         btnSaveEdu.disabled = true;
 
         try {
-          var resp = await hrmsPost('/api/save_employee_education', payload);
-          if (resp.status === 'success') {
-            showToast('Education saved successfully', 'success');
-            closeOffcanvas('oC_talent-education');
-            resetForm('oC_talent-education');
-            document.getElementById('edu-form-id').value = '';
-            window._loadedTabs['talent'] = false;
-            loadTalentData(empId);
+          var resp;
+          if (editingId) {
+            resp = await ci4Api('PUT', '/hrms-data/education/' + editingId, payload);
           } else {
-            showToast(resp.message || 'Save failed', 'error');
+            resp = await ci4Api('POST', '/hrms-data/education', payload);
           }
+          showToast('Education saved successfully', 'success');
+          closeOffcanvas('oC_talent-education');
+          resetForm('oC_talent-education');
+          document.getElementById('edu-form-id').value = '';
+          window._loadedTabs['talent'] = false;
+          loadTalentData(empId);
         } catch (err) { showToast('Error saving education', 'error'); console.error(err); }
         finally {
           if (lblEl) lblEl.classList.remove('d-none');
@@ -15148,15 +15074,18 @@ function menuIcon($item) {
         btnSaveExp.disabled = true;
 
         try {
-          var resp = await hrmsPost('/api/save_employee_work_experience', payload);
-          if (resp.status === 'success') {
-            showToast('Experience saved successfully', 'success');
-            closeOffcanvas('oC_add-experience');
-            resetForm('oC_add-experience');
-            document.getElementById('exp-form-id').value = '';
-            window._loadedTabs['talent'] = false;
-            loadTalentData(empId);
-          } else { showToast(resp.message || 'Save failed', 'error'); }
+          var resp;
+          if (editingId) {
+            resp = await ci4Api('PUT', '/hrms-data/work-experience/' + editingId, payload);
+          } else {
+            resp = await ci4Api('POST', '/hrms-data/work-experience', payload);
+          }
+          showToast('Experience saved successfully', 'success');
+          closeOffcanvas('oC_add-experience');
+          resetForm('oC_add-experience');
+          document.getElementById('exp-form-id').value = '';
+          window._loadedTabs['talent'] = false;
+          loadTalentData(empId);
         } catch (err) { showToast('Error saving experience', 'error'); console.error(err); }
         finally {
           if (lblEl) lblEl.classList.remove('d-none');
@@ -15210,15 +15139,18 @@ function menuIcon($item) {
           payload.emp_skill_id = editingId;
         }
         try {
-          var resp = await hrmsPost('/api/save_employee_skill', payload);
-          if (resp.status === 'success') {
-            showToast('Skill saved successfully', 'success');
-            closeOffcanvas('oC_add-skill');
-            resetForm('oC_add-skill');
-            clearEditMode();
-            invalidateCache('talent');
-            loadTalentData(empId);
-          } else { showToast(resp.message || 'Save failed', 'error'); }
+          var resp;
+          if (editingId) {
+            resp = await ci4Api('PUT', '/hrms-data/skills/' + editingId, payload);
+          } else {
+            resp = await ci4Api('POST', '/hrms-data/skills', payload);
+          }
+          showToast('Skill saved successfully', 'success');
+          closeOffcanvas('oC_add-skill');
+          resetForm('oC_add-skill');
+          clearEditMode();
+          invalidateCache('talent');
+          loadTalentData(empId);
         } catch (err) { showToast('Error saving skill', 'error'); console.error(err); }
       });
     }
@@ -15296,16 +15228,20 @@ function menuIcon($item) {
         }
 
         try {
-          var resp = await hrmsPost('/api/save_employee_certification', payload);
-          if (resp.status === 'success') {
-            showToast('Certification saved successfully', 'success');
-            closeOffcanvas('oC_add-certificate');
-            resetForm('oC_add-certificate');
-            clearEditMode();
-            invalidateCache('jobOrg');
-            window._loadedTabs['jobOrg'] = false;
-            loadJobOrgData(empId);
-          } else { showToast(resp.message || 'Save failed', 'error'); }
+          var resp;
+          var certEditId = (isEditMode() && window._editingRecord.type === 'certification') ? window._editingRecord.id : null;
+          if (certEditId) {
+            resp = await ci4Api('PUT', '/hrms-data/certifications/' + certEditId, payload);
+          } else {
+            resp = await ci4Api('POST', '/hrms-data/certifications', payload);
+          }
+          showToast('Certification saved successfully', 'success');
+          closeOffcanvas('oC_add-certificate');
+          resetForm('oC_add-certificate');
+          clearEditMode();
+          invalidateCache('jobOrg');
+          window._loadedTabs['jobOrg'] = false;
+          loadJobOrgData(empId);
         } catch (err) { showToast('Error saving certification', 'error'); console.error(err); }
       });
     }
@@ -15381,17 +15317,21 @@ function menuIcon($item) {
         }
 
         try {
-          var resp = await hrmsPost('/api/save_employee_award', payload);
-          if (resp.status === 'success') {
-            showToast('Award saved successfully', 'success');
-            clearEditMode();
-            closeOffcanvas('oC_appreciation');
-            resetForm('oC_appreciation');
-            var appTitle = document.getElementById('appreciation-form-title');
-            if (appTitle) appTitle.textContent = 'Add Appreciation';
-            invalidateCache('talent');
-            loadTalentData(empId);
-          } else { showToast(resp.message || 'Save failed', 'error'); }
+          var resp;
+          var awardEditId = (isEditMode() && window._editingRecord.type === 'award') ? window._editingRecord.id : null;
+          if (awardEditId) {
+            resp = await ci4Api('PUT', '/hrms-data/awards/' + awardEditId, payload);
+          } else {
+            resp = await ci4Api('POST', '/hrms-data/awards', payload);
+          }
+          showToast('Award saved successfully', 'success');
+          clearEditMode();
+          closeOffcanvas('oC_appreciation');
+          resetForm('oC_appreciation');
+          var appTitle = document.getElementById('appreciation-form-title');
+          if (appTitle) appTitle.textContent = 'Add Appreciation';
+          invalidateCache('talent');
+          loadTalentData(empId);
         } catch (err) { showToast('Error saving award', 'error'); console.error(err); }
       });
     }
@@ -15584,14 +15524,13 @@ function menuIcon($item) {
         }
 
         try {
-          // 1) Save basic contact to HRMS
-          var hrmsPayload = {
-            emp_id: empId,
+          // 1) Save basic contact via CI4 proxy
+          var contactPayload = {
             contact: mobile,
             email: getVal('email'),
             alternate_contact: getVal('alternate_contact')
           };
-          await hrmsPost('/api/update_employee_contact', hrmsPayload);
+          await ci4Api('PUT', '/hrms-data/contact', contactPayload);
 
           // 2) Save emergency contact to CI4
           var ecResult = null;
@@ -16682,13 +16621,11 @@ function menuIcon($item) {
 
     window.deleteCertification = function(id) {
       if (!confirm('Delete this certification?')) return;
-      hrmsPost('/api/save_employee_certification', { emp_id: empId, certification_id: id, is_deleted: 1 }).then(function(resp) {
-        if (resp.status === 'success') {
-          showToast('Certification deleted', 'success');
-          invalidateCache('jobOrg');
-          window._loadedTabs['jobOrg'] = false;
-          loadJobOrgData(empId);
-        } else { showToast(resp.message || 'Delete failed', 'error'); }
+      ci4Api('DELETE', '/hrms-data/certifications/' + id, {hrms_original_id: id}).then(function(resp) {
+        showToast('Certification deleted', 'success');
+        invalidateCache('jobOrg');
+        window._loadedTabs['jobOrg'] = false;
+        loadJobOrgData(empId);
       }).catch(function(err) { showToast('Error deleting certification', 'error'); console.error(err); });
     };
 

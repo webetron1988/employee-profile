@@ -128,11 +128,6 @@ $routes->group('profile', ['filter' => 'permission'], static function ($routes) 
     $routes->get('mobility-preferences', 'Profile::getMobilityPreferences');
     $routes->put('mobility-preferences', 'Profile::updateMobilityPreferences');
 
-    // GDPR Consents
-    $routes->get('consents', 'Profile::getConsents');
-    $routes->post('consents', 'Profile::recordConsent');
-    $routes->delete('consents', 'Profile::withdrawAllConsents');
-
     // Data Version History
     $routes->get('versions', 'Profile::getVersionHistory');
 });
@@ -147,11 +142,6 @@ $routes->group('job', ['filter' => 'permission'], static function ($routes) {
     $routes->get('information', 'Job::getJobInformation');
     $routes->get('information/(:num)', 'Job::getJobInformationById/$1');
     $routes->put('information', 'Job::updateJobInformation');
-    
-    // Employment History
-    $routes->get('history', 'Job::getEmploymentHistory');
-    $routes->get('history/(:num)', 'Job::getEmploymentHistoryId/$1');
-    $routes->post('history', 'Job::addEmploymentHistory');
     
     // Organization Hierarchy
     $routes->get('org-hierarchy', 'Job::getOrgHierarchy');
@@ -209,12 +199,6 @@ $routes->group('performance', ['filter' => 'permission'], static function ($rout
  * ===================================
  */
 $routes->group('talent', ['filter' => 'permission'], static function ($routes) {
-    // Skills
-    $routes->get('skills', 'Talent::getSkills');
-    $routes->get('skills/(:num)', 'Talent::getSkillId/$1');
-    $routes->post('skills', 'Talent::addSkill');
-    $routes->put('skills/(:num)', 'Talent::updateSkill/$1');
-    
     // Competencies
     $routes->get('competencies', 'Talent::getCompetencies');
     $routes->get('competencies/(:num)', 'Talent::getCompetencyId/$1');
@@ -222,12 +206,6 @@ $routes->group('talent', ['filter' => 'permission'], static function ($routes) {
     // Employee Competencies
     $routes->get('my-competencies', 'Talent::getMyCompetencies');
     $routes->put('my-competencies/(:num)', 'Talent::updateMyCompetency/$1');
-    
-    // Certifications
-    $routes->get('certifications', 'Talent::getCertifications');
-    $routes->get('certifications/(:num)', 'Talent::getCertificationId/$1');
-    $routes->post('certifications', 'Talent::addCertification');
-    $routes->put('certifications/(:num)', 'Talent::updateCertification/$1');
     
     // Individual Development Plan
     $routes->get('idp/all', 'Talent::getIdpAll');
@@ -242,10 +220,6 @@ $routes->group('talent', ['filter' => 'permission'], static function ($routes) {
     $routes->put('succession/(:num)', 'Talent::updateSuccessionPlan/$1');
     $routes->delete('succession/(:num)', 'Talent::deleteSuccessionPlan/$1');
 
-    // Awards
-    $routes->get('awards', 'Talent::getAwards');
-    $routes->get('awards/(:num)', 'Talent::getAwardId/$1');
-
     // Career Paths
     $routes->get('career-paths', 'Talent::getCareerPaths');
     $routes->post('career-paths', 'Talent::createCareerPath');
@@ -259,25 +233,12 @@ $routes->group('talent', ['filter' => 'permission'], static function ($routes) {
  * ===================================
  */
 $routes->group('learning', ['filter' => 'permission'], static function ($routes) {
-    // Courses
-    $routes->get('courses', 'Learning::getCourses');
-    $routes->get('courses/(:num)', 'Learning::getCourseId/$1');
-    
-    // Course Enrollments
-    $routes->get('enrollments', 'Learning::getEnrollments');
-    $routes->get('enrollments/(:num)', 'Learning::getEnrollmentId/$1');
-    $routes->post('enrollments', 'Learning::createEnrollment');
-    $routes->put('enrollments/(:num)', 'Learning::updateEnrollment/$1');
-    
     // Training History
     $routes->get('training-history', 'Learning::getTrainingHistory');
     $routes->get('training-history/(:num)', 'Learning::getTrainingHistoryId/$1');
     $routes->post('training-history', 'Learning::createTrainingHistory');
     $routes->put('training-history/(:num)', 'Learning::updateTrainingHistory/$1');
     $routes->delete('training-history/(:num)', 'Learning::deleteTrainingHistory/$1');
-    
-    // Learning Paths
-    $routes->get('learning-paths', 'Learning::getLearningPaths');
 
     // Mentoring Programs
     $routes->get('mentoring', 'Learning::getMentoring');
@@ -290,23 +251,6 @@ $routes->group('learning', ['filter' => 'permission'], static function ($routes)
     $routes->post('skills-gap', 'Learning::createSkillsGap');
     $routes->put('skills-gap/(:num)', 'Learning::updateSkillsGap/$1');
     $routes->delete('skills-gap/(:num)', 'Learning::deleteSkillsGap/$1');
-});
-
-/**
- * ===================================
- * Compliance Module Routes
- * ===================================
- */
-$routes->group('compliance', ['filter' => 'permission'], static function ($routes) {
-    // Compliance Documents
-    $routes->get('documents', 'Compliance::getDocuments');
-    $routes->get('documents/(:num)', 'Compliance::getDocumentId/$1');
-    $routes->post('documents', 'Compliance::uploadDocument');
-    $routes->put('documents/(:num)', 'Compliance::updateDocument/$1');
-    
-    // Document Status
-    $routes->get('document-status', 'Compliance::getDocumentStatus');
-    $routes->put('documents/(:num)/sign', 'Compliance::signDocument/$1');
 });
 
 /**
@@ -329,8 +273,6 @@ $routes->group('admin', ['filter' => 'permission'], static function ($routes) {
 
     // Sync Management (reads from HRMS DB directly)
     $routes->post('sync/employees', 'Admin::syncEmployees');
-    $routes->get('sync/status', 'Admin::getSyncStatus');
-    $routes->get('sync/logs', 'Admin::getSyncLogs');
     
     // Audit Logs (enhanced: search, filter, export)
     $routes->get('audit-logs', 'Admin::getAuditLogs');
@@ -441,6 +383,59 @@ $routes->group('docs', static function ($routes) {
     $routes->get('/', 'Docs::index');
     $routes->get('api', 'Docs::apiDocumentation');
     $routes->get('endpoints', 'Docs::endpoints');
+});
+
+/**
+ * ===================================
+ * HRMS Data Module Routes
+ * (Read-only HRMS endpoints + dual-source CRUD)
+ * ===================================
+ */
+$routes->group('hrms-data', ['filter' => 'permission'], static function ($routes) {
+    // Read-only HRMS endpoints
+    $routes->get('full-profile',      'HrmsData::fullProfile');
+    $routes->get('job-family',        'HrmsData::jobFamily');
+    $routes->get('direct-reports',    'HrmsData::directReports');
+    $routes->get('je-score',         'HrmsData::jeScore');
+    $routes->get('work-classification', 'HrmsData::workClassification');
+    $routes->get('org-structure',     'HrmsData::orgStructure');
+    $routes->get('competencies',      'HrmsData::competencies');
+
+    // Dual-source CRUD: Education
+    $routes->get('education',         'HrmsData::getEducation');
+    $routes->post('education',        'HrmsData::createEducation');
+    $routes->put('education/(:num)',  'HrmsData::updateEducation/$1');
+    $routes->delete('education/(:num)', 'HrmsData::deleteEducation/$1');
+
+    // Dual-source CRUD: Work Experience
+    $routes->get('work-experience',         'HrmsData::getWorkExperience');
+    $routes->post('work-experience',        'HrmsData::createWorkExperience');
+    $routes->put('work-experience/(:num)',  'HrmsData::updateWorkExperience/$1');
+    $routes->delete('work-experience/(:num)', 'HrmsData::deleteWorkExperience/$1');
+
+    // Dual-source CRUD: Skills
+    $routes->get('skills',            'HrmsData::getSkills');
+    $routes->post('skills',           'HrmsData::createSkill');
+    $routes->put('skills/(:num)',     'HrmsData::updateSkill/$1');
+    $routes->delete('skills/(:num)',  'HrmsData::deleteSkill/$1');
+
+    // Dual-source CRUD: Certifications
+    $routes->get('certifications',         'HrmsData::getCertifications');
+    $routes->post('certifications',        'HrmsData::createCertification');
+    $routes->put('certifications/(:num)',  'HrmsData::updateCertification/$1');
+    $routes->delete('certifications/(:num)', 'HrmsData::deleteCertification/$1');
+
+    // Dual-source CRUD: Awards
+    $routes->get('awards',            'HrmsData::getAwards');
+    $routes->post('awards',           'HrmsData::createAward');
+    $routes->put('awards/(:num)',     'HrmsData::updateAward/$1');
+    $routes->delete('awards/(:num)',  'HrmsData::deleteAward/$1');
+
+    // Dual-source CRUD: Projects
+    $routes->get('projects',          'HrmsData::getProjects');
+    $routes->post('projects',         'HrmsData::createProject');
+    $routes->put('projects/(:num)',   'HrmsData::updateProject/$1');
+    $routes->delete('projects/(:num)', 'HrmsData::deleteProject/$1');
 });
 
 /**

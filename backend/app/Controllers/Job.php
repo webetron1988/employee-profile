@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\JobInformation;
-use App\Models\EmploymentHistory;
 use App\Models\OrgHierarchy;
 use App\Models\Promotion;
 use App\Models\Transfer;
@@ -17,7 +16,6 @@ class Job extends Controller
 
     protected $employee;
     protected $jobInformation;
-    protected $employmentHistory;
     protected $orgHierarchy;
     protected $promotion;
     protected $transfer;
@@ -26,7 +24,6 @@ class Job extends Controller
     {
         $this->employee = new User();
         $this->jobInformation = new JobInformation();
-        $this->employmentHistory = new EmploymentHistory();
         $this->orgHierarchy = new OrgHierarchy();
         $this->promotion = new Promotion();
         $this->transfer = new Transfer();
@@ -151,66 +148,6 @@ class Job extends Controller
             return $this->respond(['data' => $jobInfo, 'message' => 'Job information updated'], 200);
         } catch (\Throwable $e) {
             return $this->failServerError('Error updating job information: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Get employment history
-     * GET /job/history
-     */
-    public function getEmploymentHistory()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $history = $this->employmentHistory
-                ->where('employee_id', $userId)
-                ->orderBy('end_date', 'DESC')
-                ->findAll();
-
-            return $this->respond(['data' => $history], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching employment history');
-        }
-    }
-
-    /**
-     * Get employment history entry by ID
-     * GET /job/history/{id}
-     */
-    public function getEmploymentHistoryId($id)
-    {
-        try {
-            $userId = auth()->user()->id;
-            $history = $this->employmentHistory->find($id);
-
-            if (!$history || $history['employee_id'] != $userId) {
-                return $this->failForbidden('Employment history not found or unauthorized');
-            }
-
-            return $this->respond(['data' => $history], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching employment history');
-        }
-    }
-
-    /**
-     * Add employment history entry
-     * POST /job/history
-     */
-    public function addEmploymentHistory()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $data = $this->request->getJSON(true);
-            $data['employee_id'] = $userId;
-
-            if ($this->employmentHistory->insert($data)) {
-                return $this->respond(['message' => 'Employment history added'], 201);
-            }
-
-            return $this->fail($this->employmentHistory->errors(), 422);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error adding employment history');
         }
     }
 

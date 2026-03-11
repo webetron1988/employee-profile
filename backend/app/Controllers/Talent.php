@@ -2,13 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\Skill;
-use App\Models\EmployeeSkill;
 use App\Models\Competency;
 use App\Models\EmployeeCompetency;
-use App\Models\Certification;
 use App\Models\IndividualDevelopmentPlan;
-use App\Models\AwardRecognition;
 use App\Models\SuccessionPlan;
 use App\Models\CareerPath;
 use App\Models\User;
@@ -19,112 +15,21 @@ class Talent extends Controller
 {
     use ResponseTrait;
 
-    protected $skill;
-    protected $employeeSkill;
     protected $competency;
     protected $employeeCompetency;
-    protected $certification;
     protected $idp;
-    protected $award;
     protected $successionPlan;
     protected $careerPath;
     protected $employee;
 
     public function __construct()
     {
-        $this->skill = new Skill();
-        $this->employeeSkill = new EmployeeSkill();
         $this->competency = new Competency();
         $this->employeeCompetency = new EmployeeCompetency();
-        $this->certification = new Certification();
         $this->idp = new IndividualDevelopmentPlan();
-        $this->award = new AwardRecognition();
         $this->successionPlan = new SuccessionPlan();
         $this->careerPath = new CareerPath();
         $this->employee = new User();
-    }
-
-    /**
-     * Get all skills (catalog)
-     * GET /talent/skills
-     */
-    public function getSkills()
-    {
-        try {
-            $skills = $this->skill
-                ->orderBy('skill_name', 'ASC')
-                ->findAll();
-
-            return $this->respond(['data' => $skills], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching skills');
-        }
-    }
-
-    /**
-     * Get specific skill
-     * GET /talent/skills/{id}
-     */
-    public function getSkillId($id)
-    {
-        try {
-            $skill = $this->skill->find($id);
-
-            if (!$skill) {
-                return $this->failNotFound('Skill not found');
-            }
-
-            return $this->respond(['data' => $skill], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching skill');
-        }
-    }
-
-    /**
-     * Add skill to user's profile
-     * POST /talent/skills
-     */
-    public function addSkill()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $data = $this->request->getJSON(true);
-            $data['employee_id'] = $userId;
-
-            if ($this->employeeSkill->insert($data)) {
-                return $this->respond(['message' => 'Skill added'], 201);
-            }
-
-            return $this->fail($this->employeeSkill->errors(), 422);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error adding skill');
-        }
-    }
-
-    /**
-     * Update user's skill
-     * PUT /talent/skills/{id}
-     */
-    public function updateSkill($id)
-    {
-        try {
-            $userId = auth()->user()->id;
-            $skill = $this->employeeSkill->find($id);
-
-            if (!$skill || $skill['employee_id'] != $userId) {
-                return $this->failForbidden('Skill not found or unauthorized');
-            }
-
-            $data = $this->request->getJSON(true);
-
-            if ($this->employeeSkill->update($id, $data)) {
-                return $this->respond(['message' => 'Skill updated'], 200);
-            }
-
-            return $this->fail($this->employeeSkill->errors(), 422);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error updating skill');
-        }
     }
 
     /**
@@ -211,93 +116,6 @@ class Talent extends Controller
             return $this->fail($this->employeeCompetency->errors(), 422);
         } catch (\Throwable $e) {
             return $this->failServerError('Error updating competency');
-        }
-    }
-
-    /**
-     * Get user's certifications
-     * GET /talent/certifications
-     */
-    public function getCertifications()
-    {
-        try {
-            $userId = auth()->user()->id;
-
-            $certifications = $this->certification
-                ->where('employee_id', $userId)
-                ->orderBy('issue_date', 'DESC')
-                ->findAll();
-
-            return $this->respond(['data' => $certifications], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching certifications');
-        }
-    }
-
-    /**
-     * Get specific certification
-     * GET /talent/certifications/{id}
-     */
-    public function getCertificationId($id)
-    {
-        try {
-            $userId = auth()->user()->id;
-            $cert = $this->certification->find($id);
-
-            if (!$cert || $cert['employee_id'] != $userId) {
-                return $this->failForbidden('Certification not found or unauthorized');
-            }
-
-            return $this->respond(['data' => $cert], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching certification');
-        }
-    }
-
-    /**
-     * Add certification
-     * POST /talent/certifications
-     */
-    public function addCertification()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $data = $this->request->getJSON(true);
-            $data['employee_id'] = $userId;
-
-            if ($this->certification->insert($data)) {
-                return $this->respond(['message' => 'Certification added'], 201);
-            }
-
-            return $this->fail($this->certification->errors(), 422);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error adding certification');
-        }
-    }
-
-    /**
-     * Update certification
-     * PUT /talent/certifications/{id}
-     */
-    public function updateCertification($id)
-    {
-        try {
-            $userId = auth()->user()->id;
-            $cert = $this->certification->find($id);
-
-            if (!$cert || $cert['employee_id'] != $userId) {
-                return $this->failForbidden('Certification not found or unauthorized');
-            }
-
-            $data = $this->request->getJSON(true);
-
-            if ($this->certification->update($id, $data)) {
-                return $this->respond(['message' => 'Certification updated'], 200);
-            }
-
-            return $this->fail($this->certification->errors(), 422);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error updating certification');
         }
     }
 
@@ -411,46 +229,6 @@ class Talent extends Controller
             return $this->fail($this->idp->errors(), 422);
         } catch (\Throwable $e) {
             return $this->failServerError('Error updating IDP');
-        }
-    }
-
-    /**
-     * Get awards for user
-     * GET /talent/awards
-     */
-    public function getAwards()
-    {
-        try {
-            $userId = auth()->user()->id;
-
-            $awards = $this->award
-                ->where('employee_id', $userId)
-                ->orderBy('award_date', 'DESC')
-                ->findAll();
-
-            return $this->respond(['data' => $awards], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching awards');
-        }
-    }
-
-    /**
-     * Get specific award
-     * GET /talent/awards/{id}
-     */
-    public function getAwardId($id)
-    {
-        try {
-            $userId = auth()->user()->id;
-            $award = $this->award->find($id);
-
-            if (!$award || $award['employee_id'] != $userId) {
-                return $this->failForbidden('Award not found or unauthorized');
-            }
-
-            return $this->respond(['data' => $award], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching award');
         }
     }
 

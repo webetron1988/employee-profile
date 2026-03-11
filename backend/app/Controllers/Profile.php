@@ -17,7 +17,6 @@ use App\Models\Patent;
 use App\Models\WorkingCondition;
 use App\Models\PhysicalLocation;
 use App\Models\MobilityPreference;
-use App\Models\GdprConsent;
 use App\Models\DataVersion;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Controller;
@@ -41,7 +40,6 @@ class Profile extends Controller
     protected $workingCondition;
     protected $physicalLocation;
     protected $mobilityPreference;
-    protected $gdprConsent;
     protected $dataVersion;
 
     public function __construct()
@@ -61,7 +59,6 @@ class Profile extends Controller
         $this->workingCondition = new WorkingCondition();
         $this->physicalLocation = new PhysicalLocation();
         $this->mobilityPreference = new MobilityPreference();
-        $this->gdprConsent = new GdprConsent();
         $this->dataVersion = new DataVersion();
     }
 
@@ -1135,105 +1132,6 @@ class Profile extends Controller
     }
 
     // ═══════════════════════════════════════════════════════════════════════════
-    // GDPR Consent Management
-    // ═══════════════════════════════════════════════════════════════════════════
-
-    /**
-     * Get all consents for current user
-     * GET /profile/consents
-     */
-    public function getConsents()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $consents = $this->gdprConsent->where('employee_id', $userId)->findAll();
-            return $this->respond(['data' => $consents], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching consents');
-        }
-    }
-
-    /**
-     * Record or update consent
-     * POST /profile/consents
-     */
-    public function recordConsent()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $data = $this->request->getJSON(true);
-            $data['employee_id'] = $userId;
-            $data['ip_address'] = $this->request->getIPAddress();
-            $data['user_agent'] = $this->request->getUserAgent()->getAgentString();
-
-            $consentType = $data['consent_type'] ?? '';
-            $consentGiven = (int)($data['consent_given'] ?? 0);
-
-            // Check if consent of this type already exists
-            $existing = $this->gdprConsent
-                ->where('employee_id', $userId)
-                ->where('consent_type', $consentType)
-                ->first();
-
-            if ($existing) {
-                // Update existing consent
-                $updateData = [
-                    'consent_given' => $consentGiven,
-                    'ip_address'    => $data['ip_address'],
-                    'user_agent'    => $data['user_agent'],
-                    'consent_version' => $data['consent_version'] ?? '1.0',
-                    'notes'         => $data['notes'] ?? null,
-                ];
-
-                if ($consentGiven) {
-                    $updateData['consent_date'] = date('Y-m-d H:i:s');
-                    $updateData['withdrawal_date'] = null;
-                } else {
-                    $updateData['withdrawal_date'] = date('Y-m-d H:i:s');
-                }
-
-                $this->gdprConsent->update($existing['id'], $updateData);
-                return $this->respond(['message' => 'Consent updated'], 200);
-            }
-
-            // New consent
-            $data['consent_date'] = $consentGiven ? date('Y-m-d H:i:s') : null;
-            $data['withdrawal_date'] = $consentGiven ? null : date('Y-m-d H:i:s');
-
-            if ($this->gdprConsent->insert($data)) {
-                return $this->respond(['message' => 'Consent recorded'], 201);
-            }
-            return $this->fail($this->gdprConsent->errors(), 422);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error recording consent');
-        }
-    }
-
-    /**
-     * Withdraw all consents (right to erasure request)
-     * DELETE /profile/consents
-     */
-    public function withdrawAllConsents()
-    {
-        try {
-            $userId = auth()->user()->id;
-            $now = date('Y-m-d H:i:s');
-
-            $consents = $this->gdprConsent->where('employee_id', $userId)->findAll();
-            foreach ($consents as $consent) {
-                $this->gdprConsent->update($consent['id'], [
-                    'consent_given'   => 0,
-                    'withdrawal_date' => $now,
-                    'ip_address'      => $this->request->getIPAddress(),
-                ]);
-            }
-
-            return $this->respond(['message' => 'All consents withdrawn'], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error withdrawing consents');
-        }
-    }
-
     // ═══════════════════════════════════════════════════════════════════════════
     // Data Version History
     // ═══════════════════════════════════════════════════════════════════════════

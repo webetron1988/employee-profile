@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Models\HrmsEmployee;
 use App\Models\AuditLog;
-use App\Models\SyncLog;
 use App\Models\SystemConfiguration;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Controller;
@@ -17,7 +16,6 @@ class Admin extends Controller
     protected $user;
     protected $hrmsEmployee;
     protected $auditLog;
-    protected $syncLog;
     protected $configuration;
 
     public function __construct()
@@ -25,7 +23,6 @@ class Admin extends Controller
         $this->user = new User();
         $this->hrmsEmployee = new HrmsEmployee();
         $this->auditLog = new AuditLog();
-        $this->syncLog = new SyncLog();
         $this->configuration = new SystemConfiguration();
     }
 
@@ -235,13 +232,6 @@ class Admin extends Controller
     public function syncEmployees()
     {
         try {
-            $startTime = date('Y-m-d H:i:s');
-            $logId = $this->syncLog->insert([
-                'sync_type'  => 'employee_master',
-                'sync_date'  => $startTime,
-                'status'     => 'In Progress',
-            ], true);
-
             // Read directly from HRMS database
             $hrmsRows = $this->hrmsEmployee->getAllActive();
 
@@ -280,18 +270,6 @@ class Admin extends Controller
                     $errors[] = ($hrmsRow['empID'] ?? '?') . ': ' . $e->getMessage();
                 }
             }
-
-            $endTime = date('Y-m-d H:i:s');
-
-            $this->syncLog->update($logId, [
-                'status'            => $failed > 0 ? 'Completed with Errors' : 'Completed',
-                'records_processed' => count($hrmsRows),
-                'records_created'   => $created,
-                'records_updated'   => $updated,
-                'records_failed'    => $failed,
-                'error_details'     => !empty($errors) ? json_encode($errors) : null,
-                'completed_at'      => $endTime,
-            ]);
 
             $this->logAudit('EMPLOYEE_SYNC', 'System', "Synced from HRMS DB: {$created} created, {$updated} updated, {$failed} failed");
 
@@ -389,43 +367,6 @@ class Admin extends Controller
             ], 200);
         } catch (\Throwable $e) {
             return $this->failServerError('Error comparing users: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Get sync status
-     * GET /admin/sync/status
-     */
-    public function getSyncStatus()
-    {
-        try {
-            $latestSync = $this->syncLog
-                ->orderBy('sync_date', 'DESC')
-                ->first();
-
-            return $this->respond(['data' => $latestSync], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching sync status');
-        }
-    }
-
-    /**
-     * Get sync logs
-     * GET /admin/sync/logs
-     */
-    public function getSyncLogs()
-    {
-        try {
-            $limit = $this->request->getVar('limit') ?? 50;
-
-            $logs = $this->syncLog
-                ->orderBy('sync_date', 'DESC')
-                ->limit($limit)
-                ->findAll();
-
-            return $this->respond(['data' => $logs], 200);
-        } catch (\Throwable $e) {
-            return $this->failServerError('Error fetching sync logs');
         }
     }
 

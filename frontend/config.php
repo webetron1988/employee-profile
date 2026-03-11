@@ -24,6 +24,11 @@ define('HRMS_DB_NAME', 'hrms-extension-v2');
 define('HRMS_DB_USER', 'root');
 define('HRMS_DB_PASS', '');
 
+// ── Employee Profile Database (UPDATE FOR PRODUCTION) ────────────────────
+define('EP_DB_NAME', 'employee_profile_db');
+define('EP_DB_USER', defined('HRMS_DB_USER') ? HRMS_DB_USER : 'root');
+define('EP_DB_PASS', defined('HRMS_DB_PASS') ? HRMS_DB_PASS : '');
+
 // ── HRMS Database Connection ──────────────────────────────────────────────
 function get_hrms_db() {
     static $pdo = null;
@@ -32,6 +37,20 @@ function get_hrms_db() {
             'mysql:host=' . HRMS_DB_HOST . ';port=' . HRMS_DB_PORT . ';dbname=' . HRMS_DB_NAME,
             HRMS_DB_USER,
             HRMS_DB_PASS,
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+    }
+    return $pdo;
+}
+
+// ── Employee Profile Database Connection ──────────────────────────────────
+function get_ep_db() {
+    static $pdo = null;
+    if ($pdo === null) {
+        $pdo = new PDO(
+            'mysql:host=' . HRMS_DB_HOST . ';port=' . HRMS_DB_PORT . ';dbname=' . EP_DB_NAME,
+            EP_DB_USER,
+            EP_DB_PASS,
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
         );
     }
