@@ -30,6 +30,7 @@ class Cors extends BaseConfig
          * Allows all localhost origins and the WAMP frontend URL.
          */
         'allowedOrigins' => [
+            'https://employee-profile.webetron.in',
             'http://localhost',
             'http://localhost:80',
             'http://localhost:8080',
@@ -44,6 +45,7 @@ class Cors extends BaseConfig
          * Regex patterns — allow any localhost port for development flexibility.
          */
         'allowedOriginsPatterns' => [
+            'https?://employee-profile\.webetron\.in',
             'http://localhost(:\d+)?',
             'http://127\.0\.0\.1(:\d+)?',
         ],
